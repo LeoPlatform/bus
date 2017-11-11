@@ -1,0 +1,35 @@
+{
+	"name": "Leo_firehose_processor",
+	"version": "1.0.0",
+	"description": "This is a sample BOT Description",
+	"main": "index.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "nodemon --exec \"mocha --recursive -w\" "
+	},
+	"config": {
+		"leo": {
+			"type": "cron",
+			"name": "Leo_firehose_processor",
+			"handler": "handler",
+			"aws": {
+				"role": "!core.roles.FirehoseRole"
+			},
+			"memory": 640,
+			"timeout": 300,
+			"cron": {
+				"name": "Leo_firehose_processor",
+				"owner": "leo",
+				"settings": {},
+				"triggers": [
+					"commands.s3_bus_load"
+				]
+			}
+		}
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}

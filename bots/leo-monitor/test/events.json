@@ -1,0 +1,469 @@
+{
+	"Records": [{
+		"eventID": "5a8c07e96de2dce30c1e02a0fc18054d",
+		"eventName": "MODIFY",
+		"eventVersion": "1.1",
+		"eventSource": "aws:dynamodb",
+		"awsRegion": "us-west-2",
+		"dynamodb": {
+			"ApproximateCreationDateTime": 1487351700,
+			"Keys": {
+				"id": {
+					"S": "Mapper_Step_1"
+				}
+			},
+			"NewImage": {
+				"archived": {
+					"BOOL": false
+				},
+				"checkpoints": {
+					"M": {
+						"read": {
+							"M": {
+								"MCP Queue 1": {
+									"M": {
+										"checkpoint": {
+											"S": "z/2017/07/03/15/31/1499117519781-00002"
+										},
+										"ended_timestamp": {
+											"N": "1499117521933"
+										},
+										"records": {
+											"N": "1"
+										},
+										"source_timestamp": {
+											"N": "1499117510806"
+										},
+										"started_timestamp": {
+											"N": "1499117521793"
+										}
+									}
+								}
+							}
+						},
+						"write": {
+							"M": {
+								"MCP Queue 2": {
+									"M": {
+										"checkpoint": {
+											"S": "z/2017/07/03/15/32/1499117523778-00000"
+										},
+										"ended_timestamp": {
+											"N": "1499117523778"
+										},
+										"records": {
+											"N": "1"
+										},
+										"source_timestamp": {
+											"N": "1499117510806"
+										},
+										"started_timestamp": {
+											"N": "1499117521921"
+										}
+									}
+								},
+								"system.71e06c8f-9879-4f9d-ab02-2f89e14ad0ee": {
+									"M": {
+										"checkpoint": {
+											"S": "z/2017/07/03/14/52/1499115169817-00016"
+										},
+										"ended_timestamp": {
+											"N": "1499115169817"
+										},
+										"records": {
+											"N": "17"
+										},
+										"source_timestamp": {
+											"N": "1499115141161"
+										},
+										"started_timestamp": {
+											"N": "1499115168792"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": {
+					"S": "Just Another Step "
+				},
+				"id": {
+					"S": "Mapper_Step_2"
+				},
+				"instances": {
+					"M": {
+						"0": {
+							"M": {
+								"completedTime": {
+									"N": "1499118573883"
+								},
+								"log": {
+									"B": "H4sIAAAAAAAAA1NSAgA7FQszAgAAAA=="
+								},
+								"maxDuration": {
+									"N": "299986"
+								},
+								"requestId": {
+									"S": "0ff3c0f0-6037-11e7-a321-471cb3245b3a"
+								},
+								"result": {
+									"NULL": true
+								},
+								"startTime": {
+									"N": "1499117526702"
+								},
+								"status": {
+									"S": "complete"
+								},
+								"token": {
+									"N": "1499118517819"
+								}
+							}
+						},
+						"retry": {
+							"M": {
+								"completedTime": {
+									"N": "1499118573883"
+								},
+								"invokeTime": {
+									"N": "1499118517819"
+								},
+								"log": {
+									"B": "H4sIAAAAAAAAA1NSAgA7FQszAgAAAA=="
+								},
+								"maxDuration": {
+									"N": "299972"
+								},
+								"requestId": {
+									"S": "926229d0-6031-11e7-98bd-55c2ed541b1b"
+								},
+								"result": {
+									"NULL": true
+								},
+								"startTime": {
+									"N": "1499115168652"
+								},
+								"status": {
+									"S": "complete"
+								},
+								"token": {
+									"N": "1499118517819"
+								}
+							}
+						}
+					}
+				},
+				"invokeTime": {
+					"N": "1499118517819"
+				},
+				"isTemplated": {
+					"BOOL": true
+				},
+				"lambda": {
+					"M": {
+						"settings": {
+							"L": [{
+								"M": {
+									"destination": {
+										"S": "MCP Queue 2"
+									},
+									"loopSettings": {
+										"M": {
+											"limit": {
+												"N": "1"
+											}
+										}
+									},
+									"mappings": {
+										"S": "\n//var a = {};\n//a.map(()=>{});\nreturn Object.assign({}, $, {c: $.a + $.b, d: $.b / $.a});"
+									},
+									"mock": {
+										"S": "\nexports.init=()=>{}\nexports.get=()=>{}\n\n"
+									},
+									"source": {
+										"S": "MCP Queue 1"
+									}
+								}
+							}]
+						}
+					}
+				},
+				"lambdaName": {
+					"S": "Leo_core_queue_mapper"
+				},
+				"message": {
+					"NULL": true
+				},
+				"name": {
+					"S": "Step 2"
+				},
+				"namedTrigger": {
+					"M": {
+						"retry": {
+							"N": "1499118887946"
+						}
+					}
+				},
+				"paused": {
+					"BOOL": false
+				},
+				"requested_kinesis": {
+					"M": {
+						"MCP Queue 1": {
+							"S": "z/2017/07/03/15/32/1499117555870-00002"
+						},
+						"MCP Queue 2": {
+							"S": "z/2017/02/22/12/13/1487790796079-00499"
+						}
+					}
+				},
+				"tags": {
+					"NULL": true
+				},
+				"templateId": {
+					"S": "Leo_core_queue_mapper"
+				},
+				"time": {
+					"NULL": true
+				},
+				"trigger": {
+					"N": "1499118887946"
+				},
+				"triggers": {
+					"L": [{
+						"S": "MCP Queue 1"
+					}]
+				}
+			},
+			"OldImage": {
+				"archived": {
+					"BOOL": false
+				},
+				"checkpoints": {
+					"M": {
+						"read": {
+							"M": {
+								"MCP Queue 1": {
+									"M": {
+										"checkpoint": {
+											"S": "z/2017/07/03/15/31/1499117519781-00002"
+										},
+										"ended_timestamp": {
+											"N": "1499117521933"
+										},
+										"records": {
+											"N": "1"
+										},
+										"source_timestamp": {
+											"N": "1499117510806"
+										},
+										"started_timestamp": {
+											"N": "1499117521793"
+										}
+									}
+								}
+							}
+						},
+						"write": {
+							"M": {
+								"MCP Queue 2": {
+									"M": {
+										"checkpoint": {
+											"S": "z/2017/07/03/15/32/1499117523778-00000"
+										},
+										"ended_timestamp": {
+											"N": "1499117523778"
+										},
+										"records": {
+											"N": "1"
+										},
+										"source_timestamp": {
+											"N": "1499117510806"
+										},
+										"started_timestamp": {
+											"N": "1499117521921"
+										}
+									}
+								},
+								"system.71e06c8f-9879-4f9d-ab02-2f89e14ad0ee": {
+									"M": {
+										"checkpoint": {
+											"S": "z/2017/07/03/14/52/1499115169817-00016"
+										},
+										"ended_timestamp": {
+											"N": "1499115169817"
+										},
+										"records": {
+											"N": "17"
+										},
+										"source_timestamp": {
+											"N": "1499115141161"
+										},
+										"started_timestamp": {
+											"N": "1499115168792"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": {
+					"S": "Just Another Step "
+				},
+				"id": {
+					"S": "Mapper_Step_2"
+				},
+				"instances": {
+					"M": {
+						"0": {
+							"M": {
+								"completedTime": {
+									"N": "1499117527282"
+								},
+								"log": {
+									"B": "H4sIAAAAAAAAA1NSAgA7FQszAgAAAA=="
+								},
+								"maxDuration": {
+									"N": "299986"
+								},
+								"requestId": {
+									"S": "0ff3c0f0-6037-11e7-a321-471cb3245b3a"
+								},
+								"result": {
+									"NULL": true
+								},
+								"startTime": {
+									"N": "1499117526702"
+								},
+								"status": {
+									"S": "complete"
+								},
+								"token": {
+									"N": "1487386320775"
+								}
+							}
+						},
+						"retry": {
+							"M": {
+								"completedTime": {
+									"N": "1499115168951"
+								},
+								"invokeTime": {
+									"N": "1499115167999"
+								},
+								"log": {
+									"B": "H4sIAAAAAAAAA1NSAgA7FQszAgAAAA=="
+								},
+								"maxDuration": {
+									"N": "299972"
+								},
+								"requestId": {
+									"S": "926229d0-6031-11e7-98bd-55c2ed541b1b"
+								},
+								"result": {
+									"NULL": true
+								},
+								"startTime": {
+									"N": "1499115168652"
+								},
+								"status": {
+									"S": "complete"
+								},
+								"token": {
+									"N": "1487386320775"
+								}
+							}
+						}
+					}
+				},
+				"invokeTime": {
+					"N": "1499117526364"
+				},
+				"isTemplated": {
+					"BOOL": true
+				},
+				"lambda": {
+					"M": {
+						"settings": {
+							"L": [{
+								"M": {
+									"destination": {
+										"S": "MCP Queue 2"
+									},
+									"loopSettings": {
+										"M": {
+											"limit": {
+												"N": "1"
+											}
+										}
+									},
+									"mappings": {
+										"S": "\n//var a = {};\n//a.map(()=>{});\nreturn Object.assign({}, $, {c: $.a + $.b, d: $.b / $.a});"
+									},
+									"mock": {
+										"S": "\nexports.init=()=>{}\nexports.get=()=>{}\n\n"
+									},
+									"source": {
+										"S": "MCP Queue 1"
+									}
+								}
+							}]
+						}
+					}
+				},
+				"lambdaName": {
+					"S": "Leo_core_queue_mapper"
+				},
+				"message": {
+					"NULL": true
+				},
+				"name": {
+					"S": "Step 2"
+				},
+				"namedTrigger": {
+					"M": {
+						"retry": {
+							"N": "1499116845570"
+						}
+					}
+				},
+				"paused": {
+					"BOOL": false
+				},
+				"requested_kinesis": {
+					"M": {
+						"MCP Queue 1": {
+							"S": "z/2017/07/03/15/32/1499117555870-00002"
+						},
+						"MCP Queue 2": {
+							"S": "z/2017/02/22/12/13/1487790796079-00499"
+						}
+					}
+				},
+				"tags": {
+					"NULL": true
+				},
+				"templateId": {
+					"S": "Leo_core_queue_mapper"
+				},
+				"time": {
+					"NULL": true
+				},
+				"trigger": {
+					"N": "1499117559002"
+				},
+				"triggers": {
+					"L": [{
+						"S": "MCP Queue 1"
+					}]
+				}
+			},
+			"SequenceNumber": "573329500000000002303774218",
+			"SizeBytes": 1127,
+			"StreamViewType": "NEW_AND_OLD_IMAGES"
+		},
+		"eventSourceARN": "arn:aws:dynamodb:us-west-2:134898387190:table/Leo_cron/stream/2016-12-13T23:06:55.647"
+	}]
+}

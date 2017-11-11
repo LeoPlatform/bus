@@ -1,0 +1,37 @@
+{
+	"name": "s3_load_trigger",
+	"version": "1.0.1",
+	"description": "Adds Load Events to the Bus Command Queue",
+	"main": "index.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "mocha --recursive -w "
+	},
+	"config": {
+		"leo": {
+			"type": "bot",
+			"name": "Leo_core_s3_load_trigger",
+			"handler": "handler",
+			"aws": {
+				"role": {
+					"ref": "core.roles.FirehoseRole"
+				}
+			},
+			"memory": 1536,
+			"timeout": 300,
+			"cron": {
+				"owner": "leo",
+				"name": "Leo S3 Load Trigger",
+				"time": "0 */1 * * *",
+				"settings": {
+					"destination": "commands.s3_bus_load"
+				}
+			}
+		}
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}

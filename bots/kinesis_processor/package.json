@@ -1,0 +1,30 @@
+{
+	"name": "Leo_core_kinesis_processor",
+	"version": "1.0.0",
+	"description": "This is a sample BOT Description",
+	"main": "index.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "mocha --recursive -w "
+	},
+	"config": {
+		"leo": {
+			"type": "bot",
+			"name": "Leo_core_kinesis_processor",
+			"handler": "handler",
+			"role": null,
+			"memory": 640,
+			"timeout": 300,
+			"cron": {
+				"name": "Leo_core_kinesis_processor",
+				"owner": "leo",
+				"settings": {}
+			}
+		}
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}

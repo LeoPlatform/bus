@@ -1,0 +1,40 @@
+{
+  "name": "leo-bus",
+  "version": "1.0.0",
+  "description": "Improve Kinesis burstability, durability, and replay",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "setup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeoPlatform/bus.git"
+  },
+  "keywords": [
+    "Kinesis",
+    "Kafka"
+  ],
+  "author": "LeoPlatform",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/LeoPlatform/bus/issues"
+  },
+  "homepage": "https://github.com/LeoPlatform/bus#readme",
+  "dependencies": {
+    "leo-sdk": "file:../sdks/nodejs"
+  },
+  "config": {
+    "leo": {
+      "type": "package",
+      "lambdas": [
+        "bots/cron",
+        "bots/cron-stream-trigger",
+        "bots/firehose_processor",
+        "bots/kinesis_processor",
+        "bots/s3-load-trigger",
+        "bots/install"
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+	"name": "leo_cron_stream_trigger",
+	"version": "1.0.0",
+	"description": "Triggers bots from a write to a queue",
+	"main": "index.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "nodemon --exec \"mocha --recursive -w\" "
+	},
+	"config": {
+		"leo": {
+			"type": "bot",
+			"name": "Leo_core_cron_stream_trigger",
+			"handler": "handler",
+			"memory": 128,
+			"timeout": 300,
+			"cron": "1 minute"
+		}
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}
