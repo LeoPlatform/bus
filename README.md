@@ -39,3 +39,6 @@ click "Create Stack"
 ![pasted image at 2017_11_10 08_34 pm 1](https://user-images.githubusercontent.com/1404265/32686413-b6f324b6-c661-11e7-817f-af956ddbfe37.png)
 
 click "next"
+![pasted image at 2017_11_10 08_37 pm](https://user-images.githubusercontent.com/1404265/32686436-1c16c44c-c662-11e7-8383-bd94c8f1d803.png)
+
+Specify a name, click next
