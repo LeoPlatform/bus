@@ -51,3 +51,6 @@ acknowledge that it might create IAM resources by clicking the checkbox.  Click 
 ![pasted image at 2017_11_10 08_39 pm](https://user-images.githubusercontent.com/1404265/32686466-83b9f2ea-c662-11e7-850d-15e547bdb6da.png)
 
 Wait for the status to change from create_in_progress to update_complete
+![pasted image at 2017_11_10 08_40 pm](https://user-images.githubusercontent.com/1404265/32686475-ad2d4672-c662-11e7-8e6d-ac0f5b02a4b0.png)
+
+Use one of our SDKs in order to interact with this stream
