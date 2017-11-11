@@ -48,3 +48,6 @@ click next
 ![pasted image at 2017_11_10 08_38 pm 1](https://user-images.githubusercontent.com/1404265/32686459-61619eb4-c662-11e7-9029-50a38ddaf7da.png)
 
 acknowledge that it might create IAM resources by clicking the checkbox.  Click Create
+![pasted image at 2017_11_10 08_39 pm](https://user-images.githubusercontent.com/1404265/32686466-83b9f2ea-c662-11e7-850d-15e547bdb6da.png)
+
+Wait for the status to change from create_in_progress to update_complete
