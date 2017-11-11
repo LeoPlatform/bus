@@ -32,6 +32,9 @@ LEO is great at solving these types of business problems
 All of these projects require access to core business events which can be easily streamed to LEO. Once in LEO, the same data event can be leveraged for all data projects. When your data flows, innovation follows.  
 
 ## Setup
+Go to cloudformation
+![pasted image at 2017_11_10 08_34 pm](https://user-images.githubusercontent.com/1404265/32686376-5b737fe6-c661-11e7-82c8-e27dd6d15de0.png)
 
-Run cloudformation.....
+click "Create Stack"
+
 
