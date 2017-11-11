@@ -36,5 +36,6 @@ Go to cloudformation
 ![pasted image at 2017_11_10 08_34 pm](https://user-images.githubusercontent.com/1404265/32686376-5b737fe6-c661-11e7-82c8-e27dd6d15de0.png)
 
 click "Create Stack"
+![pasted image at 2017_11_10 08_34 pm 1](https://user-images.githubusercontent.com/1404265/32686413-b6f324b6-c661-11e7-817f-af956ddbfe37.png)
 
-
+click "next"
