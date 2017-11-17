@@ -23,7 +23,7 @@ Data Store | S3, DynamoDB
 
 ## Use Cases
 Use LEO to solve these types of business problems
-- System integrations
+- Custom integrations
 - Business Intelligence and Data Warehousing
 - Big Data and Data Science projects
 - Microservice async communication
