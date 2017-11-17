@@ -1,7 +1,7 @@
 # bus
 
 ## Better Data Flow
-LEO EventBus is an open source, serverless data lake based on event sourcing. LEO EventBus utilizes AWS services such as Kinesis, DynamoDB, S3, and Lambda and is deployed in your own Amazon cloud. It is the fastest way to create an AWS based data lake, so you can capture all of your data and process it as needed for all of your data projects.
+LEO EventBus is an open source project connecting several AWS services (Kinesis, DynamoDB, S3 and Lambda) together to provide a more robust Data Pipeline.  LEO is deployed in your own Amazon cloud. Essentially, we created Apache Kafka in our own serverless AWS cloud.
 
 Benefits
 - Multiple stream events (or Topics) on one Kinesis Stream
