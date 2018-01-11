@@ -1786,5 +1786,52 @@
 				}
 			}
 		}
-	}
+	},
+  "Outputs": {
+    "LeoArchive": {
+      "Value": {
+        "Ref": "LeoArchive"
+      }
+    },
+    "LeoCron": {
+      "Value": {
+        "Ref": "LeoArchive"
+      }
+    },
+    "LeoEvent": {
+      "Value": {
+        "Ref": "LeoArchive"
+      }
+    },
+    "LeoFirehoseStream": {
+      "Value": {
+        "Ref": "LeoArchive"
+      }
+    },
+    "LeoKinesisStream": {
+      "Value": {
+        "Ref": "LeoArchive"
+      }
+    },
+    "LeoS3": {
+      "Value": {
+        "Ref": "LeoArchive"
+      }
+    },
+    "LeoSettings": {
+      "Value": {
+        "Ref": "LeoArchive"
+      }
+    },
+    "LeoStream": {
+      "Value": {
+        "Ref": "LeoArchive"
+      }
+    },
+    "LeoSystem": {
+      "Value": {
+        "Ref": "LeoArchive"
+      }
+    }
+  }
 }
