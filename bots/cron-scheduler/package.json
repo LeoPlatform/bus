@@ -1,8 +1,8 @@
 {
-	"name": "leo_cron",
+	"name": "leo_cron_scheduler",
 	"version": "1.0.0",
 	"description": "Triggers bots to run by configuration",
-	"logicalResource": "LeoCronProcessor",
+	"logicalResource": "LeoCronScheduler",
 	"main": "index.js",
 	"directories": {
 		"test": "test"
@@ -14,24 +14,29 @@
 	"config": {
 		"leo": {
 			"type": "bot",
-			"name": "Leo_core_cron",
-			"subscriptionFilter": true,
+			"name": "Leo_cron_scheduler",
 			"handler": "handler",
 			"memory": 256,
 			"timeout": 300,
 			"env": {
 				"Resources": {
 					"LeoCron": "${LeoCron}",
-					"LeoSettings": "${LeoSettings}",
-					"LeoSystem": "${LeoSystem}"
+					"LeoSettings": "${LeoSettings}"
 				}
 			},
-			"role": "LeoCronRole"
+			"role": "LeoCronRole",
+			"build": {
+				"include": [
+					"node_modules/later"
+				]
+			}
 		}
 	},
 
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"dependencies": {}
+	"dependencies": {
+		"later": "^1.2.0"
+	}
 }

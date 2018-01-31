@@ -1,23 +1,23 @@
 {
-	"name": "leo_monitor",
+	"name": "bus_api",
 	"version": "1.0.0",
-	"description": "Writes bot stats to a queue",
-	"logicalResource": "LeoMonitor",
+	"description": "Handles api request to the bus",
+	"logicalResource": "LeoBusApiProcessor",
 	"main": "index.js",
 	"directories": {
 		"test": "test"
 	},
 	"scripts": {
-		"test": "nodemon --exec \"mocha --recursive -w\" ",
-		"debug": "mocha --recursive"
+		"test": "mocha --recursive -w "
 	},
 	"config": {
 		"leo": {
-			"type": "bot",
-			"memory": 256,
+			"type": "raw",
+			"name": "Leo_bus_api",
 			"handler": "handler",
+			"role": "LeoBotRole",
+			"memory": 1536,
 			"timeout": 300,
-			"role": "LeoCronRole",
 			"env": {
 				"leosdk": {
 					"region": "${AWS::Region}",
@@ -40,8 +40,5 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"later": "^1.2.0"
-	}
+	"license": "ISC"
 }

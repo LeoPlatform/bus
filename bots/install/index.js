@@ -2,12 +2,7 @@
 
 const https = require("https");
 const url = require("url");
-const leo = require("leo-sdk")({
-	kinesis: "Staging-LeoKinesisStream-1VV2I9X0LE7WT",
-	firehose: "Staging-LeoFirehoseStream-2KPFQLPORBMC",
-	s3: "staging-leos3-kwah9bq4vk1y",
-	region: "us-west-2"
-});
+const leo = require("leo-sdk");
 exports.handler = (event, context, callback) => {
 	console.log(event);
 
@@ -26,13 +21,13 @@ exports.handler = (event, context, callback) => {
 			}
 		};
 
-		var request = https.request(options, function(response) {
+		var request = https.request(options, function (response) {
 			console.log("Status code: " + response.statusCode);
 			console.log("Status message: " + response.statusMessage);
 			callback(null, result);
 		});
 
-		request.on("error", function(error) {
+		request.on("error", function (error) {
 			console.log("send(..) failed executing https.request(..): " + error);
 			callback(error);
 		});
@@ -41,13 +36,13 @@ exports.handler = (event, context, callback) => {
 	}
 
 
-	process.on('uncaughtException', function(err) {
+	process.on('uncaughtException', function (err) {
 		console.log("Got unhandled Exception");
 		console.log(err);
 		sendResponse({
 			Status: 'FAILED',
 			Reason: 'Uncaught Exception',
-			PhysicalResourceId: 'install',
+			PhysicalResourceId: event.PhysicalResourceId,
 			StackId: event.StackId,
 			RequestId: event.RequestId,
 			LogicalResourceId: event.LogicalResourceId
@@ -55,12 +50,28 @@ exports.handler = (event, context, callback) => {
 	});
 
 
-	let steps = [require('./steps/s3-load-trigger.js')(), require('./steps/add-crons.js')()];
+	let steps = [];
+
+	// Handle 3rd party install requests
+	let keys = Object.keys(event.ResourceProperties || {}).filter(k => k !== "ServiceToken" && k !== "Version");
+	if (keys.length) {
+		event.PhysicalResourceId = event.LogicalResourceId;
+		steps = [];
+		var register = require("./steps/register.js");
+		keys.map(key => {
+			let data = event.ResourceProperties[key];
+			steps.push(register(key, data));
+		});
+	} else {
+		event.PhysicalResourceId = "install";
+		steps = [require('./steps/s3-load-trigger.js')(), require('./steps/add-crons.js')()];
+	}
+
 	Promise.all(steps).then(() => {
 		console.log("Got success");
 		sendResponse({
 			Status: 'SUCCESS',
-			PhysicalResourceId: 'install',
+			PhysicalResourceId: event.PhysicalResourceId,
 			StackId: event.StackId,
 			RequestId: event.RequestId,
 			LogicalResourceId: event.LogicalResourceId
@@ -71,7 +82,7 @@ exports.handler = (event, context, callback) => {
 		sendResponse({
 			Status: 'FAILED',
 			Reason: 'it failed',
-			PhysicalResourceId: 'install',
+			PhysicalResourceId: event.PhysicalResourceId,
 			StackId: event.StackId,
 			RequestId: event.RequestId,
 			LogicalResourceId: event.LogicalResourceId

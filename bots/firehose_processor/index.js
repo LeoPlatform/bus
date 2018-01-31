@@ -15,7 +15,7 @@ const refUtil = require("leo-sdk/lib/reference.js");
 
 exports.handler = (event, context, callback) => {
 	var source = "commands.s3_bus_load";
-	var botId = "Leo_firehose_processor";
+	var botId = event.botId; //"Leo_firehose_processor";
 
 	var checkpointData = {
 		units: 0,

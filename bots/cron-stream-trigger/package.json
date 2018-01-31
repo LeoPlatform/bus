@@ -2,6 +2,7 @@
 	"name": "leo_cron_stream_trigger",
 	"version": "1.0.0",
 	"description": "Triggers bots from a write to a queue",
+	"logicalResource": "LeoEventTrigger",
 	"main": "index.js",
 	"directories": {
 		"test": "test"
@@ -14,9 +15,15 @@
 			"type": "bot",
 			"name": "Leo_core_cron_stream_trigger",
 			"handler": "handler",
+			"role": "LeoCronRole",
 			"memory": 128,
 			"timeout": 300,
-			"cron": "1 minute"
+			"env": {
+				"Resources": {
+					"LeoCron": "${LeoCron}",
+					"LeoSettings": "${LeoSettings}"
+				}
+			}
 		}
 	},
 	"keywords": [],

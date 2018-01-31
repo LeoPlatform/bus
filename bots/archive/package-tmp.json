@@ -2,6 +2,7 @@
 	"name": "archive",
 	"version": "1.0.0",
 	"description": "This is a sample BOT Description",
+	"logicalResource": "LeoArchiveProcessor",
 	"main": "index.js",
 	"directories": {
 		"test": "test"

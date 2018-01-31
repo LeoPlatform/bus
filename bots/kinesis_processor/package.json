@@ -1,7 +1,8 @@
 {
 	"name": "Leo_core_kinesis_processor",
 	"version": "1.0.0",
-	"description": "This is a sample BOT Description",
+	"description": "Ingests events from kinesis",
+	"logicalResource": "LeoKinesisStreamProcessor",
 	"main": "index.js",
 	"directories": {
 		"test": "test"
@@ -14,13 +15,23 @@
 			"type": "bot",
 			"name": "Leo_core_kinesis_processor",
 			"handler": "handler",
-			"role": null,
+			"role": "LeoKinesisRole",
 			"memory": 640,
 			"timeout": 300,
 			"cron": {
 				"name": "Leo_core_kinesis_processor",
 				"owner": "leo",
 				"settings": {}
+			},
+			"env": {
+				"Resources": {
+					"LeoStream": "${LeoStream}",
+					"LeoS3": "${LeoS3}",
+					"LeoCron": "${LeoCron}",
+					"LeoEvent": "${LeoEvent}",
+					"LeoSettings": "${LeoSettings}",
+					"LeoSystem": "${LeoSystem}"
+				}
 			}
 		}
 	},

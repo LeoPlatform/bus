@@ -1,19 +1,15 @@
 "use strict";
-var leo = require("leo-sdk")({
-	kinesis: "Leo-KinesisStream-ATNV3XQO0YHV",
-	firehose: "Leo-FirehoseStream-189A8WXE76MFS",
-	s3: "leo-s3bus-1r0aubze8imm5",
-	region: "us-west-2"
-});
+var leo = require("leo-sdk");
 var AWS = require("aws-sdk");
 var https = require('https');
 var querystring = require('querystring');
 
-exports.handler = function(event, context, callback) {
+const ID = "leo_cron_monitor";
+
+exports.handler = function (event, context, callback) {
 	refreshCredentials().then(() => {
-		var loader = leo.load("MYBUSID", "monitor");
+		var loader = leo.load(ID, "monitor");
 		event.Records.forEach((record) => {
-			console.log(record);
 			var newImage = {
 				trigger: 0,
 				invokeTime: 0
@@ -27,6 +23,10 @@ exports.handler = function(event, context, callback) {
 			}
 			if ("OldImage" in record.dynamodb) {
 				oldImage = AWS.DynamoDB.Converter.unmarshall(record.dynamodb.OldImage);
+			}
+
+			if (newImage.id == ID || newImage.ignoreMonitor === true) {
+				return;
 			}
 
 			//Let's check if it started since last time
@@ -68,7 +68,7 @@ exports.handler = function(event, context, callback) {
 							id: newImage.id,
 							type: 'read',
 							from: event,
-							checkpoint: newImage.checkpoint,
+							checkpoint: newCheckpoint.checkpoint,
 							ts: newCheckpoint.ended_timestamp,
 							units: newCheckpoint.records,
 							start: newCheckpoint.started_timestamp,
@@ -90,7 +90,7 @@ exports.handler = function(event, context, callback) {
 							id: newImage.id,
 							type: 'write',
 							to: event,
-							checkpoint: newImage.checkpoint,
+							checkpoint: newCheckpoint.checkpoint,
 							ts: newCheckpoint.ended_timestamp,
 							units: newCheckpoint.records,
 							start: newCheckpoint.started_timestamp,
@@ -104,10 +104,12 @@ exports.handler = function(event, context, callback) {
 	});
 };
 
+
+
 var hasCredentials = false;
 
 function refreshCredentials() {
-
+	return Promise.resolve();
 	if (!hasCredentials || AWS.config.credentials.needsRefresh() || AWS.config.credentials.expireTime.getTime() < (Date.now() + 60 * 5)) {
 		return new Promise((resolve, reject) => {
 			https.request({

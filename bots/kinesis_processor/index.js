@@ -1,12 +1,7 @@
 "use strict";
 const moment = require("moment");
 const zlib = require("zlib");
-const leo = require("leo-sdk")({
-	kinesis: "Staging-LeoKinesisStream-1VV2I9X0LE7WT",
-	firehose: "Staging-LeoFirehoseStream-2KPFQLPORBMC",
-	s3: "staging-leos3-kwah9bq4vk1y",
-	region: "us-west-2"
-});
+const leo = require("leo-sdk");
 const ls = leo.streams;
 const async = require("async");
 const refUtil = require("leo-sdk/lib/reference.js");
@@ -156,8 +151,8 @@ exports.handler = function (event, context, callback) {
 		});
 	}
 
-	var gzip = zlib.createGunzip();
-	ls.pipe(gzip, ls.parse(), ls.through((event, callback) => {
+	var stream = ls.parse();
+	ls.pipe(stream, ls.through((event, callback) => {
 		//We can't process it without these
 		if (!event.event || ((!event.id || !event.payload) && !event.s3)) {
 			callback(null);
@@ -182,7 +177,13 @@ exports.handler = function (event, context, callback) {
 		}
 	});
 	event.Records.map((record) => {
-		gzip.write(new Buffer(record.kinesis.data, 'base64'));
+		if (record.kinesis.data[0] === 'H') {
+			stream.write(zlib.gunzipSync(new Buffer(record.kinesis.data, 'base64')));
+		} else if (record.kinesis.data[0] === 'e' && record.kinesis.data[1] === 'J') {
+			stream.write(zlib.inflateSync(new Buffer(record.kinesis.data, 'base64')))
+		} else if (record.kinesis.data[0] === 'e' && record.kinesis.data[1] === 'y') {
+			stream.write(Buffer.from(record.kinesis.data, 'base64').toString() + "\n")
+		}
 	});
-	gzip.end();
+	stream.end();
 };

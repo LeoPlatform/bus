@@ -1,7 +1,8 @@
 {
 	"name": "Leo_firehose_processor",
 	"version": "1.0.0",
-	"description": "This is a sample BOT Description",
+	"description": "Ingests events from firehose",
+	"logicalResource": "LeoFirehoseStreamProcessor",
 	"main": "index.js",
 	"directories": {
 		"test": "test"
@@ -14,9 +15,7 @@
 			"type": "cron",
 			"name": "Leo_firehose_processor",
 			"handler": "handler",
-			"aws": {
-				"role": "!core.roles.FirehoseRole"
-			},
+			"role": "LeoFirehoseRole",
 			"memory": 640,
 			"timeout": 300,
 			"cron": {
@@ -26,6 +25,16 @@
 				"triggers": [
 					"commands.s3_bus_load"
 				]
+			},
+			"env": {
+				"Resources": {
+					"LeoStream": "${LeoStream}",
+					"LeoS3": "${LeoS3}",
+					"LeoKinesisStream": "${LeoKinesisStream}",
+					"LeoCron": "${LeoCron}",
+					"LeoEvent": "${LeoEvent}",
+					"LeoSettings": "${LeoSettings}"
+				}
 			}
 		}
 	},

@@ -2,6 +2,7 @@
 	"name": "s3_load_trigger",
 	"version": "1.0.1",
 	"description": "Adds Load Events to the Bus Command Queue",
+	"logicalResource": "LeoS3LoadTrigger",
 	"main": "index.js",
 	"directories": {
 		"test": "test"
@@ -14,11 +15,7 @@
 			"type": "bot",
 			"name": "Leo_core_s3_load_trigger",
 			"handler": "handler",
-			"aws": {
-				"role": {
-					"ref": "core.roles.FirehoseRole"
-				}
-			},
+			"role": "LeoFirehoseRole",
 			"memory": 1536,
 			"timeout": 300,
 			"cron": {
@@ -27,6 +24,13 @@
 				"time": "0 */1 * * *",
 				"settings": {
 					"destination": "commands.s3_bus_load"
+				}
+			},
+			"env": {
+				"Resources": {
+					"LeoKinesisStream": "${LeoKinesisStream}",
+					"LeoSettings": "${LeoSettings}",
+					"LeoS3": "${LeoS3}"
 				}
 			}
 		}

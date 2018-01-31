@@ -1,1790 +1,1955 @@
 {
-	"AWSTemplateFormatVersion": "2010-09-09",
-	"Metadata": {
-		"AWS::CloudFormation::Designer": {
-			"5b164754-24d7-47f6-a6fb-2ce883e6c0b9": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 630,
-					"y": 130
-				},
-				"z": 1,
-				"embeds": []
-			},
-			"f236486a-1383-40dd-abd7-bdcf2cd304ea": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 630,
-					"y": 320
-				},
-				"z": 1,
-				"embeds": []
-			},
-			"b4f0b5d1-e887-47ca-acd0-b6aecf4e5e70": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 630,
-					"y": 410
-				},
-				"z": 1,
-				"embeds": []
-			},
-			"19e3af96-efef-4ffa-8f33-34034b079093": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": -120,
-					"y": 440
-				},
-				"z": 1,
-				"embeds": []
-			},
-			"988eaa65-e07b-4c8a-b122-b4ecfd914c38": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 630,
-					"y": 230
-				},
-				"z": 1,
-				"embeds": []
-			},
-			"29f59309-16b5-4651-9eaa-af8f92546b03": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 630,
-					"y": 40
-				},
-				"z": 1,
-				"embeds": []
-			},
-			"daf052f3-2344-4667-b866-d86452968eea": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": -120,
-					"y": 170
-				},
-				"z": 1,
-				"embeds": []
-			},
-			"3ccf8004-ed2a-4bf9-b99c-c51e1a030939": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 630,
-					"y": 510
-				},
-				"z": 1,
-				"embeds": []
-			},
-			"6f83a63c-2b80-40ed-8fba-1b080c5336f8": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": -200,
-					"y": -10
-				},
-				"z": 1,
-				"embeds": [],
-				"isrelatedto": [
-					"b4f0b5d1-e887-47ca-acd0-b6aecf4e5e70",
-					"988eaa65-e07b-4c8a-b122-b4ecfd914c38",
-					"3ccf8004-ed2a-4bf9-b99c-c51e1a030939"
-				]
-			},
-			"9af7296b-8169-42d8-ba76-8dcb8723ed7d": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 0,
-					"y": 290
-				},
-				"z": 1,
-				"embeds": [],
-				"isrelatedto": [
-					"6f83a63c-2b80-40ed-8fba-1b080c5336f8"
-				]
-			},
-			"c67a892f-9385-451d-8457-2237fbcede54": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": -120,
-					"y": 290
-				},
-				"z": 1,
-				"embeds": [],
-				"isrelatedto": [
-					"6f83a63c-2b80-40ed-8fba-1b080c5336f8"
-				]
-			},
-			"185dc998-357e-41cc-89d5-18075c97043c": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 110,
-					"y": 290
-				},
-				"z": 1,
-				"embeds": [],
-				"dependson": [
-					"c67a892f-9385-451d-8457-2237fbcede54",
-					"6f83a63c-2b80-40ed-8fba-1b080c5336f8"
-				],
-				"isrelatedto": [
-					"6f83a63c-2b80-40ed-8fba-1b080c5336f8"
-				]
-			},
-			"288eabd3-a87a-4f84-b259-37825164a720": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 430,
-					"y": -10
-				},
-				"z": 1,
-				"embeds": [],
-				"isrelatedto": [
-					"daf052f3-2344-4667-b866-d86452968eea",
-					"3ccf8004-ed2a-4bf9-b99c-c51e1a030939",
-					"988eaa65-e07b-4c8a-b122-b4ecfd914c38",
-					"b4f0b5d1-e887-47ca-acd0-b6aecf4e5e70",
-					"f236486a-1383-40dd-abd7-bdcf2cd304ea",
-					"5b164754-24d7-47f6-a6fb-2ce883e6c0b9"
-				]
-			},
-			"3913ca91-8fd5-4ce5-9542-0da94c0e9928": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 1150,
-					"y": -20
-				},
-				"z": 1,
-				"embeds": [],
-				"isassociatedwith": [
-					"288eabd3-a87a-4f84-b259-37825164a720"
-				],
-				"isrelatedto": [
-					"f236486a-1383-40dd-abd7-bdcf2cd304ea",
-					"5b164754-24d7-47f6-a6fb-2ce883e6c0b9",
-					"988eaa65-e07b-4c8a-b122-b4ecfd914c38"
-				]
-			},
-			"a27df6f0-591b-4c93-af69-ae7ccbf08e2a": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 830,
-					"y": 430
-				},
-				"z": 1,
-				"embeds": [],
-				"dependson": [
-					"f236486a-1383-40dd-abd7-bdcf2cd304ea"
-				],
-				"isrelatedto": [
-					"3913ca91-8fd5-4ce5-9542-0da94c0e9928"
-				]
-			},
-			"3bc4ec4b-c3e4-46c8-b654-91983cc52df8": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": -260,
-					"y": 170
-				},
-				"z": 1,
-				"embeds": [],
-				"isrelatedto": [
-					"a27df6f0-591b-4c93-af69-ae7ccbf08e2a"
-				]
-			},
-			"e5c5304e-4277-4d41-bc06-514213d8b15a": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 960,
-					"y": 430
-				},
-				"z": 1,
-				"embeds": [],
-				"isassociatedwith": [
-					"a27df6f0-591b-4c93-af69-ae7ccbf08e2a"
-				],
-				"isrelatedto": [
-					"3bc4ec4b-c3e4-46c8-b654-91983cc52df8"
-				]
-			},
-			"139dc7ef-dc15-4e23-92c4-b1be6637d63d": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 960,
-					"y": 320
-				},
-				"z": 1,
-				"embeds": [],
-				"dependson": [
-					"f236486a-1383-40dd-abd7-bdcf2cd304ea"
-				],
-				"isrelatedto": [
-					"3913ca91-8fd5-4ce5-9542-0da94c0e9928"
-				]
-			},
-			"1f821f9f-3f4f-46a4-ad2e-6f0d968cbe1a": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 830,
-					"y": 320
-				},
-				"z": 1,
-				"embeds": [],
-				"isassociatedwith": [
-					"139dc7ef-dc15-4e23-92c4-b1be6637d63d"
-				],
-				"isrelatedto": [
-					"f236486a-1383-40dd-abd7-bdcf2cd304ea"
-				]
-			},
-			"4a6ccf43-ae99-40f4-8ce9-2f36e9dc3721": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 960,
-					"y": 230
-				},
-				"z": 1,
-				"embeds": [],
-				"dependson": [
-					"988eaa65-e07b-4c8a-b122-b4ecfd914c38"
-				],
-				"isrelatedto": [
-					"3913ca91-8fd5-4ce5-9542-0da94c0e9928"
-				]
-			},
-			"01aba2d2-519a-4826-9f55-376917fcaddd": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 830,
-					"y": 230
-				},
-				"z": 1,
-				"embeds": [],
-				"isassociatedwith": [
-					"4a6ccf43-ae99-40f4-8ce9-2f36e9dc3721"
-				],
-				"isrelatedto": [
-					"988eaa65-e07b-4c8a-b122-b4ecfd914c38"
-				]
-			},
-			"94c0817d-a4e1-4bb9-84bd-dd5c6a1b4fd3": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": -290,
-					"y": -10
-				},
-				"z": 1,
-				"embeds": [],
-				"isassociatedwith": [
-					"288eabd3-a87a-4f84-b259-37825164a720"
-				]
-			},
-			"42671eb3-c481-43b8-8e45-1ad130906197": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 90,
-					"y": -10
-				},
-				"z": 1,
-				"embeds": [],
-				"isassociatedwith": [
-					"288eabd3-a87a-4f84-b259-37825164a720"
-				]
-			},
-			"11639652-02bb-45c1-9e79-74859b0a77e3": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 270,
-					"y": -10
-				},
-				"z": 1,
-				"embeds": [],
-				"isassociatedwith": [
-					"288eabd3-a87a-4f84-b259-37825164a720"
-				],
-				"isrelatedto": [
-					"daf052f3-2344-4667-b866-d86452968eea",
-					"988eaa65-e07b-4c8a-b122-b4ecfd914c38",
-					"3ccf8004-ed2a-4bf9-b99c-c51e1a030939",
-					"f236486a-1383-40dd-abd7-bdcf2cd304ea"
-				]
-			},
-			"ffc5466e-cdd4-431d-a817-dffcdda2426c": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": 90,
-					"y": 170
-				},
-				"z": 1,
-				"embeds": [],
-				"dependson": [
-					"daf052f3-2344-4667-b866-d86452968eea",
-					"11639652-02bb-45c1-9e79-74859b0a77e3"
-				],
-				"isrelatedto": [
-					"11639652-02bb-45c1-9e79-74859b0a77e3"
-				]
-			},
-			"3ad35aac-4ae2-4ce5-ae58-9f9eaea5055c": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": -10,
-					"y": 170
-				},
-				"z": 1,
-				"embeds": [],
-				"isassociatedwith": [
-					"ffc5466e-cdd4-431d-a817-dffcdda2426c"
-				],
-				"dependson": [
-					"daf052f3-2344-4667-b866-d86452968eea",
-					"11639652-02bb-45c1-9e79-74859b0a77e3"
-				],
-				"isrelatedto": [
-					"daf052f3-2344-4667-b866-d86452968eea"
-				]
-			},
-			"0670447b-b9b9-40a2-a9c4-12035bd2a0a4": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": -110,
-					"y": -10
-				},
-				"z": 1,
-				"embeds": [],
-				"isassociatedwith": [
-					"288eabd3-a87a-4f84-b259-37825164a720"
-				],
-				"isrelatedto": [
-					"9af7296b-8169-42d8-ba76-8dcb8723ed7d",
-					"19e3af96-efef-4ffa-8f33-34034b079093",
-					"6f83a63c-2b80-40ed-8fba-1b080c5336f8"
-				]
-			},
-			"ca5c9484-1b52-4059-93fa-3f3f2d78914f": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": -360,
-					"y": 400
-				},
-				"z": 1,
-				"embeds": [],
-				"isrelatedto": [
-					"0670447b-b9b9-40a2-a9c4-12035bd2a0a4"
-				]
-			},
-			"0ffc9927-0388-44c8-b83e-b242004f6fe5": {
-				"size": {
-					"width": 60,
-					"height": 60
-				},
-				"position": {
-					"x": -360,
-					"y": 510
-				},
-				"z": 1,
-				"embeds": [],
-				"dependson": [
-					"ca5c9484-1b52-4059-93fa-3f3f2d78914f"
-				],
-				"isrelatedto": [
-					"ca5c9484-1b52-4059-93fa-3f3f2d78914f"
-				]
-			}
-		}
-	},
-	"Mappings": {
-		"RegionMap": {
-			"us-west-2": {
-				"LeoS3Bucket": "leo-s3bus-1r0aubze8imm5",
-				"LeoDeployFolder": "publish/leo-bus/",
-				"LeoVersion": "1.0.10"
-			}
-		}
-	},
-	"Resources": {
-		"LeoStream": {
-			"Type": "AWS::DynamoDB::Table",
-			"Properties": {
-				"AttributeDefinitions": [{
-					"AttributeName": "event",
-					"AttributeType": "S"
-				}, {
-					"AttributeName": "end",
-					"AttributeType": "S"
-				}],
-				"KeySchema": [{
-					"AttributeName": "event",
-					"KeyType": "HASH"
-				}, {
-					"AttributeName": "end",
-					"KeyType": "RANGE"
-				}],
-				"ProvisionedThroughput": {
-					"ReadCapacityUnits": "20",
-					"WriteCapacityUnits": "20"
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "3ccf8004-ed2a-4bf9-b99c-c51e1a030939"
-				}
-			}
-		},
-		"LeoKinesisStream": {
-			"Type": "AWS::Kinesis::Stream",
-			"Properties": {
-				"ShardCount": 1
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "daf052f3-2344-4667-b866-d86452968eea"
-				}
-			}
-		},
-		"LeoKinesisStreamProcessor": {
-			"Type": "AWS::Lambda::Function",
-			"Properties": {
-				"Code": {
-					"S3Bucket": {
-						"Fn::FindInMap": [
-							"RegionMap",
-							"us-west-2",
-							"LeoS3Bucket"
-						]
-					},
-					"S3Key": {
-						"Fn::Sub": [
-							"${LeoDeployFolder}${LeoVersion}/Leo_core_kinesis_processor.zip", {
-								"LeoDeployFolder": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoDeployFolder"
-									]
-								},
-								"LeoVersion": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoVersion"
-									]
-								}
-							}
-						]
-					}
-				},
-				"Description": "Leo Core",
-				"Handler": "index.handler",
-				"Environment": {
-					"Variables": {
-						"Resources": {
-							"Fn::Sub": "{\"LeoStream\": \"${LeoStream}\", \"LeoS3\": \"${LeoS3}\",\"LeoCron\": \"${LeoCron}\",\"LeoEvent\": \"${LeoEvent}\",\"LeoSettings\": \"${LeoSettings}\",\"LeoSystem\": \"${LeoSystem}\"}"
-						}
-					}
-				},
-				"MemorySize": 256,
-				"Runtime": "nodejs6.10",
-				"Timeout": 60,
-				"Role": {
-					"Fn::GetAtt": [
-						"LeoKinesisRole",
-						"Arn"
-					]
-				}
-			},
-			"DependsOn": [
-				"LeoKinesisStream",
-				"LeoKinesisRole"
-			],
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "ffc5466e-cdd4-431d-a817-dffcdda2426c"
-				}
-			}
-		},
-		"LeoKinesisStreamProcessorEventSource": {
-			"Type": "AWS::Lambda::EventSourceMapping",
-			"Properties": {
-				"BatchSize": 10000,
-				"Enabled": true,
-				"StartingPosition": "TRIM_HORIZON",
-				"EventSourceArn": {
-					"Fn::GetAtt": [
-						"LeoKinesisStream",
-						"Arn"
-					]
-				},
-				"FunctionName": {
-					"Ref": "LeoKinesisStreamProcessor"
-				}
-			},
-			"DependsOn": [
-				"LeoKinesisStream",
-				"LeoKinesisRole"
-			],
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "3ad35aac-4ae2-4ce5-ae58-9f9eaea5055c"
-				}
-			}
-		},
-		"LeoFirehoseStream": {
-			"Type": "AWS::KinesisFirehose::DeliveryStream",
-			"Properties": {
-				"S3DestinationConfiguration": {
-					"BucketARN": {
-						"Fn::Sub": "arn:aws:s3:::${LeoS3}"
-					},
-					"BufferingHints": {
-						"IntervalInSeconds": 60,
-						"SizeInMBs": 128
-					},
-					"Prefix": "firehose/",
-					"CompressionFormat": "UNCOMPRESSED",
-					"RoleARN": {
-						"Fn::GetAtt": [
-							"LeoFirehoseRole",
-							"Arn"
-						]
-					}
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "c67a892f-9385-451d-8457-2237fbcede54"
-				}
-			}
-		},
-		"LeoFirehoseStreamProcessor": {
-			"Type": "AWS::Lambda::Function",
-			"Properties": {
-				"Code": {
-					"S3Bucket": {
-						"Fn::FindInMap": [
-							"RegionMap",
-							"us-west-2",
-							"LeoS3Bucket"
-						]
-					},
-					"S3Key": {
-						"Fn::Sub": [
-							"${LeoDeployFolder}${LeoVersion}/Leo_firehose_processor.zip", {
-								"LeoDeployFolder": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoDeployFolder"
-									]
-								},
-								"LeoVersion": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoVersion"
-									]
-								}
-							}
-						]
-					}
-				},
-				"Description": "Leo Firehose Stream Processor",
-				"Handler": "index.handler",
-				"Environment": {
-					"Variables": {
-						"Resources": {
-							"Fn::Sub": "{\"LeoStream\": \"${LeoStream}\", \"LeoS3\": \"${LeoS3}\", \"LeoKinesisStream\": \"${LeoKinesisStream}\", \"LeoCron\": \"${LeoCron}\", \"LeoEvent\": \"${LeoEvent}\", \"LeoSettings\": \"${LeoSettings}\"}"
-						}
-					}
-				},
-				"MemorySize": 768,
-				"Runtime": "nodejs6.10",
-				"Timeout": 300,
-				"Role": {
-					"Fn::GetAtt": [
-						"LeoFirehoseRole",
-						"Arn"
-					]
-				}
-			},
-			"DependsOn": [
-				"LeoFirehoseStream",
-				"LeoFirehoseRole"
-			],
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "185dc998-357e-41cc-89d5-18075c97043c"
-				}
-			}
-		},
-		"LeoInstallFunction": {
-			"Type": "AWS::Lambda::Function",
-			"Properties": {
-				"Code": {
-					"S3Bucket": {
-						"Fn::FindInMap": [
-							"RegionMap",
-							"us-west-2",
-							"LeoS3Bucket"
-						]
-					},
-					"S3Key": {
-						"Fn::Sub": [
-							"${LeoDeployFolder}${LeoVersion}/Leo_install.zip", {
-								"LeoDeployFolder": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoDeployFolder"
-									]
-								},
-								"LeoVersion": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoVersion"
-									]
-								}
-							}
-						]
-					}
-				},
-				"Description": "Leo Initialize",
-				"Handler": "index.handler",
-				"Environment": {
-					"Variables": {
-						"Resources": {
-							"Fn::Sub": "{\"LeoS3LoadTrigger\": \"${LeoS3LoadTrigger}\",\"LeoS3\": \"${LeoS3}\",\"LeoCron\": \"${LeoCron}\",\"LeoFirehoseStreamProcessor\": \"${LeoFirehoseStreamProcessor}\",\"LeoSettings\": \"${LeoSettings}\",\"LeoBotPolicy\": \"${LeoBotPolicy}\",\"LeoFirehoseRole\": \"${LeoFirehoseRole}\"}"
-						},
-						"AWS": {
-							"Fn::Sub": "{\"AccountId\": \"${AWS::AccountId}\", \"region\":\"${AWS::Region}\"}"
-						}
-					}
-				},
-				"MemorySize": 256,
-				"Runtime": "nodejs6.10",
-				"Timeout": 60,
-				"Role": {
-					"Fn::GetAtt": [
-						"LeoInstallRole",
-						"Arn"
-					]
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "ca5c9484-1b52-4059-93fa-3f3f2d78914f"
-				}
-			}
-		},
-		"LeoInstallRole": {
-			"Type": "AWS::IAM::Role",
-			"Properties": {
-				"AssumeRolePolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [{
-						"Effect": "Allow",
-						"Principal": {
-							"Service": [
-								"lambda.amazonaws.com"
-							],
-							"AWS": {
-								"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-							}
-						},
-						"Action": [
-							"sts:AssumeRole"
-						]
-					}]
-				},
-				"ManagedPolicyArns": [
-					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole", {
-						"Ref": "LeoBotPolicy"
-					}
-				],
-				"Policies": [{
-					"PolicyName": "Leo_Install",
-					"PolicyDocument": {
-						"Version": "2012-10-17",
-						"Statement": [{
-							"Effect": "Allow",
-							"Action": [
-								"lambda:AddPermission"
-							],
-							"Resource": [{
-								"Fn::GetAtt": [
-									"LeoS3LoadTrigger",
-									"Arn"
-								]
-							}]
-						}, {
-							"Effect": "Allow",
-							"Action": [
-								"s3:PutBucketNotification",
-								"s3:GetBucketNotification"
-							],
-							"Resource": [{
-								"Fn::GetAtt": [
-									"LeoS3",
-									"Arn"
-								]
-							}]
-						}, {
-							"Effect": "Allow",
-							"Action": [
-								"iam:ListAttachedRolePolicies",
-								"iam:AttachRolePolicy"
-							],
-							"Resource": [{
-								"Fn::GetAtt": [
-									"LeoFirehoseRole",
-									"Arn"
-								]
-							}]
-						}]
-					}
-				}]
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "0670447b-b9b9-40a2-a9c4-12035bd2a0a4"
-				}
-			}
-		},
-		"LeoInstall": {
-			"Type": "Custom::Install",
-			"Properties": {
-				"ServiceToken": {
-					"Fn::GetAtt": [
-						"LeoInstallFunction",
-						"Arn"
-					]
-				},
-				"Version": {
-					"Fn::FindInMap": [
-						"RegionMap",
-						"us-west-2",
-						"LeoVersion"
-					]
-				}
-			},
-			"DependsOn": [
-				"LeoInstallFunction"
-			],
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "0ffc9927-0388-44c8-b83e-b242004f6fe5"
-				}
-			}
-		},
-		"LeoArchive": {
-			"Type": "AWS::DynamoDB::Table",
-			"Properties": {
-				"AttributeDefinitions": [{
-					"AttributeName": "event",
-					"AttributeType": "S"
-				}, {
-					"AttributeName": "end",
-					"AttributeType": "S"
-				}],
-				"KeySchema": [{
-					"AttributeName": "event",
-					"KeyType": "HASH"
-				}, {
-					"AttributeName": "end",
-					"KeyType": "RANGE"
-				}],
-				"ProvisionedThroughput": {
-					"ReadCapacityUnits": "5",
-					"WriteCapacityUnits": "5"
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "29f59309-16b5-4651-9eaa-af8f92546b03"
-				}
-			}
-		},
-		"LeoEvent": {
-			"Type": "AWS::DynamoDB::Table",
-			"Properties": {
-				"AttributeDefinitions": [{
-					"AttributeName": "event",
-					"AttributeType": "S"
-				}],
-				"KeySchema": [{
-					"AttributeName": "event",
-					"KeyType": "HASH"
-				}],
-				"ProvisionedThroughput": {
-					"ReadCapacityUnits": "5",
-					"WriteCapacityUnits": "5"
-				},
-				"StreamSpecification": {
-					"StreamViewType": "NEW_AND_OLD_IMAGES"
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "988eaa65-e07b-4c8a-b122-b4ecfd914c38"
-				}
-			}
-		},
-		"LeoEventMapping": {
-			"Type": "AWS::Lambda::EventSourceMapping",
-			"Properties": {
-				"BatchSize": 500,
-				"Enabled": true,
-				"StartingPosition": "TRIM_HORIZON",
-				"EventSourceArn": {
-					"Fn::GetAtt": [
-						"LeoEvent",
-						"StreamArn"
-					]
-				},
-				"FunctionName": {
-					"Ref": "LeoEventTrigger"
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "01aba2d2-519a-4826-9f55-376917fcaddd"
-				}
-			}
-		},
-		"LeoEventTrigger": {
-			"Type": "AWS::Lambda::Function",
-			"Properties": {
-				"Code": {
-					"S3Bucket": {
-						"Fn::FindInMap": [
-							"RegionMap",
-							"us-west-2",
-							"LeoS3Bucket"
-						]
-					},
-					"S3Key": {
-						"Fn::Sub": [
-							"${LeoDeployFolder}${LeoVersion}/Leo_core_cron_stream_trigger.zip", {
-								"LeoDeployFolder": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoDeployFolder"
-									]
-								},
-								"LeoVersion": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoVersion"
-									]
-								}
-							}
-						]
-					}
-				},
-				"Handler": "index.handler",
-				"Environment": {
-					"Variables": {
-						"Resources": {
-							"Fn::Sub": "{\"LeoCron\": \"${LeoCron}\", \"LeoSettings\": \"${LeoSettings}\"}"
-						}
-					}
-				},
-				"MemorySize": 128,
-				"Runtime": "nodejs6.10",
-				"Timeout": 300,
-				"Role": {
-					"Fn::GetAtt": [
-						"LeoCronRole",
-						"Arn"
-					]
-				}
-			},
-			"DependsOn": [
-				"LeoEvent"
-			],
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "4a6ccf43-ae99-40f4-8ce9-2f36e9dc3721"
-				}
-			}
-		},
-		"LeoBotPolicy": {
-			"Type": "AWS::IAM::ManagedPolicy",
-			"Properties": {
-				"PolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [{
-						"Effect": "Allow",
-						"Action": [
-							"kinesis:PutRecords",
-							"kinesis:PutRecord"
-						],
-						"Resource": [{
-							"Fn::GetAtt": [
-								"LeoKinesisStream",
-								"Arn"
-							]
-						}]
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"firehose:PutRecord",
-							"firehose:PutRecordBatch"
-						],
-						"Resource": {
-							"Fn::Sub": "arn:aws:firehose:${AWS::Region}:${AWS::AccountId}:deliverystream/${LeoFirehoseStream}"
-						}
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"dynamodb:Query"
-						],
-						"Resource": {
-							"Fn::GetAtt": [
-								"LeoStream",
-								"Arn"
-							]
-						}
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"s3:GetObject"
-						],
-						"Resource": {
-							"Fn::Sub": "arn:aws:s3:::${LeoS3}/bus/*"
-						}
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"s3:GetObject"
-						],
-						"Resource": {
-							"Fn::Sub": "arn:aws:s3:::${LeoS3}/bus/*"
-						}
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"s3:PutObject",
-							"s3:GetObject"
-						],
-						"Resource": {
-							"Fn::Sub": "arn:aws:s3:::${LeoS3}/files/*"
-						}
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"s3:ListBucket"
-						],
-						"Resource": {
-							"Fn::Sub": "arn:aws:s3:::${LeoS3}"
-						}
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"dynamodb:BatchGetItem",
-							"dynamodb:BatchWriteItem",
-							"dynamodb:UpdateItem",
-							"dynamodb:PutItem",
-							"dynamodb:DeleteItem"
-						],
-						"Resource": [{
-							"Fn::GetAtt": [
-								"LeoEvent",
-								"Arn"
-							]
-						}, {
-							"Fn::GetAtt": [
-								"LeoSettings",
-								"Arn"
-							]
-						}, {
-							"Fn::GetAtt": [
-								"LeoCron",
-								"Arn"
-							]
-						}]
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"dynamodb:Query",
-							"dynamodb:Scan",
-							"dynamodb:GetItem",
-							"dynamodb:BatchGetItem"
-						],
-						"Resource": [{
-							"Fn::GetAtt": [
-								"LeoSettings",
-								"Arn"
-							]
-						}, {
-							"Fn::GetAtt": [
-								"LeoCron",
-								"Arn"
-							]
-						}, {
-							"Fn::GetAtt": [
-								"LeoEvent",
-								"Arn"
-							]
-						}, {
-							"Fn::GetAtt": [
-								"LeoSystem",
-								"Arn"
-							]
-						}]
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"ec2:CreateNetworkInterface",
-							"ec2:DescribeNetworkInterfaces",
-							"ec2:DetachNetworkInterface",
-							"ec2:DeleteNetworkInterface"
-						],
-						"Resource": "*"
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"sns:Publish"
-						],
-						"Resource": {
-							"Fn::Sub": "arn:aws:sns:${AWS::Region}:${AWS::AccountId}:*"
-						}
-					}, {
-						"Effect": "Allow",
-						"Action": [
-							"lambda:InvokeFunction"
-						],
-						"Resource": [{
-							"Fn::GetAtt": [
-								"LeoKinesisStream",
-								"Arn"
-							]
-						}]
-					}]
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "288eabd3-a87a-4f84-b259-37825164a720"
-				}
-			}
-		},
-		"LeoKinesisRole": {
-			"Type": "AWS::IAM::Role",
-			"Properties": {
-				"AssumeRolePolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [{
-						"Effect": "Allow",
-						"Principal": {
-							"Service": [
-								"lambda.amazonaws.com"
-							],
-							"AWS": {
-								"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-							}
-						},
-						"Action": [
-							"sts:AssumeRole"
-						]
-					}]
-				},
-				"ManagedPolicyArns": [
-					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole", {
-						"Ref": "LeoBotPolicy"
-					}
-				],
-				"Policies": [{
-					"PolicyName": "Leo_core",
-					"PolicyDocument": {
-						"Version": "2012-10-17",
-						"Statement": [{
-							"Effect": "Allow",
-							"Action": [
-								"kinesis:DescribeStream",
-								"kinesis:GetRecords",
-								"kinesis:GetShardIterator",
-								"kinesis:ListStreams"
-							],
-							"Resource": [{
-								"Fn::GetAtt": [
-									"LeoKinesisStream",
-									"Arn"
-								]
-							}]
-						}, {
-							"Effect": "Allow",
-							"Action": [
-								"s3:PutObject"
-							],
-							"Resource": [{
-								"Fn::Sub": "arn:aws:s3:::${LeoS3}"
-							}, {
-								"Fn::Sub": "arn:aws:s3:::${LeoS3}/*"
-							}]
-						}, {
-							"Effect": "Allow",
-							"Action": [
-								"dynamodb:PutItem",
-								"dynamodb:BatchWriteItem",
-								"dynamodb:BatchGetItem",
-								"dynamodb:GetRecords",
-								"dynamodb:UpdateItem",
-								"dynamodb:Query",
-								"dynamodb:GetShardIterator",
-								"dynamodb:DescribeStream",
-								"dynamodb:ListStreams"
-							],
-							"Resource": [{
-								"Fn::GetAtt": [
-									"LeoEvent",
-									"Arn"
-								]
-							}, {
-								"Fn::GetAtt": [
-									"LeoStream",
-									"Arn"
-								]
-							}, {
-								"Fn::GetAtt": [
-									"LeoCron",
-									"Arn"
-								]
-							}]
-						}]
-					}
-				}]
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "11639652-02bb-45c1-9e79-74859b0a77e3"
-				}
-			}
-		},
-		"LeoBotRole": {
-			"Type": "AWS::IAM::Role",
-			"Properties": {
-				"AssumeRolePolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [{
-						"Effect": "Allow",
-						"Principal": {
-							"Service": [
-								"lambda.amazonaws.com"
-							],
-							"AWS": {
-								"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-							}
-						},
-						"Action": [
-							"sts:AssumeRole"
-						]
-					}]
-				},
-				"ManagedPolicyArns": [
-					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole", {
-						"Ref": "LeoBotPolicy"
-					}
-				],
-				"Policies": []
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "42671eb3-c481-43b8-8e45-1ad130906197"
-				}
-			}
-		},
-		"LeoS3LoadTrigger": {
-			"Type": "AWS::Lambda::Function",
-			"Properties": {
-				"Code": {
-					"S3Bucket": {
-						"Fn::FindInMap": [
-							"RegionMap",
-							"us-west-2",
-							"LeoS3Bucket"
-						]
-					},
-					"S3Key": {
-						"Fn::Sub": [
-							"${LeoDeployFolder}${LeoVersion}/Leo_core_s3_load_trigger.zip", {
-								"LeoDeployFolder": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoDeployFolder"
-									]
-								},
-								"LeoVersion": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoVersion"
-									]
-								}
-							}
-						]
-					}
-				},
-				"Description": "Adds Load Events to the Bus Command Queue",
-				"Handler": "index.handler",
-				"Environment": {
-					"Variables": {
-						"Resources": {
-							"Fn::Sub": "{\"LeoKinesisStream\":\"${LeoKinesisStream}\", \"LeoSettings\": \"${LeoSettings}\", \"LeoS3\": \"${LeoS3}\"}"
-						}
-					}
-				},
-				"MemorySize": 256,
-				"Runtime": "nodejs6.10",
-				"Timeout": 300,
-				"Role": {
-					"Fn::GetAtt": [
-						"LeoFirehoseRole",
-						"Arn"
-					]
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "9af7296b-8169-42d8-ba76-8dcb8723ed7d"
-				}
-			}
-		},
-		"LeoS3": {
-			"Type": "AWS::S3::Bucket",
-			"Properties": {},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "19e3af96-efef-4ffa-8f33-34034b079093"
-				}
-			}
-		},
-		"LeoFirehoseRole": {
-			"Type": "AWS::IAM::Role",
-			"Properties": {
-				"AssumeRolePolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [{
-						"Effect": "Allow",
-						"Principal": {
-							"Service": "firehose.amazonaws.com"
-						},
-						"Action": "sts:AssumeRole",
-						"Condition": {
-							"StringEquals": {
-								"sts:ExternalId": {
-									"Ref": "AWS::AccountId"
-								}
-							}
-						}
-					}, {
-						"Effect": "Allow",
-						"Principal": {
-							"Service": [
-								"lambda.amazonaws.com"
-							],
-							"AWS": {
-								"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-							}
-						},
-						"Action": [
-							"sts:AssumeRole"
-						]
-					}]
-				},
-				"ManagedPolicyArns": [
-					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-				],
-				"Policies": [{
-					"PolicyName": "Leo_Bus_firehose",
-					"PolicyDocument": {
-						"Version": "2012-10-17",
-						"Statement": [{
-							"Effect": "Allow",
-							"Action": [
-								"s3:AbortMultipartUpload",
-								"s3:GetBucketLocation",
-								"s3:GetObject",
-								"s3:ListBucket",
-								"s3:ListBucketMultipartUploads",
-								"s3:PutObject"
-							],
-							"Resource": [{
-								"Fn::Sub": "arn:aws:s3:::${LeoS3}"
-							}, {
-								"Fn::Sub": "arn:aws:s3:::${LeoS3}/*"
-							}]
-						}, {
-							"Effect": "Allow",
-							"Action": [
-								"dynamodb:PutItem",
-								"dynamodb:GetItem",
-								"dynamodb:UpdateItem",
-								"dynamodb:BatchGetItem",
-								"dynamodb:BatchWriteItem",
-								"dynamodb:GetRecords"
-							],
-							"Resource": [{
-								"Fn::GetAtt": [
-									"LeoSettings",
-									"Arn"
-								]
-							}, {
-								"Fn::GetAtt": [
-									"LeoEvent",
-									"Arn"
-								]
-							}, {
-								"Fn::GetAtt": [
-									"LeoStream",
-									"Arn"
-								]
-							}]
-						}]
-					}
-				}]
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "6f83a63c-2b80-40ed-8fba-1b080c5336f8"
-				}
-			}
-		},
-		"LeoSettings": {
-			"Type": "AWS::DynamoDB::Table",
-			"Properties": {
-				"AttributeDefinitions": [{
-					"AttributeName": "id",
-					"AttributeType": "S"
-				}],
-				"KeySchema": [{
-					"AttributeName": "id",
-					"KeyType": "HASH"
-				}],
-				"ProvisionedThroughput": {
-					"ReadCapacityUnits": "5",
-					"WriteCapacityUnits": "5"
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "b4f0b5d1-e887-47ca-acd0-b6aecf4e5e70"
-				}
-			}
-		},
-		"LeoDeveloperGroup": {
-			"Type": "AWS::IAM::Group",
-			"Properties": {
-				"ManagedPolicyArns": [{
-					"Ref": "LeoBotPolicy"
-				}],
-				"Policies": []
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "94c0817d-a4e1-4bb9-84bd-dd5c6a1b4fd3"
-				}
-			}
-		},
-		"LeoCronRole": {
-			"Type": "AWS::IAM::Role",
-			"Properties": {
-				"AssumeRolePolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [{
-						"Effect": "Allow",
-						"Principal": {
-							"Service": [
-								"lambda.amazonaws.com"
-							],
-							"AWS": {
-								"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-							}
-						},
-						"Action": [
-							"sts:AssumeRole"
-						]
-					}]
-				},
-				"ManagedPolicyArns": [
-					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole", {
-						"Ref": "LeoBotPolicy"
-					}
-				],
-				"Policies": [{
-					"PolicyName": "Leo_cron",
-					"PolicyDocument": {
-						"Version": "2012-10-17",
-						"Statement": [{
-							"Effect": "Allow",
-							"Action": [
-								"dynamodb:Scan",
-								"dynamodb:PutItem",
-								"dynamodb:BatchWriteItem",
-								"dynamodb:BatchGetItem",
-								"dynamodb:GetRecords",
-								"dynamodb:UpdateItem",
-								"dynamodb:Query",
-								"dynamodb:GetShardIterator",
-								"dynamodb:DescribeStream",
-								"dynamodb:ListStreams"
-							],
-							"Resource": [{
-								"Fn::GetAtt": [
-									"LeoCron",
-									"Arn"
-								]
-							}, {
-								"Fn::GetAtt": [
-									"LeoSystem",
-									"Arn"
-								]
-							}, {
-								"Fn::GetAtt": [
-									"LeoCron",
-									"StreamArn"
-								]
-							}, {
-								"Fn::GetAtt": [
-									"LeoEvent",
-									"StreamArn"
-								]
-							}]
-						}, {
-							"Effect": "Allow",
-							"Action": [
-								"lambda:InvokeFunction"
-							],
-							"Resource": {
-								"Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:*"
-							}
-						}]
-					}
-				}]
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "3913ca91-8fd5-4ce5-9542-0da94c0e9928"
-				}
-			}
-		},
-		"LeoCron": {
-			"Type": "AWS::DynamoDB::Table",
-			"Properties": {
-				"AttributeDefinitions": [{
-					"AttributeName": "id",
-					"AttributeType": "S"
-				}],
-				"KeySchema": [{
-					"AttributeName": "id",
-					"KeyType": "HASH"
-				}],
-				"ProvisionedThroughput": {
-					"ReadCapacityUnits": "20",
-					"WriteCapacityUnits": "20"
-				},
-				"StreamSpecification": {
-					"StreamViewType": "NEW_AND_OLD_IMAGES"
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "f236486a-1383-40dd-abd7-bdcf2cd304ea"
-				}
-			}
-		},
-		"LeoCronMapping": {
-			"Type": "AWS::Lambda::EventSourceMapping",
-			"Properties": {
-				"BatchSize": 500,
-				"Enabled": true,
-				"StartingPosition": "TRIM_HORIZON",
-				"EventSourceArn": {
-					"Fn::GetAtt": [
-						"LeoCron",
-						"StreamArn"
-					]
-				},
-				"FunctionName": {
-					"Ref": "LeoCronProcessor"
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "1f821f9f-3f4f-46a4-ad2e-6f0d968cbe1a"
-				}
-			}
-		},
-		"LeoCronProcessor": {
-			"Type": "AWS::Lambda::Function",
-			"Properties": {
-				"Code": {
-					"S3Bucket": {
-						"Fn::FindInMap": [
-							"RegionMap",
-							"us-west-2",
-							"LeoS3Bucket"
-						]
-					},
-					"S3Key": {
-						"Fn::Sub": [
-							"${LeoDeployFolder}${LeoVersion}/Leo_core_cron.zip", {
-								"LeoDeployFolder": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoDeployFolder"
-									]
-								},
-								"LeoVersion": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoVersion"
-									]
-								}
-							}
-						]
-					}
-				},
-				"Handler": "index.handler",
-				"MemorySize": 128,
-				"Runtime": "nodejs6.10",
-				"Timeout": 300,
-				"Role": {
-					"Fn::GetAtt": [
-						"LeoCronRole",
-						"Arn"
-					]
-				},
-				"Environment": {
-					"Variables": {
-						"Resources": {
-							"Fn::Sub": "{\"LeoCron\": \"${LeoCron}\",\"LeoSettings\": \"${LeoSettings}\"}"
-						}
-					}
-				}
-			},
-			"DependsOn": [
-				"LeoCron"
-			],
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "139dc7ef-dc15-4e23-92c4-b1be6637d63d"
-				}
-			}
-		},
-		"LeoCronScheduler": {
-			"Type": "AWS::Lambda::Function",
-			"Properties": {
-				"Code": {
-					"S3Bucket": {
-						"Fn::FindInMap": [
-							"RegionMap",
-							"us-west-2",
-							"LeoS3Bucket"
-						]
-					},
-					"S3Key": {
-						"Fn::Sub": [
-							"${LeoDeployFolder}${LeoVersion}/Leo_core_cron.zip", {
-								"LeoDeployFolder": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoDeployFolder"
-									]
-								},
-								"LeoVersion": {
-									"Fn::FindInMap": [
-										"RegionMap",
-										"us-west-2",
-										"LeoVersion"
-									]
-								}
-							}
-						]
-					}
-				},
-				"Handler": "index.handler",
-				"MemorySize": 128,
-				"Runtime": "nodejs6.10",
-				"Timeout": 300,
-				"Role": {
-					"Fn::GetAtt": [
-						"LeoCronRole",
-						"Arn"
-					]
-				},
-				"Environment": {
-					"Variables": {
-						"Resources": {
-							"Fn::Sub": "{\"LeoStream\": \"${LeoStream}\", \"LeoS3\": \"${LeoS3}\",\"LeoCron\": \"${LeoCron}\",\"LeoEvent\": \"${LeoEvent}\",\"LeoSettings\": \"${LeoSettings}\",\"LeoSystem\": \"${LeoSystem}\"}"
-						}
-					}
-				}
-			},
-			"DependsOn": [
-				"LeoCron"
-			],
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "a27df6f0-591b-4c93-af69-ae7ccbf08e2a"
-				}
-			}
-		},
-		"LeoSystem": {
-			"Type": "AWS::DynamoDB::Table",
-			"Properties": {
-				"AttributeDefinitions": [{
-					"AttributeName": "id",
-					"AttributeType": "S"
-				}],
-				"KeySchema": [{
-					"AttributeName": "id",
-					"KeyType": "HASH"
-				}],
-				"ProvisionedThroughput": {
-					"ReadCapacityUnits": "40",
-					"WriteCapacityUnits": "20"
-				},
-				"StreamSpecification": {
-					"StreamViewType": "NEW_AND_OLD_IMAGES"
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "5b164754-24d7-47f6-a6fb-2ce883e6c0b9"
-				}
-			}
-		},
-		"LeoCronSchedulerRule": {
-			"Type": "AWS::Events::Rule",
-			"Properties": {
-				"Description": "Leo Cron Scheduler Rule",
-				"ScheduleExpression": "rate(5 minutes)",
-				"State": "ENABLED",
-				"Targets": [{
-					"Arn": {
-						"Fn::GetAtt": [
-							"LeoCronScheduler",
-							"Arn"
-						]
-					},
-					"Id": "LeoCronSchedulerRule"
-				}]
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "3bc4ec4b-c3e4-46c8-b654-91983cc52df8"
-				}
-			}
-		},
-		"PermissionForLeoCronSchedulerRule": {
-			"Type": "AWS::Lambda::Permission",
-			"Properties": {
-				"FunctionName": {
-					"Ref": "LeoCronScheduler"
-				},
-				"Action": "lambda:InvokeFunction",
-				"Principal": "events.amazonaws.com",
-				"SourceArn": {
-					"Fn::GetAtt": [
-						"LeoCronSchedulerRule",
-						"Arn"
-					]
-				}
-			},
-			"Metadata": {
-				"AWS::CloudFormation::Designer": {
-					"id": "e5c5304e-4277-4d41-bc06-514213d8b15a"
-				}
-			}
-		}
-	}
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Mappings": {
+    "RegionMap": {
+      "us-west-2": {
+        "S3Bucket": "leo-cli-publishbucket-1rgojx1iw5yq9"
+      },
+      "us-east-1": {
+        "S3Bucket": "cli-publishbucket-v0jrrcgnp8bk"
+      }
+    }
+  },
+  "Metadata": {
+    "AWS::CloudFormation::Designer": {
+      "5b164754-24d7-47f6-a6fb-2ce883e6c0b9": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 630,
+          "y": 130
+        },
+        "z": 1,
+        "embeds": []
+      },
+      "f236486a-1383-40dd-abd7-bdcf2cd304ea": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 630,
+          "y": 320
+        },
+        "z": 1,
+        "embeds": []
+      },
+      "b4f0b5d1-e887-47ca-acd0-b6aecf4e5e70": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 630,
+          "y": 410
+        },
+        "z": 1,
+        "embeds": []
+      },
+      "19e3af96-efef-4ffa-8f33-34034b079093": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": -120,
+          "y": 440
+        },
+        "z": 1,
+        "embeds": []
+      },
+      "988eaa65-e07b-4c8a-b122-b4ecfd914c38": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 630,
+          "y": 230
+        },
+        "z": 1,
+        "embeds": []
+      },
+      "29f59309-16b5-4651-9eaa-af8f92546b03": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 630,
+          "y": 40
+        },
+        "z": 1,
+        "embeds": []
+      },
+      "daf052f3-2344-4667-b866-d86452968eea": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": -120,
+          "y": 170
+        },
+        "z": 1,
+        "embeds": []
+      },
+      "3ccf8004-ed2a-4bf9-b99c-c51e1a030939": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 630,
+          "y": 510
+        },
+        "z": 1,
+        "embeds": []
+      },
+      "6f83a63c-2b80-40ed-8fba-1b080c5336f8": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": -200,
+          "y": -10
+        },
+        "z": 1,
+        "embeds": [],
+        "isrelatedto": [
+          "b4f0b5d1-e887-47ca-acd0-b6aecf4e5e70",
+          "988eaa65-e07b-4c8a-b122-b4ecfd914c38",
+          "3ccf8004-ed2a-4bf9-b99c-c51e1a030939"
+        ]
+      },
+      "9af7296b-8169-42d8-ba76-8dcb8723ed7d": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 0,
+          "y": 290
+        },
+        "z": 1,
+        "embeds": [],
+        "isrelatedto": [
+          "6f83a63c-2b80-40ed-8fba-1b080c5336f8"
+        ]
+      },
+      "c67a892f-9385-451d-8457-2237fbcede54": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": -120,
+          "y": 290
+        },
+        "z": 1,
+        "embeds": [],
+        "isrelatedto": [
+          "6f83a63c-2b80-40ed-8fba-1b080c5336f8"
+        ]
+      },
+      "185dc998-357e-41cc-89d5-18075c97043c": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 110,
+          "y": 290
+        },
+        "z": 1,
+        "embeds": [],
+        "dependson": [
+          "c67a892f-9385-451d-8457-2237fbcede54",
+          "6f83a63c-2b80-40ed-8fba-1b080c5336f8"
+        ],
+        "isrelatedto": [
+          "6f83a63c-2b80-40ed-8fba-1b080c5336f8"
+        ]
+      },
+      "288eabd3-a87a-4f84-b259-37825164a720": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 430,
+          "y": -10
+        },
+        "z": 1,
+        "embeds": [],
+        "isrelatedto": [
+          "daf052f3-2344-4667-b866-d86452968eea",
+          "3ccf8004-ed2a-4bf9-b99c-c51e1a030939",
+          "988eaa65-e07b-4c8a-b122-b4ecfd914c38",
+          "b4f0b5d1-e887-47ca-acd0-b6aecf4e5e70",
+          "f236486a-1383-40dd-abd7-bdcf2cd304ea",
+          "5b164754-24d7-47f6-a6fb-2ce883e6c0b9"
+        ]
+      },
+      "3913ca91-8fd5-4ce5-9542-0da94c0e9928": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1150,
+          "y": -20
+        },
+        "z": 1,
+        "embeds": [],
+        "isassociatedwith": [
+          "288eabd3-a87a-4f84-b259-37825164a720"
+        ],
+        "isrelatedto": [
+          "f236486a-1383-40dd-abd7-bdcf2cd304ea",
+          "5b164754-24d7-47f6-a6fb-2ce883e6c0b9",
+          "988eaa65-e07b-4c8a-b122-b4ecfd914c38"
+        ]
+      },
+      "a27df6f0-591b-4c93-af69-ae7ccbf08e2a": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 830,
+          "y": 430
+        },
+        "z": 1,
+        "embeds": [],
+        "dependson": [
+          "f236486a-1383-40dd-abd7-bdcf2cd304ea"
+        ],
+        "isrelatedto": [
+          "3913ca91-8fd5-4ce5-9542-0da94c0e9928"
+        ]
+      },
+      "3bc4ec4b-c3e4-46c8-b654-91983cc52df8": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": -260,
+          "y": 170
+        },
+        "z": 1,
+        "embeds": [],
+        "isrelatedto": [
+          "a27df6f0-591b-4c93-af69-ae7ccbf08e2a"
+        ]
+      },
+      "e5c5304e-4277-4d41-bc06-514213d8b15a": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 960,
+          "y": 430
+        },
+        "z": 1,
+        "embeds": [],
+        "isassociatedwith": [
+          "a27df6f0-591b-4c93-af69-ae7ccbf08e2a"
+        ],
+        "isrelatedto": [
+          "3bc4ec4b-c3e4-46c8-b654-91983cc52df8"
+        ]
+      },
+      "139dc7ef-dc15-4e23-92c4-b1be6637d63d": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 960,
+          "y": 320
+        },
+        "z": 1,
+        "embeds": [],
+        "dependson": [
+          "f236486a-1383-40dd-abd7-bdcf2cd304ea"
+        ],
+        "isrelatedto": [
+          "3913ca91-8fd5-4ce5-9542-0da94c0e9928"
+        ]
+      },
+      "1f821f9f-3f4f-46a4-ad2e-6f0d968cbe1a": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 830,
+          "y": 320
+        },
+        "z": 1,
+        "embeds": [],
+        "isassociatedwith": [
+          "139dc7ef-dc15-4e23-92c4-b1be6637d63d"
+        ],
+        "isrelatedto": [
+          "f236486a-1383-40dd-abd7-bdcf2cd304ea"
+        ]
+      },
+      "4a6ccf43-ae99-40f4-8ce9-2f36e9dc3721": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 960,
+          "y": 230
+        },
+        "z": 1,
+        "embeds": [],
+        "dependson": [
+          "988eaa65-e07b-4c8a-b122-b4ecfd914c38"
+        ],
+        "isrelatedto": [
+          "3913ca91-8fd5-4ce5-9542-0da94c0e9928"
+        ]
+      },
+      "01aba2d2-519a-4826-9f55-376917fcaddd": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 830,
+          "y": 230
+        },
+        "z": 1,
+        "embeds": [],
+        "isassociatedwith": [
+          "4a6ccf43-ae99-40f4-8ce9-2f36e9dc3721"
+        ],
+        "isrelatedto": [
+          "988eaa65-e07b-4c8a-b122-b4ecfd914c38"
+        ]
+      },
+      "94c0817d-a4e1-4bb9-84bd-dd5c6a1b4fd3": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": -290,
+          "y": -10
+        },
+        "z": 1,
+        "embeds": [],
+        "isassociatedwith": [
+          "288eabd3-a87a-4f84-b259-37825164a720"
+        ]
+      },
+      "42671eb3-c481-43b8-8e45-1ad130906197": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 90,
+          "y": -10
+        },
+        "z": 1,
+        "embeds": [],
+        "isassociatedwith": [
+          "288eabd3-a87a-4f84-b259-37825164a720"
+        ]
+      },
+      "11639652-02bb-45c1-9e79-74859b0a77e3": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 270,
+          "y": -10
+        },
+        "z": 1,
+        "embeds": [],
+        "isassociatedwith": [
+          "288eabd3-a87a-4f84-b259-37825164a720"
+        ],
+        "isrelatedto": [
+          "daf052f3-2344-4667-b866-d86452968eea",
+          "988eaa65-e07b-4c8a-b122-b4ecfd914c38",
+          "3ccf8004-ed2a-4bf9-b99c-c51e1a030939",
+          "f236486a-1383-40dd-abd7-bdcf2cd304ea"
+        ]
+      },
+      "ffc5466e-cdd4-431d-a817-dffcdda2426c": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 90,
+          "y": 170
+        },
+        "z": 1,
+        "embeds": [],
+        "dependson": [
+          "daf052f3-2344-4667-b866-d86452968eea",
+          "11639652-02bb-45c1-9e79-74859b0a77e3"
+        ],
+        "isrelatedto": [
+          "11639652-02bb-45c1-9e79-74859b0a77e3"
+        ]
+      },
+      "3ad35aac-4ae2-4ce5-ae58-9f9eaea5055c": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": -10,
+          "y": 170
+        },
+        "z": 1,
+        "embeds": [],
+        "isassociatedwith": [
+          "ffc5466e-cdd4-431d-a817-dffcdda2426c"
+        ],
+        "dependson": [
+          "daf052f3-2344-4667-b866-d86452968eea",
+          "11639652-02bb-45c1-9e79-74859b0a77e3"
+        ],
+        "isrelatedto": [
+          "daf052f3-2344-4667-b866-d86452968eea"
+        ]
+      },
+      "0670447b-b9b9-40a2-a9c4-12035bd2a0a4": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": -110,
+          "y": -10
+        },
+        "z": 1,
+        "embeds": [],
+        "isassociatedwith": [
+          "288eabd3-a87a-4f84-b259-37825164a720"
+        ],
+        "isrelatedto": [
+          "9af7296b-8169-42d8-ba76-8dcb8723ed7d",
+          "19e3af96-efef-4ffa-8f33-34034b079093",
+          "6f83a63c-2b80-40ed-8fba-1b080c5336f8"
+        ]
+      },
+      "ca5c9484-1b52-4059-93fa-3f3f2d78914f": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": -360,
+          "y": 400
+        },
+        "z": 1,
+        "embeds": [],
+        "isrelatedto": [
+          "0670447b-b9b9-40a2-a9c4-12035bd2a0a4"
+        ]
+      },
+      "0ffc9927-0388-44c8-b83e-b242004f6fe5": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": -360,
+          "y": 510
+        },
+        "z": 1,
+        "embeds": [],
+        "dependson": [
+          "ca5c9484-1b52-4059-93fa-3f3f2d78914f"
+        ],
+        "isrelatedto": [
+          "ca5c9484-1b52-4059-93fa-3f3f2d78914f"
+        ]
+      }
+    }
+  },
+  "Resources": {
+    "ApiRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ],
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        ],
+        "Policies": [
+          {
+            "PolicyName": "BasicPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "lambda:AddPermission"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "LeoStream": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "event",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "end",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "event",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "end",
+            "KeyType": "RANGE"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "20",
+          "WriteCapacityUnits": "20"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "3ccf8004-ed2a-4bf9-b99c-c51e1a030939"
+        }
+      }
+    },
+    "LeoKinesisStream": {
+      "Type": "AWS::Kinesis::Stream",
+      "Properties": {
+        "ShardCount": 1
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "daf052f3-2344-4667-b866-d86452968eea"
+        }
+      }
+    },
+    "LeoKinesisStreamProcessor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.1/LeoKinesisStreamProcessor_1.0.0.zip"
+        },
+        "Description": "Ingests events from kinesis",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoStream\":\"${LeoStream}\",\"LeoS3\":\"${LeoS3}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoSystem\":\"${LeoSystem}\"}"
+            }
+          }
+        },
+        "MemorySize": 640,
+        "Runtime": "nodejs6.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoKinesisRole.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoKinesisStream",
+        "LeoKinesisRole"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "ffc5466e-cdd4-431d-a817-dffcdda2426c"
+        }
+      }
+    },
+    "LeoKinesisStreamProcessorEventSource": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "BatchSize": 10000,
+        "Enabled": true,
+        "StartingPosition": "TRIM_HORIZON",
+        "EventSourceArn": {
+          "Fn::Sub": "${LeoKinesisStream.Arn}"
+        },
+        "FunctionName": {
+          "Ref": "LeoKinesisStreamProcessor"
+        }
+      },
+      "DependsOn": [
+        "LeoKinesisStream",
+        "LeoKinesisRole",
+        "LeoKinesisStreamProcessor"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "3ad35aac-4ae2-4ce5-ae58-9f9eaea5055c"
+        }
+      }
+    },
+    "LeoFirehoseStream": {
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
+      "Properties": {
+        "S3DestinationConfiguration": {
+          "BucketARN": {
+            "Fn::Sub": "arn:aws:s3:::${LeoS3}"
+          },
+          "BufferingHints": {
+            "IntervalInSeconds": 60,
+            "SizeInMBs": 128
+          },
+          "Prefix": "firehose/",
+          "CompressionFormat": "UNCOMPRESSED",
+          "RoleARN": {
+            "Fn::Sub": "${LeoFirehoseRole.Arn}"
+          }
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "c67a892f-9385-451d-8457-2237fbcede54"
+        }
+      }
+    },
+    "LeoFirehoseStreamProcessor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.1/LeoFirehoseStreamProcessor_1.0.0.zip"
+        },
+        "Description": "Ingests events from firehose",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoStream\":\"${LeoStream}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\"}"
+            }
+          }
+        },
+        "MemorySize": 640,
+        "Runtime": "nodejs6.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoFirehoseRole.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoFirehoseStream",
+        "LeoFirehoseRole"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "185dc998-357e-41cc-89d5-18075c97043c"
+        }
+      }
+    },
+    "LeoInstallFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.1/LeoInstallFunction_1.0.0.zip"
+        },
+        "Description": "Installs Bus bots into LeoCron table and registers external bots",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoS3LoadTrigger\":\"${LeoS3LoadTrigger}\",\"LeoS3\":\"${LeoS3}\",\"LeoCron\":\"${LeoCron}\",\"LeoFirehoseStreamProcessor\":\"${LeoFirehoseStreamProcessor}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoBotPolicy\":\"${LeoBotPolicy}\",\"LeoFirehoseRole\":\"${LeoFirehoseRole}\",\"LeoSystem\":\"${LeoSystem}\",\"Region\":\"${AWS::Region}\"}"
+            },
+            "AWS": {
+              "Fn::Sub": "{\"AccountId\": \"${AWS::AccountId}\", \"region\":\"${AWS::Region}\"}"
+            }
+          }
+        },
+        "MemorySize": 640,
+        "Runtime": "nodejs6.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoInstallRole.Arn}"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "ca5c9484-1b52-4059-93fa-3f3f2d78914f"
+        }
+      }
+    },
+    "LeoInstallRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ],
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          {
+            "Ref": "LeoBotPolicy"
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyName": "Leo_Install",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "lambda:AddPermission"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoS3LoadTrigger.Arn}"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:PutBucketNotification",
+                    "s3:GetBucketNotification"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoS3.Arn}"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "iam:ListAttachedRolePolicies",
+                    "iam:AttachRolePolicy"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoFirehoseRole.Arn}"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "0670447b-b9b9-40a2-a9c4-12035bd2a0a4"
+        }
+      }
+    },
+    "LeoInstall": {
+      "Type": "Custom::Install",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::Sub": "${LeoInstallFunction.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoInstallFunction"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "0ffc9927-0388-44c8-b83e-b242004f6fe5"
+        }
+      }
+    },
+    "LeoArchive": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "event",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "end",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "event",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "end",
+            "KeyType": "RANGE"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "5",
+          "WriteCapacityUnits": "5"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "29f59309-16b5-4651-9eaa-af8f92546b03"
+        }
+      }
+    },
+    "LeoEvent": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "event",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "event",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "5",
+          "WriteCapacityUnits": "5"
+        },
+        "StreamSpecification": {
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "988eaa65-e07b-4c8a-b122-b4ecfd914c38"
+        }
+      }
+    },
+    "LeoEventMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "BatchSize": 500,
+        "Enabled": true,
+        "StartingPosition": "TRIM_HORIZON",
+        "EventSourceArn": {
+          "Fn::Sub": "${LeoEvent.StreamArn}"
+        },
+        "FunctionName": {
+          "Ref": "LeoEventTrigger"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "01aba2d2-519a-4826-9f55-376917fcaddd"
+        }
+      }
+    },
+    "LeoEventTrigger": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.1/LeoEventTrigger_1.0.0.zip"
+        },
+        "Description": "Triggers bots from a write to a queue",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\"}"
+            }
+          }
+        },
+        "MemorySize": 128,
+        "Runtime": "nodejs6.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoCronRole.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoEvent"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "4a6ccf43-ae99-40f4-8ce9-2f36e9dc3721"
+        }
+      }
+    },
+    "LeoBotPolicy": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "kinesis:PutRecords",
+                "kinesis:PutRecord"
+              ],
+              "Resource": [
+                {
+                  "Fn::Sub": "${LeoKinesisStream.Arn}"
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "firehose:PutRecord",
+                "firehose:PutRecordBatch"
+              ],
+              "Resource": {
+                "Fn::Sub": "arn:aws:firehose:${AWS::Region}:${AWS::AccountId}:deliverystream/${LeoFirehoseStream}"
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Query"
+              ],
+              "Resource": {
+                "Fn::Sub": "${LeoStream.Arn}"
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:PutObject",
+                "s3:GetObject"
+              ],
+              "Resource": {
+                "Fn::Sub": "arn:aws:s3:::${LeoS3}/bus/*"
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:PutObject",
+                "s3:GetObject"
+              ],
+              "Resource": {
+                "Fn::Sub": "arn:aws:s3:::${LeoS3}/files/*"
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:ListBucket"
+              ],
+              "Resource": {
+                "Fn::Sub": "arn:aws:s3:::${LeoS3}"
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:PutItem"
+              ],
+              "Resource": [
+                {
+                  "Fn::Sub": "${LeoEvent.Arn}"
+                },
+                {
+                  "Fn::Sub": "${LeoSettings.Arn}"
+                },
+                {
+                  "Fn::Sub": "${LeoCron.Arn}"
+                },
+                {
+                  "Fn::Sub": "${LeoSystem.Arn}"
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:GetItem",
+                "dynamodb:BatchGetItem"
+              ],
+              "Resource": [
+                {
+                  "Fn::Sub": "${LeoSettings.Arn}"
+                },
+                {
+                  "Fn::Sub": "${LeoCron.Arn}"
+                },
+                {
+                  "Fn::Sub": "${LeoEvent.Arn}"
+                },
+                {
+                  "Fn::Sub": "${LeoSystem.Arn}"
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ec2:CreateNetworkInterface",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DetachNetworkInterface",
+                "ec2:DeleteNetworkInterface"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "sns:Publish"
+              ],
+              "Resource": {
+                "Fn::Sub": "arn:aws:sns:${AWS::Region}:${AWS::AccountId}:*"
+              }
+            }
+          ]
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "288eabd3-a87a-4f84-b259-37825164a720"
+        }
+      }
+    },
+    "LeoKinesisRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ],
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          {
+            "Ref": "LeoBotPolicy"
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyName": "Leo_core",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "kinesis:DescribeStream",
+                    "kinesis:GetRecords",
+                    "kinesis:GetShardIterator",
+                    "kinesis:ListStreams"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoKinesisStream.Arn}"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:PutObject"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:aws:s3:::${LeoS3}"
+                    },
+                    {
+                      "Fn::Sub": "arn:aws:s3:::${LeoS3}/*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:PutItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:GetRecords",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:Query",
+                    "dynamodb:GetShardIterator",
+                    "dynamodb:DescribeStream",
+                    "dynamodb:ListStreams"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoEvent.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoStream.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoCron.Arn}"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "11639652-02bb-45c1-9e79-74859b0a77e3"
+        }
+      }
+    },
+    "LeoBotRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ],
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          {
+            "Ref": "LeoBotPolicy"
+          }
+        ],
+        "Policies": []
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "42671eb3-c481-43b8-8e45-1ad130906197"
+        }
+      }
+    },
+    "LeoS3LoadTrigger": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.1/LeoS3LoadTrigger_1.0.1.zip"
+        },
+        "Description": "Adds Load Events to the Bus Command Queue",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\"}"
+            }
+          }
+        },
+        "MemorySize": 1536,
+        "Runtime": "nodejs6.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoFirehoseRole.Arn}"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "9af7296b-8169-42d8-ba76-8dcb8723ed7d"
+        }
+      }
+    },
+    "LeoS3": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {},
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "19e3af96-efef-4ffa-8f33-34034b079093"
+        }
+      }
+    },
+    "LeoFirehoseRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "firehose.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "sts:ExternalId": {
+                    "Ref": "AWS::AccountId"
+                  }
+                }
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ],
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        ],
+        "Policies": [
+          {
+            "PolicyName": "Leo_Bus_firehose",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:AbortMultipartUpload",
+                    "s3:GetBucketLocation",
+                    "s3:GetObject",
+                    "s3:ListBucket",
+                    "s3:ListBucketMultipartUploads",
+                    "s3:PutObject"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:aws:s3:::${LeoS3}"
+                    },
+                    {
+                      "Fn::Sub": "arn:aws:s3:::${LeoS3}/*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:PutItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:GetRecords"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoSettings.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoEvent.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoStream.Arn}"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "6f83a63c-2b80-40ed-8fba-1b080c5336f8"
+        }
+      }
+    },
+    "LeoSettings": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "5",
+          "WriteCapacityUnits": "5"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "b4f0b5d1-e887-47ca-acd0-b6aecf4e5e70"
+        }
+      }
+    },
+    "LeoDeveloperGroup": {
+      "Type": "AWS::IAM::Group",
+      "Properties": {
+        "ManagedPolicyArns": [
+          {
+            "Ref": "LeoBotPolicy"
+          }
+        ],
+        "Policies": []
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "94c0817d-a4e1-4bb9-84bd-dd5c6a1b4fd3"
+        }
+      }
+    },
+    "LeoCronRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ],
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          {
+            "Ref": "LeoBotPolicy"
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyName": "State_machine_exec",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "VisualEditor0",
+                  "Effect": "Allow",
+                  "Action": [
+                    "states:DescribeStateMachineForExecution",
+                    "states:ListStateMachines",
+                    "states:DescribeActivity",
+                    "states:DescribeStateMachine",
+                    "states:ListActivities",
+                    "states:DescribeExecution",
+                    "states:ListExecutions",
+                    "states:GetExecutionHistory",
+                    "states:StartExecution"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          },
+          {
+            "PolicyName": "Leo_cron",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:Scan",
+                    "dynamodb:PutItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:Query"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoCron.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoSystem.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoCron.Arn}"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetRecords",
+                    "dynamodb:GetShardIterator",
+                    "dynamodb:DescribeStream",
+                    "dynamodb:ListStreams"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoCron.StreamArn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoEvent.StreamArn}"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "lambda:InvokeFunction"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:*"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "3913ca91-8fd5-4ce5-9542-0da94c0e9928"
+        }
+      }
+    },
+    "LeoCron": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "20",
+          "WriteCapacityUnits": "20"
+        },
+        "StreamSpecification": {
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "f236486a-1383-40dd-abd7-bdcf2cd304ea"
+        }
+      }
+    },
+    "LeoCronMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "BatchSize": 500,
+        "Enabled": true,
+        "StartingPosition": "TRIM_HORIZON",
+        "EventSourceArn": {
+          "Fn::Sub": "${LeoCron.StreamArn}"
+        },
+        "FunctionName": {
+          "Ref": "LeoCronProcessor"
+        }
+      },
+      "DependsOn": [
+        "LeoCronRole"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "1f821f9f-3f4f-46a4-ad2e-6f0d968cbe1a"
+        }
+      }
+    },
+    "LeoCronProcessor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.1/LeoCronProcessor_1.0.0.zip"
+        },
+        "Description": "Triggers bots to run by configuration",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoSystem\":\"${LeoSystem}\"}"
+            }
+          }
+        },
+        "MemorySize": 256,
+        "Runtime": "nodejs6.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoCronRole.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoCron"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "139dc7ef-dc15-4e23-92c4-b1be6637d63d"
+        }
+      }
+    },
+    "LeoCronScheduler": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.1/LeoCronScheduler_1.0.0.zip"
+        },
+        "Description": "Triggers bots to run by configuration",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\"}"
+            }
+          }
+        },
+        "MemorySize": 256,
+        "Runtime": "nodejs6.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoCronRole.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoCron"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a27df6f0-591b-4c93-af69-ae7ccbf08e2a"
+        }
+      }
+    },
+    "LeoSystem": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "40",
+          "WriteCapacityUnits": "20"
+        },
+        "StreamSpecification": {
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "5b164754-24d7-47f6-a6fb-2ce883e6c0b9"
+        }
+      }
+    },
+    "LeoCronSchedulerRule": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "Leo Cron Scheduler Rule",
+        "ScheduleExpression": "rate(5 minutes)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::Sub": "${LeoCronScheduler.Arn}"
+            },
+            "Id": "LeoCronSchedulerRule"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "3bc4ec4b-c3e4-46c8-b654-91983cc52df8"
+        }
+      }
+    },
+    "PermissionForLeoCronSchedulerRule": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "LeoCronScheduler"
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::Sub": "${LeoCronSchedulerRule.Arn}"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "e5c5304e-4277-4d41-bc06-514213d8b15a"
+        }
+      }
+    },
+    "LeoBusApiProcessor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.1/LeoBusApiProcessor_1.0.0.zip"
+        },
+        "Description": "Handles api request to the bus",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": "",
+            "leosdk": {
+              "Fn::Sub": "{\"region\":\"${AWS::Region}\",\"kinesis\":\"${LeoKinesisStream}\",\"s3\":\"${LeoS3}\",\"firehose\":\"${LeoFirehoseStream}\",\"resources\":{\"LeoStream\":\"${LeoStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoFirehoseStream\":\"${LeoFirehoseStream}\",\"Region\":\"${AWS::Region}\"}}"
+            }
+          }
+        },
+        "MemorySize": 1536,
+        "Runtime": "nodejs6.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoBotRole.Arn}"
+        }
+      }
+    },
+    "LeoMonitorMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "BatchSize": 500,
+        "Enabled": true,
+        "StartingPosition": "TRIM_HORIZON",
+        "EventSourceArn": {
+          "Fn::Sub": "${LeoCron.StreamArn}"
+        },
+        "FunctionName": {
+          "Ref": "LeoMonitor"
+        }
+      }
+    },
+    "LeoMonitor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.1/LeoMonitor_1.0.0.zip"
+        },
+        "Description": "Writes bot stats to a queue",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": "",
+            "leosdk": {
+              "Fn::Sub": "{\"region\":\"${AWS::Region}\",\"kinesis\":\"${LeoKinesisStream}\",\"s3\":\"${LeoS3}\",\"firehose\":\"${LeoFirehoseStream}\",\"resources\":{\"LeoStream\":\"${LeoStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoFirehoseStream\":\"${LeoFirehoseStream}\",\"Region\":\"${AWS::Region}\"}}"
+            }
+          }
+        },
+        "MemorySize": 256,
+        "Runtime": "nodejs6.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoCronRole.Arn}"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "Role": {
+      "Description": "Role for Read/Write to the Bus",
+      "Value": {
+        "Fn::Sub": "${LeoBotRole.Arn}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-Role"
+        }
+      }
+    },
+    "Policy": {
+      "Description": "Policy for Read/Write to the Bus",
+      "Value": {
+        "Ref": "LeoBotPolicy"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-Policy"
+        }
+      }
+    },
+    "LeoStream": {
+      "Description": "LeoStream Table",
+      "Value": {
+        "Fn::Sub": "${LeoStream}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-LeoStream"
+        }
+      }
+    },
+    "LeoCron": {
+      "Description": "LeoCron Table",
+      "Value": {
+        "Fn::Sub": "${LeoCron}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-LeoCron"
+        }
+      }
+    },
+    "LeoEvent": {
+      "Description": "LeoEvent Table",
+      "Value": {
+        "Fn::Sub": "${LeoEvent}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-LeoEvent"
+        }
+      }
+    },
+    "LeoSettings": {
+      "Description": "LeoSettings Table",
+      "Value": {
+        "Fn::Sub": "${LeoSettings}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-LeoSettings"
+        }
+      }
+    },
+    "LeoSystem": {
+      "Description": "LeoSystem Table",
+      "Value": {
+        "Fn::Sub": "${LeoSystem}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-LeoSystem"
+        }
+      }
+    },
+    "LeoS3": {
+      "Description": "Leo S3 Bucket",
+      "Value": {
+        "Fn::Sub": "${LeoS3}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-LeoS3"
+        }
+      }
+    },
+    "LeoKinesisStream": {
+      "Description": "Leo Kinesis Stream",
+      "Value": {
+        "Fn::Sub": "${LeoKinesisStream}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-LeoKinesisStream"
+        }
+      }
+    },
+    "LeoFirehoseStream": {
+      "Description": "Leo Firehose Stream",
+      "Value": {
+        "Fn::Sub": "${LeoFirehoseStream}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-LeoFirehoseStream"
+        }
+      }
+    },
+    "Region": {
+      "Description": "Leo Region",
+      "Value": {
+        "Fn::Sub": "${AWS::Region}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-Region"
+        }
+      }
+    },
+    "Register": {
+      "Description": "Leo Register Bot",
+      "Value": {
+        "Fn::Sub": "${LeoInstallFunction.Arn}"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-Register"
+        }
+      }
+    }
+  }
 }

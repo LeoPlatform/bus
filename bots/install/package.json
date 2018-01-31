@@ -1,7 +1,8 @@
 {
 	"name": "Leo_install",
 	"version": "1.0.0",
-	"description": "This is a sample BOT Description",
+	"description": "Installs Bus bots into LeoCron table and registers external bots",
+	"logicalResource": "LeoInstallFunction",
 	"main": "index.js",
 	"directories": {
 		"test": "test"
@@ -14,9 +15,7 @@
 			"type": "raw",
 			"name": "Leo_install",
 			"handler": "handler",
-			"aws": {
-				"role": "!core.roles.FirehoseRole"
-			},
+			"role": "LeoInstallRole",
 			"memory": 640,
 			"timeout": 300,
 			"cron": {
@@ -26,6 +25,19 @@
 				"triggers": [
 					"commands.s3_bus_load_v2"
 				]
+			},
+			"env": {
+				"Resources": {
+					"LeoS3LoadTrigger": "${LeoS3LoadTrigger}",
+					"LeoS3": "${LeoS3}",
+					"LeoCron": "${LeoCron}",
+					"LeoFirehoseStreamProcessor": "${LeoFirehoseStreamProcessor}",
+					"LeoSettings": "${LeoSettings}",
+					"LeoBotPolicy": "${LeoBotPolicy}",
+					"LeoFirehoseRole": "${LeoFirehoseRole}",
+					"LeoSystem": "${LeoSystem}",
+					"Region": "${AWS::Region}"
+				}
 			}
 		}
 	},
