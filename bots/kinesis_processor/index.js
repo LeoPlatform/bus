@@ -17,11 +17,31 @@ const EventTable = leo.configuration.resources.LeoEvent;
 
 
 exports.handler = function (event, context, callback) {
-	var timestamp = moment(event.Records[0].kinesis.approximateArrivalTimestamp * 1000);
+
+	let eventsToSkip = {};
+	let botsToSkip = {};
+
+	if (process.env.skip_events) {
+		eventsToSkip = process.env.skip_events.split(",").reduce((out, e) => {
+			console.log(`Skipping all events to queue "${e}"`);
+			out[refUtil.ref(e)] = true;
+			out[e] = true;
+			return out;
+		}, {})
+	}
+	if (process.env.skip_bots) {
+		botsToSkip = process.env.skip_bots.split(",").reduce((out, e) => {
+			console.log(`Skipping all events from bot "${e}"`);
+			out[e] = true;
+			return out;
+		}, {})
+	}
+
+	var timestamp = moment.utc(event.Records[0].kinesis.approximateArrivalTimestamp * 1000);
 	var ttl = timestamp.clone().add(1, "week").valueOf();
 
-	var diff = moment.duration(moment().diff(timestamp));
-	var currentTimeMilliseconds = moment().valueOf();
+	var diff = moment.duration(moment.utc().diff(timestamp));
+	var currentTimeMilliseconds = moment.utc().valueOf();
 
 	var useS3Mode = false;
 	if (diff.asSeconds() > 3 || event.Records.length > 100) {
@@ -154,7 +174,7 @@ exports.handler = function (event, context, callback) {
 	var stream = ls.parse();
 	ls.pipe(stream, ls.through((event, callback) => {
 		//We can't process it without these
-		if (!event.event || ((!event.id || !event.payload) && !event.s3)) {
+		if (!event.event || ((!event.id || !event.payload) && !event.s3) || eventsToSkip[event.event] || botsToSkip[event.id]) {
 			callback(null);
 			return;
 		}

@@ -33,7 +33,8 @@
 					"LeoKinesisStream": "${LeoKinesisStream}",
 					"LeoCron": "${LeoCron}",
 					"LeoEvent": "${LeoEvent}",
-					"LeoSettings": "${LeoSettings}"
+					"LeoSettings": "${LeoSettings}",
+					"Region": "${AWS::Region}"
 				}
 			}
 		}

@@ -11,7 +11,8 @@ module.exports = function (resource, data) {
 	delete data.LeoRegisterType;
 
 	if (type == "bot") {
-		return leo.bot.createBot(id, data);
+		data.paused = data.paused == undefined ? true : data.paused;
+		return leo.bot.createBot(id, data, { fields: { paused: { once: true } } });
 	} else if (type == "system") {
 		return new Promise((resolve, reject) => {
 			leo.aws.dynamodb.merge(leo.configuration.resources.LeoSystem, id, data, (err) => {

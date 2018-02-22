@@ -21,7 +21,8 @@
 			"env": {
 				"Resources": {
 					"LeoCron": "${LeoCron}",
-					"LeoSettings": "${LeoSettings}"
+					"LeoSettings": "${LeoSettings}",
+					"Region": "${AWS::Region}"
 				}
 			},
 			"role": "LeoCronRole",
@@ -32,7 +33,6 @@
 			}
 		}
 	},
-
 	"keywords": [],
 	"author": "",
 	"license": "ISC",

@@ -30,7 +30,8 @@
 					"LeoCron": "${LeoCron}",
 					"LeoEvent": "${LeoEvent}",
 					"LeoSettings": "${LeoSettings}",
-					"LeoSystem": "${LeoSystem}"
+					"LeoSystem": "${LeoSystem}",
+					"Region": "${AWS::Region}"
 				}
 			}
 		}

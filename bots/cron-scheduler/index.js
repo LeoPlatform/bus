@@ -25,103 +25,103 @@ function setup(timeouts, last_shutdown_time, done) {
 	dynamodb.query({
 		TableName: CRON_TABLE
 	}, {
-		method: "scan",
-		mb: 10
-	}).then(function (results) {
-		console.log("Got Cron Table", process.memoryUsage());
-		// Set a time out for each cron
-		results.Items.forEach(e => {
-			try {
-				var eid = e.id;
-				var existing = timeouts[eid];
-				if (existing) {
-					if (e.time == existing.time && e.lambdaName && !e.archived) {
-						return;
+			method: "scan",
+			mb: 10
+		}).then(function (results) {
+			console.log("Got Cron Table", process.memoryUsage());
+			// Set a time out for each cron
+			results.Items.forEach(e => {
+				try {
+					var eid = e.id;
+					var existing = timeouts[eid];
+					if (existing) {
+						if (e.time == existing.time && e.lambdaName && !e.archived) {
+							return;
+						}
+						existing.interval.clear();
+						delete timeouts[eid];
+						var msg = "";
+						if (e.archived) {
+							msg = `, archived`
+						}
+						if (!e.lambdaName) {
+							msg += ", empty lambdaName"
+						}
+						console.log(eid, e.name, `: removed ${existing.time}${msg}`);
 					}
-					existing.interval.clear();
-					delete timeouts[eid];
-					var msg = "";
-					if (e.archived) {
-						msg = `, archived`
-					}
-					if (!e.lambdaName) {
-						msg += ", empty lambdaName"
-					}
-					console.log(eid, e.name, `: removed ${existing.time}${msg}`);
-				}
-				if (e.time && e.lambdaName && !e.archived) {
-					var parser = (e.time.match(/[a-z]/ig)) ? "text" : "cron";
-					var sched = later.parse[parser](e.time, true);
+					if (e.time && e.lambdaName && !e.archived) {
+						var parser = (e.time.match(/[a-z]/ig)) ? "text" : "cron";
+						var sched = later.parse[parser](e.time, true);
 
-					// Check for missed trigger while restarting
-					var prev = later.schedule(sched).prev().valueOf();
-					if (prev >= last_shutdown_time && !e.paused) {
-						setTrigger(eid, {
-							trigger: moment.now()
-						}, function () {
-							console.log(`${eid}: Setting Missed Trigger Status - Missed: ${prev} >= Last Shutdown: ${last_shutdown_time}`)
-						});
-					}
-
-					later.schedule(sched).next(60);
-					console.log(eid, e.name, `: added ${e.time}`);
-					timeouts[eid] = {
-						time: e.time,
-						interval: later.setInterval(function () {
+						// Check for missed trigger while restarting
+						var prev = later.schedule(sched).prev().valueOf();
+						if (prev >= last_shutdown_time && !e.paused) {
 							setTrigger(eid, {
 								trigger: moment.now()
 							}, function () {
-								console.log(`${eid}: Setting Trigger Status`)
+								console.log(`${eid}: Setting Missed Trigger Status - Missed: ${prev} >= Last Shutdown: ${last_shutdown_time}`)
 							});
-						}, sched)
-					};
-				}
+						}
 
-				var retryQueue = `bot.${eid}.retry`;
-				var retryRead = e.checkpoints && e.checkpoints.read && e.checkpoints.read[retryQueue] && e.checkpoints.read[retryQueue].checkpoint || undefined;
-				var retryWrite = e.checkpoints && e.checkpoints.write && e.checkpoints.write[retryQueue] && e.checkpoints.write[retryQueue].checkpoint || undefined;
-				var retryid = `__retry.${eid}`;
-
-				if (retryWrite && (!retryRead || retryRead < retryWrite)) {
-					if (!(retryid in timeouts)) {
-						console.log(retryid, "*************** Retry Setup");
-						// setup 1 minute timer for retries
-						var time = "0 */1 * * * *";
-						var sched = later.parse.cron(time, true);
-						timeouts[retryid] = {
-							time: time,
+						later.schedule(sched).next(60);
+						console.log(eid, e.name, `: added ${e.time}`);
+						timeouts[eid] = {
+							time: e.time,
 							interval: later.setInterval(function () {
 								setTrigger(eid, {
-									namedTrigger: {
-										retry: moment.now()
-									},
-									namedSettings: {
-										retry: {
-											source: `bot.${eid}.retry`
-										}
-									}
-								}, {
-									merge: true
-								}, function (err) {
-									console.log(`${retryid}: Setting Retry Trigger Status`, err);
+									trigger: moment.now()
+								}, function () {
+									console.log(`${eid}: Setting Trigger Status`)
 								});
 							}, sched)
 						};
 					}
-				} else {
-					if (retryid in timeouts) {
-						existing[retryid].interval.clear();
-						delete timeouts[retryid];
-					}
-				}
 
-			} catch (ex) {
-				console.log(e)
-				console.log(e.id, ex);
-			}
-		});
-		done();
-	}).catch(done);
+					var retryQueue = `bot.${eid}.retry`;
+					var retryRead = e.checkpoints && e.checkpoints.read && e.checkpoints.read[retryQueue] && e.checkpoints.read[retryQueue].checkpoint || undefined;
+					var retryWrite = e.checkpoints && e.checkpoints.write && e.checkpoints.write[retryQueue] && e.checkpoints.write[retryQueue].checkpoint || undefined;
+					var retryid = `__retry.${eid}`;
+
+					if (retryWrite && (!retryRead || retryRead < retryWrite)) {
+						if (!(retryid in timeouts)) {
+							console.log(retryid, "*************** Retry Setup");
+							// setup 1 minute timer for retries
+							var time = "0 */1 * * * *";
+							var sched = later.parse.cron(time, true);
+							timeouts[retryid] = {
+								time: time,
+								interval: later.setInterval(function () {
+									setTrigger(eid, {
+										namedTrigger: {
+											retry: moment.now()
+										},
+										namedSettings: {
+											retry: {
+												source: `bot.${eid}.retry`
+											}
+										}
+									}, {
+											merge: true
+										}, function (err) {
+											console.log(`${retryid}: Setting Retry Trigger Status`, err);
+										});
+								}, sched)
+							};
+						}
+					} else {
+						if (retryid in timeouts) {
+							existing[retryid].interval.clear();
+							delete timeouts[retryid];
+						}
+					}
+
+				} catch (ex) {
+					console.log(e)
+					console.log(e.id, ex);
+				}
+			});
+			done();
+		}).catch(done);
 }
 
 function timerHandler(event, context, done) {

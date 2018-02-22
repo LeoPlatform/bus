@@ -23,13 +23,13 @@
 				"Resources": {
 					"LeoCron": "${LeoCron}",
 					"LeoSettings": "${LeoSettings}",
-					"LeoSystem": "${LeoSystem}"
+					"LeoSystem": "${LeoSystem}",
+					"Region": "${AWS::Region}"
 				}
 			},
 			"role": "LeoCronRole"
 		}
 	},
-
 	"keywords": [],
 	"author": "",
 	"license": "ISC",

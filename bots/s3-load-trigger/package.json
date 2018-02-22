@@ -30,7 +30,8 @@
 				"Resources": {
 					"LeoKinesisStream": "${LeoKinesisStream}",
 					"LeoSettings": "${LeoSettings}",
-					"LeoS3": "${LeoS3}"
+					"LeoS3": "${LeoS3}",
+					"Region": "${AWS::Region}"
 				}
 			}
 		}
