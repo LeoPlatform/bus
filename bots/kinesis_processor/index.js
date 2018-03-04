@@ -16,7 +16,7 @@ const EventTable = leo.configuration.resources.LeoEvent;
 
 
 
-exports.handler = function (event, context, callback) {
+exports.handler = function(event, context, callback) {
 
 	let eventsToSkip = {};
 	let botsToSkip = {};
@@ -54,11 +54,15 @@ exports.handler = function (event, context, callback) {
 	var eventId = "z/" + timestamp.format("YYYY/MM/DD/HH/mm/" + timestamp.valueOf());
 	var recordCount = 0;
 
-	function getEventStream(event) {
+	function getEventStream(event, forcePrefix) {
 		if (!(event in events)) {
 			console.log("new event", event);
 			var assignIds = ls.through((obj, done) => {
-				obj.start = eventId + "-" + (pad + recordCount).slice(padLength);
+				if (forcePrefix) {
+					obj.start = forcePrefix + "/" + timestamp.valueOf() + "-" + (pad + recordCount).slice(padLength);
+				} else {
+					obj.start = eventId + "-" + (pad + recordCount).slice(padLength);
+				}
 				maxKinesis[event].max = obj.end = eventId + "-" + (pad + (recordCount + obj.end)).slice(padLength);
 				recordCount += obj.records;
 				obj.v = 2;
@@ -142,7 +146,7 @@ exports.handler = function (event, context, callback) {
 						for (let bot in stats) {
 							for (let event in stats[bot]) {
 								let stat = stats[bot][event];
-								checkpointTasks.push(function (done) {
+								checkpointTasks.push(function(done) {
 									cron.checkpoint(bot, event, {
 										eid: eventId + "-" + (pad + stat.checkpoint).slice(padLength),
 										source_timestamp: stat.start,
@@ -150,14 +154,14 @@ exports.handler = function (event, context, callback) {
 										ended_timestamp: timestamp.valueOf(),
 										records: stat.units,
 										type: "write"
-									}, function (err) {
+									}, function(err) {
 										done(err);
 									});
 								});
 							}
 						}
 						console.log("checkpointing");
-						async.parallelLimit(checkpointTasks, 100, function (err) {
+						async.parallelLimit(checkpointTasks, 100, function(err) {
 							if (err) {
 								console.log(err);
 								callback(err);
@@ -174,11 +178,24 @@ exports.handler = function (event, context, callback) {
 	var stream = ls.parse();
 	ls.pipe(stream, ls.through((event, callback) => {
 		//We can't process it without these
-		if (!event.event || ((!event.id || !event.payload) && !event.s3) || eventsToSkip[event.event] || botsToSkip[event.id]) {
+		if (event._cmd) {
+			if (event._cmd == "registerSnapshot") {
+				leo.aws.dynamodb.update(EventTable, event.event, {
+					snapshot_start: event.start,
+					snapshot_end: event.end,
+					snapshot_continue: event.continueFrom
+				}, callback);
+			}
+		} else if (!event.event || ((!event.id || !event.payload) && !event.s3) || eventsToSkip[event.event] || botsToSkip[event.id]) {
 			callback(null);
 			return;
 		}
-		event.event = refUtil.ref(event.event).queue().id;
+
+		if (event.snapshot) {
+			event.event = refUtil.ref(event.event + "/_snapshot").queue().id;
+		} else {
+			event.event = refUtil.ref(event.event).queue().id;
+		}
 
 		//If it is missing these, we can just create them.
 		if (!event.timestamp) {
@@ -188,8 +205,8 @@ exports.handler = function (event, context, callback) {
 			event.event_source_timestamp = event.timestamp;
 		}
 
-		getEventStream(event.event, eventId, useS3Mode).write(event, callback);
-	}), function (err) {
+		getEventStream(event.event, event.snapshot).write(event, callback);
+	}), function(err) {
 		if (err) {
 			callback(err);
 		} else {
