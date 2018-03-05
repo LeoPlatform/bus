@@ -49,6 +49,7 @@ exports.handler = function(event, context, callback) {
 	}
 	var events = {};
 	var maxKinesis = {};
+	var snapshots = {};
 	var stats = {};
 
 	let eventIdFormat = "[z/]YYYY/MM/DD/HH/mm/";
@@ -128,6 +129,33 @@ exports.handler = function(event, context, callback) {
 							v: 2
 						}
 					});
+
+					if (event.match(/\/_archive$/)) {
+						let oEvent = event.replace(/\/_archive$/, '');
+
+						eventUpdateTasks.push({
+							table: EventTable,
+							key: {
+								event: oEvent
+							},
+							set: {
+								archive: {
+									end: maxKinesis[event].max
+								}
+							}
+						});
+					} else if (event.match(/\/_snapshot$/)) {
+						let oEvent = event.replace(/\/_snapshot$/, '');
+						eventUpdateTasks.push({
+							table: EventTable,
+							key: {
+								event: oEvent
+							},
+							set: {
+								snapshot: snapshots[event]
+							}
+						});
+					}
 					done();
 				}).on("error", (err) => {
 					console.log(err);
@@ -185,15 +213,14 @@ exports.handler = function(event, context, callback) {
 		//We can't process it without these
 		if (event._cmd) {
 			if (event._cmd == "registerSnapshot") {
-				//@TODO This should not happen inline, should happen with the other event update tasks.
-				leo.aws.dynamodb.update(EventTable, event.event, {
-					snapshot_start: "_snapshot/" + moment(event.start).format(eventIdFormat),
-					snapshot_next: moment(event.next).format(eventIdFormat)
-				}, callback);
+				snapshots[refUtil.ref(event.event + "/_snapshot").queue().id] = {
+					start: "_snapshot/" + moment(event.start).format(eventIdFormat),
+					next: moment(event.next).format(eventIdFormat)
+				};
 			}
+			return callback();
 		} else if (!event.event || ((!event.id || !event.payload) && !event.s3) || eventsToSkip[event.event] || botsToSkip[event.id]) {
-			callback(null);
-			return;
+			return callback(null);
 		}
 		let forceEventId = null;
 		let archive = null;
