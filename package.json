@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/LeoPlatform/bus#readme",
   "dependencies": {
-    "leo-sdk": "^1.0.33"
+    "leo-sdk": "^1.0.33",
+    "moment": "^2.21.0"
   },
   "config": {
     "leo": {
