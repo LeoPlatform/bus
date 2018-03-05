@@ -16,7 +16,7 @@ const EventTable = leo.configuration.resources.LeoEvent;
 
 
 
-exports.handler = function (event, context, callback) {
+exports.handler = function(event, context, callback) {
 
 	let eventsToSkip = {};
 	let botsToSkip = {};
@@ -27,14 +27,14 @@ exports.handler = function (event, context, callback) {
 			out[refUtil.ref(e)] = true;
 			out[e] = true;
 			return out;
-		}, {})
+		}, {});
 	}
 	if (process.env.skip_bots) {
 		botsToSkip = process.env.skip_bots.split(",").reduce((out, e) => {
 			console.log(`Skipping all events from bot "${e}"`);
 			out[e] = true;
 			return out;
-		}, {})
+		}, {});
 	}
 
 	var timestamp = moment.utc(event.Records[0].kinesis.approximateArrivalTimestamp * 1000);
@@ -49,21 +49,31 @@ exports.handler = function (event, context, callback) {
 	}
 	var events = {};
 	var maxKinesis = {};
+	var snapshots = {};
 	var stats = {};
 
-	var eventId = "z/" + timestamp.format("YYYY/MM/DD/HH/mm/" + timestamp.valueOf());
+	let eventIdFormat = "[z/]YYYY/MM/DD/HH/mm/";
+	var eventId = timestamp.format(eventIdFormat) + timestamp.valueOf();
 	var recordCount = 0;
 
-	function getEventStream(event) {
+	function getEventStream(event, forceEventId, archive = null) {
 		if (!(event in events)) {
-			console.log("new event", event);
 			var assignIds = ls.through((obj, done) => {
-				obj.start = eventId + "-" + (pad + recordCount).slice(padLength);
-				maxKinesis[event].max = obj.end = eventId + "-" + (pad + (recordCount + obj.end)).slice(padLength);
+				if (archive) {
+					obj.end = archive.end;
+					obj.start = archive.start;
+				} else {
+					if (forceEventId) {
+						obj.start = forceEventId + "-" + (pad + recordCount).slice(padLength);
+					} else {
+						obj.start = eventId + "-" + (pad + recordCount).slice(padLength);
+					}
+					obj.end = eventId + "-" + (pad + (recordCount + obj.end)).slice(padLength);
+					obj.ttl = ttl;
+				}
+				maxKinesis[event].max = obj.end;
 				recordCount += obj.records;
 				obj.v = 2;
-
-				obj.ttl = ttl;
 
 				for (let botid in obj.stats) {
 					if (!(botid in stats)) {
@@ -119,6 +129,22 @@ exports.handler = function (event, context, callback) {
 							v: 2
 						}
 					});
+
+					if (event.match(/\/_archive$/)) {
+						let oEvent = event.replace(/\/_archive$/, '');
+
+						eventUpdateTasks.push({
+							table: EventTable,
+							key: {
+								event: oEvent
+							},
+							set: {
+								archive: {
+									end: maxKinesis[event].max
+								}
+							}
+						});
+					}
 					done();
 				}).on("error", (err) => {
 					console.log(err);
@@ -127,6 +153,20 @@ exports.handler = function (event, context, callback) {
 				events[event].end();
 			});
 		}
+
+		Object.keys(snapshots).forEach(event => {
+			let oEvent = event.replace(/\/_snapshot$/, '');
+			eventUpdateTasks.push({
+				table: EventTable,
+				key: {
+					event: oEvent
+				},
+				set: {
+					snapshot: snapshots[event]
+				}
+			});
+		});
+
 		async.parallel(tasks, (err) => {
 			if (err) {
 				console.log("error");
@@ -134,7 +174,7 @@ exports.handler = function (event, context, callback) {
 				callback(err);
 			} else {
 				console.log("finished writing");
-				leo.aws.dynamodb.updateMulti(eventUpdateTasks, (err, results) => {
+				leo.aws.dynamodb.updateMulti(eventUpdateTasks, (err) => {
 					if (err) {
 						callback("Cannot write event locations to dynamoDB");
 					} else {
@@ -142,7 +182,7 @@ exports.handler = function (event, context, callback) {
 						for (let bot in stats) {
 							for (let event in stats[bot]) {
 								let stat = stats[bot][event];
-								checkpointTasks.push(function (done) {
+								checkpointTasks.push(function(done) {
 									cron.checkpoint(bot, event, {
 										eid: eventId + "-" + (pad + stat.checkpoint).slice(padLength),
 										source_timestamp: stat.start,
@@ -150,14 +190,14 @@ exports.handler = function (event, context, callback) {
 										ended_timestamp: timestamp.valueOf(),
 										records: stat.units,
 										type: "write"
-									}, function (err) {
+									}, function(err) {
 										done(err);
 									});
 								});
 							}
 						}
 						console.log("checkpointing");
-						async.parallelLimit(checkpointTasks, 100, function (err) {
+						async.parallelLimit(checkpointTasks, 100, function(err) {
 							if (err) {
 								console.log(err);
 								callback(err);
@@ -174,11 +214,31 @@ exports.handler = function (event, context, callback) {
 	var stream = ls.parse();
 	ls.pipe(stream, ls.through((event, callback) => {
 		//We can't process it without these
-		if (!event.event || ((!event.id || !event.payload) && !event.s3) || eventsToSkip[event.event] || botsToSkip[event.id]) {
-			callback(null);
-			return;
+		if (event._cmd) {
+			if (event._cmd == "registerSnapshot") {
+				snapshots[refUtil.ref(event.event + "/_snapshot").queue().id] = {
+					start: "_snapshot/" + moment(event.start).format(eventIdFormat),
+					next: moment(event.next).format(eventIdFormat)
+				};
+			}
+			return callback();
+		} else if (!event.event || ((!event.id || !event.payload) && !event.s3) || eventsToSkip[event.event] || botsToSkip[event.id]) {
+			return callback(null);
 		}
-		event.event = refUtil.ref(event.event).queue().id;
+		let forceEventId = null;
+		let archive = null;
+		if (event.archive) {
+			event.event = refUtil.ref(event.event + "/_archive").queue().id;
+			archive = {
+				start: event.start,
+				end: event.end
+			};
+		} else if (event.snapshot) {
+			event.event = refUtil.ref(event.event + "/_snapshot").queue().id;
+			forceEventId = moment(event.snapshot).format(eventIdFormat) + timestamp.valueOf();
+		} else {
+			event.event = refUtil.ref(event.event).queue().id;
+		}
 
 		//If it is missing these, we can just create them.
 		if (!event.timestamp) {
@@ -187,9 +247,8 @@ exports.handler = function (event, context, callback) {
 		if (!event.event_source_timestamp) {
 			event.event_source_timestamp = event.timestamp;
 		}
-
-		getEventStream(event.event, eventId, useS3Mode).write(event, callback);
-	}), function (err) {
+		getEventStream(event.event, forceEventId, archive).write(event, callback);
+	}), function(err) {
 		if (err) {
 			callback(err);
 		} else {
@@ -200,9 +259,9 @@ exports.handler = function (event, context, callback) {
 		if (record.kinesis.data[0] === 'H') {
 			stream.write(zlib.gunzipSync(new Buffer(record.kinesis.data, 'base64')));
 		} else if (record.kinesis.data[0] === 'e' && record.kinesis.data[1] === 'J') {
-			stream.write(zlib.inflateSync(new Buffer(record.kinesis.data, 'base64')))
+			stream.write(zlib.inflateSync(new Buffer(record.kinesis.data, 'base64')));
 		} else if (record.kinesis.data[0] === 'e' && record.kinesis.data[1] === 'y') {
-			stream.write(Buffer.from(record.kinesis.data, 'base64').toString() + "\n")
+			stream.write(Buffer.from(record.kinesis.data, 'base64').toString() + "\n");
 		}
 	});
 	stream.end();

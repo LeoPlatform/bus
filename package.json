@@ -1,10 +1,10 @@
 {
   "name": "leo-bus",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Improve Kinesis burstability, durability, and replay",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --recursive -w",
     "setup": "setup"
   },
   "repository": {
@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/LeoPlatform/bus#readme",
   "dependencies": {
-    "leo-sdk": "^1.0.33"
+    "leo-sdk": "^1.0.33",
+    "moment": "^2.21.0"
   },
   "config": {
     "leo": {
