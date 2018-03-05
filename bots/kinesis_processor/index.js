@@ -55,20 +55,24 @@ exports.handler = function(event, context, callback) {
 	var eventId = timestamp.format(eventIdFormat) + timestamp.valueOf();
 	var recordCount = 0;
 
-	function getEventStream(event, forceEventId) {
+	function getEventStream(event, forceEventId, archive = null) {
 		if (!(event in events)) {
-			console.log("new event", event);
 			var assignIds = ls.through((obj, done) => {
-				if (forceEventId) {
-					obj.start = forceEventId + "-" + (pad + recordCount).slice(padLength);
+				if (archive) {
+					obj.end = archive.end;
+					obj.start = archive.start;
 				} else {
-					obj.start = eventId + "-" + (pad + recordCount).slice(padLength);
+					if (forceEventId) {
+						obj.start = forceEventId + "-" + (pad + recordCount).slice(padLength);
+					} else {
+						obj.start = eventId + "-" + (pad + recordCount).slice(padLength);
+					}
+					obj.end = eventId + "-" + (pad + (recordCount + obj.end)).slice(padLength);
+					obj.ttl = ttl;
 				}
-				maxKinesis[event].max = obj.end = eventId + "-" + (pad + (recordCount + obj.end)).slice(padLength);
+				maxKinesis[event].max = obj.end;
 				recordCount += obj.records;
 				obj.v = 2;
-
-				obj.ttl = ttl;
 
 				for (let botid in obj.stats) {
 					if (!(botid in stats)) {
@@ -192,7 +196,14 @@ exports.handler = function(event, context, callback) {
 			return;
 		}
 		let forceEventId = null;
-		if (event.snapshot) {
+		let archive = null;
+		if (event.archive) {
+			event.event = refUtil.ref(event.event + "/_archive").queue().id;
+			archive = {
+				start: event.start,
+				end: event.end
+			};
+		} else if (event.snapshot) {
 			event.event = refUtil.ref(event.event + "/_snapshot").queue().id;
 			forceEventId = moment(event.snapshot).format(eventIdFormat) + timestamp.valueOf();
 		} else {
@@ -206,7 +217,7 @@ exports.handler = function(event, context, callback) {
 		if (!event.event_source_timestamp) {
 			event.event_source_timestamp = event.timestamp;
 		}
-		getEventStream(event.event, forceEventId).write(event, callback);
+		getEventStream(event.event, forceEventId, archive).write(event, callback);
 	}), function(err) {
 		if (err) {
 			callback(err);
