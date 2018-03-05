@@ -194,7 +194,7 @@ exports.handler = function(event, context, callback) {
 		let forceEventId = null;
 		if (event.snapshot) {
 			event.event = refUtil.ref(event.event + "/_snapshot").queue().id;
-			forceEventId = moment(event.snapshot).format(eventIdFormat) + timestamp.valueOf();;
+			forceEventId = moment(event.snapshot).format(eventIdFormat) + timestamp.valueOf();
 		} else {
 			event.event = refUtil.ref(event.event).queue().id;
 		}
