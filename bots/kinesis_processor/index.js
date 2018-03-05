@@ -60,7 +60,7 @@ exports.handler = function(event, context, callback) {
 			console.log("new event", event);
 			var assignIds = ls.through((obj, done) => {
 				if (forceEventId) {
-					obj.start = forceEventId + timestamp.valueOf() + "-" + (pad + recordCount).slice(padLength);
+					obj.start = forceEventId + "-" + (pad + recordCount).slice(padLength);
 				} else {
 					obj.start = eventId + "-" + (pad + recordCount).slice(padLength);
 				}
@@ -194,7 +194,7 @@ exports.handler = function(event, context, callback) {
 		let forceEventId = null;
 		if (event.snapshot) {
 			event.event = refUtil.ref(event.event + "/_snapshot").queue().id;
-			forceEventId = moment(event.snapshot).format(eventIdFormat);
+			forceEventId = moment(event.snapshot).format(eventIdFormat) + timestamp.valueOf();;
 		} else {
 			event.event = refUtil.ref(event.event).queue().id;
 		}
