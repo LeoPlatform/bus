@@ -8,7 +8,7 @@
 		"test": "test"
 	},
 	"scripts": {
-		"test": "mocha --recursive "
+		"test": "leo test . "
 	},
 	"config": {
 		"leo": {
