@@ -144,17 +144,6 @@ exports.handler = function(event, context, callback) {
 								}
 							}
 						});
-					} else if (event.match(/\/_snapshot$/)) {
-						let oEvent = event.replace(/\/_snapshot$/, '');
-						eventUpdateTasks.push({
-							table: EventTable,
-							key: {
-								event: oEvent
-							},
-							set: {
-								snapshot: snapshots[event]
-							}
-						});
 					}
 					done();
 				}).on("error", (err) => {
@@ -164,6 +153,20 @@ exports.handler = function(event, context, callback) {
 				events[event].end();
 			});
 		}
+
+		Object.keys(snapshots).forEach(event => {
+			let oEvent = event.replace(/\/_snapshot$/, '');
+			eventUpdateTasks.push({
+				table: EventTable,
+				key: {
+					event: oEvent
+				},
+				set: {
+					snapshot: snapshots[event]
+				}
+			});
+		});
+
 		async.parallel(tasks, (err) => {
 			if (err) {
 				console.log("error");
