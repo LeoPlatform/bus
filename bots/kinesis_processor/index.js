@@ -27,14 +27,14 @@ exports.handler = function(event, context, callback) {
 			out[refUtil.ref(e)] = true;
 			out[e] = true;
 			return out;
-		}, {})
+		}, {});
 	}
 	if (process.env.skip_bots) {
 		botsToSkip = process.env.skip_bots.split(",").reduce((out, e) => {
 			console.log(`Skipping all events from bot "${e}"`);
 			out[e] = true;
 			return out;
-		}, {})
+		}, {});
 	}
 
 	var timestamp = moment.utc(event.Records[0].kinesis.approximateArrivalTimestamp * 1000);
@@ -51,15 +51,16 @@ exports.handler = function(event, context, callback) {
 	var maxKinesis = {};
 	var stats = {};
 
-	var eventId = "z/" + timestamp.format("YYYY/MM/DD/HH/mm/" + timestamp.valueOf());
+	let eventIdFormat = "[z/]YYYY/MM/DD/HH/mm/";
+	var eventId = timestamp.format(eventIdFormat) + timestamp.valueOf();
 	var recordCount = 0;
 
-	function getEventStream(event, forcePrefix) {
+	function getEventStream(event, forceEventId) {
 		if (!(event in events)) {
 			console.log("new event", event);
 			var assignIds = ls.through((obj, done) => {
-				if (forcePrefix) {
-					obj.start = forcePrefix + "/" + timestamp.valueOf() + "-" + (pad + recordCount).slice(padLength);
+				if (forceEventId) {
+					obj.start = forceEventId + timestamp.valueOf() + "-" + (pad + recordCount).slice(padLength);
 				} else {
 					obj.start = eventId + "-" + (pad + recordCount).slice(padLength);
 				}
@@ -138,7 +139,7 @@ exports.handler = function(event, context, callback) {
 				callback(err);
 			} else {
 				console.log("finished writing");
-				leo.aws.dynamodb.updateMulti(eventUpdateTasks, (err, results) => {
+				leo.aws.dynamodb.updateMulti(eventUpdateTasks, (err) => {
 					if (err) {
 						callback("Cannot write event locations to dynamoDB");
 					} else {
@@ -180,19 +181,20 @@ exports.handler = function(event, context, callback) {
 		//We can't process it without these
 		if (event._cmd) {
 			if (event._cmd == "registerSnapshot") {
+				//@TODO This should not happen inline, should happen with the other event update tasks.
 				leo.aws.dynamodb.update(EventTable, event.event, {
-					snapshot_start: event.start,
-					snapshot_end: event.end,
-					snapshot_continue: event.continueFrom
+					snapshot_start: "_snapshot/" + moment(event.start).format(eventIdFormat),
+					snapshot_next: moment(event.next).format(eventIdFormat)
 				}, callback);
 			}
 		} else if (!event.event || ((!event.id || !event.payload) && !event.s3) || eventsToSkip[event.event] || botsToSkip[event.id]) {
 			callback(null);
 			return;
 		}
-
+		let forceEventId = null;
 		if (event.snapshot) {
 			event.event = refUtil.ref(event.event + "/_snapshot").queue().id;
+			forceEventId = moment(event.snapshot).format(eventIdFormat);
 		} else {
 			event.event = refUtil.ref(event.event).queue().id;
 		}
@@ -204,8 +206,7 @@ exports.handler = function(event, context, callback) {
 		if (!event.event_source_timestamp) {
 			event.event_source_timestamp = event.timestamp;
 		}
-
-		getEventStream(event.event, event.snapshot).write(event, callback);
+		getEventStream(event.event, forceEventId).write(event, callback);
 	}), function(err) {
 		if (err) {
 			callback(err);
@@ -217,9 +218,9 @@ exports.handler = function(event, context, callback) {
 		if (record.kinesis.data[0] === 'H') {
 			stream.write(zlib.gunzipSync(new Buffer(record.kinesis.data, 'base64')));
 		} else if (record.kinesis.data[0] === 'e' && record.kinesis.data[1] === 'J') {
-			stream.write(zlib.inflateSync(new Buffer(record.kinesis.data, 'base64')))
+			stream.write(zlib.inflateSync(new Buffer(record.kinesis.data, 'base64')));
 		} else if (record.kinesis.data[0] === 'e' && record.kinesis.data[1] === 'y') {
-			stream.write(Buffer.from(record.kinesis.data, 'base64').toString() + "\n")
+			stream.write(Buffer.from(record.kinesis.data, 'base64').toString() + "\n");
 		}
 	});
 	stream.end();
