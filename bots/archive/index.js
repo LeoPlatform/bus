@@ -11,6 +11,18 @@ const EventTable = leo.configuration.resources.LeoEvent;
 console.log(leo.configuration);
 // Archive Handler
 exports.handler = (settings, context, callback) => {
+
+	ls.pipe(leo.read("TEST", "monitor", {
+		// start: 'z/',
+		start: "z/2018/01/20/"
+	}), ls.devnull(), err => {
+		console.log(err);
+		done();
+	});
+	return;
+
+
+
 	dynamodb.scan(EventTable, null, (err, data) => {
 		let maxEidToArchive = moment().format("[z]/YYYY/MM/DD");
 		let tasks = [];
@@ -20,7 +32,7 @@ exports.handler = (settings, context, callback) => {
 			}
 			queue.archive = Object.assign({
 				// end: 'z/0'
-				end: 'z/2018/01/21/09/50/1516553413029-0000002'
+				// end: 'z/2018/01/21/09/50/1516553413029-0000002'
 			}, queue.archive || {});
 			if (queue.max_eid &&
 				(!queue.archive ||
@@ -32,7 +44,7 @@ exports.handler = (settings, context, callback) => {
 					ls.pipe(leo.read('leo-archiver', queue.event, {
 						start: queue.archive.end,
 						loops: Number.POSITIVE_INFINITY,
-						stopTime: moment().add(240, "seconds"),
+						stopTime: moment().add(24, "seconds"),
 					}), ls.toS3GzipChunks(queue.event, {
 						useS3Mode: true,
 						time: {
