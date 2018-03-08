@@ -6,7 +6,7 @@
         "S3Bucket": "leo-cli-publishbucket-1rgojx1iw5yq9"
       },
       "us-east-1": {
-        "S3Bucket": "cli-publishbucket-v0jrrcgnp8bk"
+        "S3Bucket": "leo-cli-publishbucket-166d6oumno1f5"
       }
     }
   },
@@ -587,14 +587,14 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.1/LeoKinesisStreamProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.4/LeoKinesisStreamProcessor_1.0.0.zip"
         },
         "Description": "Ingests events from kinesis",
         "Handler": "index.handler",
         "Environment": {
           "Variables": {
             "Resources": {
-              "Fn::Sub": "{\"LeoStream\":\"${LeoStream}\",\"LeoS3\":\"${LeoS3}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoSystem\":\"${LeoSystem}\"}"
+              "Fn::Sub": "{\"LeoStream\":\"${LeoStream}\",\"LeoS3\":\"${LeoS3}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoSystem\":\"${LeoSystem}\",\"Region\":\"${AWS::Region}\"}"
             }
           }
         },
@@ -676,14 +676,14 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.1/LeoFirehoseStreamProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.4/LeoFirehoseStreamProcessor_1.0.0.zip"
         },
         "Description": "Ingests events from firehose",
         "Handler": "index.handler",
         "Environment": {
           "Variables": {
             "Resources": {
-              "Fn::Sub": "{\"LeoStream\":\"${LeoStream}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\"}"
+              "Fn::Sub": "{\"LeoStream\":\"${LeoStream}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"Region\":\"${AWS::Region}\"}"
             }
           }
         },
@@ -717,7 +717,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.1/LeoInstallFunction_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.4/LeoInstallFunction_1.0.0.zip"
         },
         "Description": "Installs Bus bots into LeoCron table and registers external bots",
         "Handler": "index.handler",
@@ -935,14 +935,14 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.1/LeoEventTrigger_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.4/LeoEventTrigger_1.0.0.zip"
         },
         "Description": "Triggers bots from a write to a queue",
         "Handler": "index.handler",
         "Environment": {
           "Variables": {
             "Resources": {
-              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\"}"
+              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"Region\":\"${AWS::Region}\"}"
             }
           }
         },
@@ -1249,14 +1249,14 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.1/LeoS3LoadTrigger_1.0.1.zip"
+          "S3Key": "leo-bus/release/2.0.4/LeoS3LoadTrigger_1.0.1.zip"
         },
         "Description": "Adds Load Events to the Bus Command Queue",
         "Handler": "index.handler",
         "Environment": {
           "Variables": {
             "Resources": {
-              "Fn::Sub": "{\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\"}"
+              "Fn::Sub": "{\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"Region\":\"${AWS::Region}\"}"
             }
           }
         },
@@ -1602,14 +1602,14 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.1/LeoCronProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.4/LeoCronProcessor_1.0.0.zip"
         },
         "Description": "Triggers bots to run by configuration",
         "Handler": "index.handler",
         "Environment": {
           "Variables": {
             "Resources": {
-              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoSystem\":\"${LeoSystem}\"}"
+              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoSystem\":\"${LeoSystem}\",\"Region\":\"${AWS::Region}\"}"
             }
           }
         },
@@ -1642,14 +1642,14 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.1/LeoCronScheduler_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.4/LeoCronScheduler_1.0.0.zip"
         },
         "Description": "Triggers bots to run by configuration",
         "Handler": "index.handler",
         "Environment": {
           "Variables": {
             "Resources": {
-              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\"}"
+              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"Region\":\"${AWS::Region}\"}"
             }
           }
         },
@@ -1750,7 +1750,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.1/LeoBusApiProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.4/LeoBusApiProcessor_1.0.0.zip"
         },
         "Description": "Handles api request to the bus",
         "Handler": "index.handler",
@@ -1814,6 +1814,36 @@
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoCronRole.Arn}"
+        }
+      }
+    },
+    "LeoArchiveProcessor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/release/2.0.4/LeoArchiveProcessor_1.0.0.zip"
+        },
+        "Description": "This is a sample BOT Description",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": "{}"
+          }
+        },
+        "MemorySize": 128,
+        "Runtime": "nodejs6.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${ApiRole.Arn}"
         }
       }
     }
@@ -1951,5 +1981,6 @@
         }
       }
     }
-  }
+  },
+  "Parameters": {}
 }

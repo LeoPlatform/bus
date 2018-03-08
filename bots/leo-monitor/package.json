@@ -18,6 +18,11 @@
 			"handler": "handler",
 			"timeout": 300,
 			"role": "LeoCronRole",
+			"cron": {
+				"id": "leo_cron_monitor",
+				"owner": "leo",
+				"lambdaName": null
+			},
 			"env": {
 				"leosdk": {
 					"region": "${AWS::Region}",
