@@ -65,10 +65,11 @@ exports.handler = function(event, context, callback) {
 				} else {
 					if (forceEventId) {
 						obj.start = forceEventId + "-" + (pad + recordCount).slice(padLength);
+						obj.end = forceEventId + "-" + (pad + (recordCount + obj.end)).slice(padLength);
 					} else {
 						obj.start = eventId + "-" + (pad + recordCount).slice(padLength);
+						obj.end = eventId + "-" + (pad + (recordCount + obj.end)).slice(padLength);
 					}
-					obj.end = eventId + "-" + (pad + (recordCount + obj.end)).slice(padLength);
 					obj.ttl = ttl;
 				}
 				maxKinesis[event].max = obj.end;
