@@ -587,7 +587,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/release/2.0.4/LeoKinesisStreamProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.5/LeoKinesisStreamProcessor_1.0.0.zip"
         },
         "Description": "Ingests events from kinesis",
         "Handler": "index.handler",
@@ -676,7 +676,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/release/2.0.4/LeoFirehoseStreamProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.5/LeoFirehoseStreamProcessor_1.0.0.zip"
         },
         "Description": "Ingests events from firehose",
         "Handler": "index.handler",
@@ -717,7 +717,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/release/2.0.4/LeoInstallFunction_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.5/LeoInstallFunction_1.0.0.zip"
         },
         "Description": "Installs Bus bots into LeoCron table and registers external bots",
         "Handler": "index.handler",
@@ -935,7 +935,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/release/2.0.4/LeoEventTrigger_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.5/LeoEventTrigger_1.0.0.zip"
         },
         "Description": "Triggers bots from a write to a queue",
         "Handler": "index.handler",
@@ -1249,7 +1249,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/release/2.0.4/LeoS3LoadTrigger_1.0.1.zip"
+          "S3Key": "leo-bus/release/2.0.5/LeoS3LoadTrigger_1.0.1.zip"
         },
         "Description": "Adds Load Events to the Bus Command Queue",
         "Handler": "index.handler",
@@ -1602,7 +1602,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/release/2.0.4/LeoCronProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.5/LeoCronProcessor_1.0.0.zip"
         },
         "Description": "Triggers bots to run by configuration",
         "Handler": "index.handler",
@@ -1642,7 +1642,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/release/2.0.4/LeoCronScheduler_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.5/LeoCronScheduler_1.0.0.zip"
         },
         "Description": "Triggers bots to run by configuration",
         "Handler": "index.handler",
@@ -1750,7 +1750,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/release/2.0.4/LeoBusApiProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.5/LeoBusApiProcessor_1.0.0.zip"
         },
         "Description": "Handles api request to the bus",
         "Handler": "index.handler",
@@ -1830,7 +1830,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/release/2.0.4/LeoArchiveProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/release/2.0.5/LeoArchiveProcessor_1.0.0.zip"
         },
         "Description": "This is a sample BOT Description",
         "Handler": "index.handler",
