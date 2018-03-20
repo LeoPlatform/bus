@@ -107,7 +107,7 @@ function read(request, context, callback) {
 		leo.read(request.id, request.queue, Object.assign({
 			size: 1024 * 1024 * 1
 		}, request.options)),
-		ls.write((event, enc, done) => {
+		ls.write((event, done) => {
 			events.push(event);
 			done();
 		}),
