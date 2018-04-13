@@ -31,7 +31,7 @@ var pollDuration = {
 	seconds: 30
 };
 
-exports.handler = function (event, context, done) {
+exports.handler = function(event, context, done) {
 	triggerHandler(event, context, done);
 };
 
@@ -46,19 +46,19 @@ function triggerHandler(event, context, done) {
 	};
 
 	if (event.Records.length >= 200) {
-		setup.push(function (done) {
+		setup.push(function(done) {
 			console.log("Looking up the Current Cron Table", event.Records.length)
 			var params = {
 				TableName: CRON_TABLE
 			}
 			dynamodb.query(params, {
 				method: "scan"
-			}).then(function (data) {
+			}).then(function(data) {
 				data.Items.forEach(item => {
 					cache._db[item.id] = item.instances;
 				});
 				done();
-			}).catch(function (err) {
+			}).catch(function(err) {
 				console.log(err);
 				done();
 			});
@@ -66,7 +66,7 @@ function triggerHandler(event, context, done) {
 	}
 
 	event.Records.forEach(record => {
-		setup.push(function (testDone) {
+		setup.push(function(testDone) {
 			var newImage = {
 				trigger: 0,
 				invokeTime: 0
@@ -90,7 +90,7 @@ function triggerHandler(event, context, done) {
 			doLogging(oldImage, newImage, diffArray);
 
 			cache._instances[newImage.id] = Object.assign(cache._instances[newImage.id] || {}, newImage.instances, cache._db[newImage.id]);
-			shouldRun(oldImage, newImage, cache, function (result) {
+			shouldRun(oldImage, newImage, cache, function(result) {
 				if (result && result.value) {
 					oldImage.timedout = result.timedout;
 					let addToCache = newImage.executionType && executionTypes[newImage.executionType] == "step-function";
@@ -157,8 +157,8 @@ function triggerHandler(event, context, done) {
 		});
 	});
 
-	async.series(setup, function (err, data) {
-		async.parallelLimit(all, 20, function (err, data) {
+	async.series(setup, function(err, data) {
+		async.parallelLimit(all, 20, function(err, data) {
 			if (err) {
 				console.log(err)
 			}
@@ -178,7 +178,7 @@ function shouldRun(oldImage, newImage, cache, callback) {
 
 	//console.log(`Type: ${newImage.executionType}, ${newImage.executionType && executionTypes[newImage.executionType]}`);
 	//console.log(JSON.stringify(newImage, null, 2));
-	if (newImage.errorCount > 10 || (newImage.paused && !newImage.ignorePaused) || !newImage.lambdaName) {
+	if ((newImage.errorCount > 10 && (Date.now() - invokeTime) < 300000) || (newImage.paused && !newImage.ignorePaused) || !newImage.lambdaName) {
 		console.log(`${newImage.id} - ${newImage.name}
             passes: false
 
@@ -240,7 +240,7 @@ function shouldRun(oldImage, newImage, cache, callback) {
 			getExecutions(cachedList.error, cachedList.data);
 		} else {
 			console.log("Get Step Function Executions from AWS");
-			stepfunctions.listExecutions(params, function (err, data) {
+			stepfunctions.listExecutions(params, function(err, data) {
 				console.log(JSON.stringify(params, null, 2))
 				console.log(JSON.stringify(data, null, 2))
 				cache[key] = {
@@ -392,8 +392,8 @@ function invokeLambda(lastCron, cron, payload) {
 			}
 		}, index);
 	}
-	return function (done) {
-		var setCheckpoint = function (checkpoint, callback) {
+	return function(done) {
+		var setCheckpoint = function(checkpoint, callback) {
 			//console.log(`${cron.id} checkpoint?`, checkpoint, cron.lambda.settings)
 			if (!!checkpoint && cron.lambda.settings) {
 
@@ -405,12 +405,12 @@ function invokeLambda(lastCron, cron, payload) {
 				var tasks = [];
 				settings.forEach(setting => {
 					if (setting.source) {
-						tasks.push(function (done) {
+						tasks.push(function(done) {
 							console.log("Updating Checkpoint for bot ", cron.id, setting.source, checkpoint);
 							cronLib.checkpoint(cron.id, setting.source, {
 								kinesis_number: checkpoint,
 								force: true
-							}, function (err) {
+							}, function(err) {
 								if (err) {
 									errors.push(err);
 								}
@@ -419,7 +419,7 @@ function invokeLambda(lastCron, cron, payload) {
 						});
 					}
 				});
-				async.series(tasks, function (err) {
+				async.series(tasks, function(err) {
 					callback(errors.length ? errors : null);
 				});
 			} else {
@@ -427,7 +427,7 @@ function invokeLambda(lastCron, cron, payload) {
 			}
 		}
 
-		setCheckpoint(cron.checkpoint, function (err) {
+		setCheckpoint(cron.checkpoint, function(err) {
 			if (err) {
 				console.log(cron.id, err);
 				console.log("Error Setting checkpoint for " + cron.id + " to value " + cron.checkpoint);
@@ -475,7 +475,7 @@ function invokeLambda(lastCron, cron, payload) {
 			//console.log(JSON.stringify(command, null, 2));
 
 			console.log(`${cron.id} - ${cron.name} - ${payload.__cron.iid} Adding lock`)
-			dynamodb.docClient.update(command, function (err) {
+			dynamodb.docClient.update(command, function(err) {
 				if (err) {
 					console.log(`${cron.id} - ${cron.name} - ${payload.__cron.iid}`, err, command);
 					console.log(`${cron.id} - ${cron.name} - ${payload.__cron.iid} Failed to Create Lock`);
@@ -492,7 +492,7 @@ function invokeLambda(lastCron, cron, payload) {
 						};
 						console.log(`${cron.id} - ${cron.name} - ${payload.__cron.iid} Invoking StateMachine with params:`)
 						console.log(cron.id, payload.__cron.iid, JSON.stringify(params, null, 2));
-						stepfunctions.startExecution(params, function (err, data) {
+						stepfunctions.startExecution(params, function(err, data) {
 							if (err) {
 								console.log(`${cron.id} - ${cron.name} - ${payload.__cron.iid} `, err);
 								cronLib.reportComplete(payload.__cron, undefined, "error", err, {}, () => {
@@ -520,7 +520,7 @@ function invokeLambda(lastCron, cron, payload) {
 								region: match[1]
 							});
 						}
-						lambdaApi.invoke(params, function (err, data) {
+						lambdaApi.invoke(params, function(err, data) {
 							if (err) {
 								console.log(`${cron.id} - ${cron.name} - ${payload.__cron.iid} `, err);
 								cronLib.reportComplete(payload.__cron, undefined, "error", err, {}, () => {
