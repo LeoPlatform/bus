@@ -463,7 +463,7 @@ function invokeLambda(lastCron, cron, payload) {
 			};
 			if (lastCron) {
 				//if (lastCron.invokeTime != undefined) {
-				if (lastCron.instances[index] && lastCron.instances[index].invokeTime) {
+				if (lastCron.instances && lastCron.instances[index] && lastCron.instances[index].invokeTime) {
 					command.ConditionExpression = '#instances.#index.#invokeTime = :lastInvokeTime';
 					command.ExpressionAttributeValues[":lastInvokeTime"] = lastCron.instances[index].invokeTime;
 				} else {
@@ -558,7 +558,7 @@ function doLogging(oldImage, newImage, diff) {
 	if (newImage.instances) {
 		Object.keys(newImage.instances).forEach(i => {
 			var instance = newImage.instances[i];
-			var oldInstance = oldImage && oldImage.instances[i];
+			var oldInstance = oldImage && oldImage.instances && oldImage.instances[i];
 			if (instance.completedTime && (!oldInstance || oldInstance.completedTime == undefined)) {
 				logComplete(newImage, i);
 			}

@@ -223,7 +223,7 @@ exports.handler = function(event, context, callback) {
 				};
 			}
 			return callback();
-		} else if (!event.event || ((!event.id || !event.payload) && !event.s3) || eventsToSkip[event.event] || botsToSkip[event.id]) {
+		} else if (!event.event || ((!event.id || !event.payload) && !event.s3) || eventsToSkip[refUtil.ref(event.event)] || botsToSkip[event.id]) {
 			return callback(null);
 		}
 		let forceEventId = null;
