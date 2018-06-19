@@ -366,9 +366,19 @@ function shouldRun(oldImage, newImage, cache, callback) {
 function hasMoreToDo(oldImage, newImage, key) {
 	var reads = newImage && newImage.checkpoints && newImage.checkpoints.read || {};
 	//console.log(JSON.stringify(newImage, null, 2));
+	let allowed = {}
+	if (key) {
+		allowed = {
+			[key]: true
+		};
+	} else if (newImage.triggers && !newImage.ignoreHasMore) {
+		newImage.triggers.map(q => {
+			allowed[q] = true
+		});
+	}
 	return newImage &&
 		newImage.requested_kinesis &&
-		Object.keys(newImage.requested_kinesis).filter(k => !key || k === key).reduce((result, event) => {
+		Object.keys(newImage.requested_kinesis).filter(k => allowed[k]).reduce((result, event) => {
 			var latest = newImage.requested_kinesis[event];
 			var checkpoint = reads[event];
 			//console.log(`${event}, ${result}, ${JSON.stringify(checkpoint)}, ${latest}`)
