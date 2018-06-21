@@ -212,7 +212,7 @@ exports.handler = function(event, context, callback) {
 		});
 	}
 
-	var stream = ls.parse();
+	var stream = ls.parse(true);
 	ls.pipe(stream, ls.through((event, callback) => {
 		//We can't process it without these
 		if (event._cmd) {
