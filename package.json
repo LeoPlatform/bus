@@ -24,6 +24,7 @@
 	"dependencies": {
 		"deep-diff": "^0.3.8",
 		"leo-sdk": "^1.0.33",
+		"leo-cron": "^1.0.0",
 		"moment": "^2.21.0"
 	},
 	"devDependencies": {

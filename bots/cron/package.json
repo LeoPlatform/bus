@@ -20,12 +20,9 @@
 			"memory": 256,
 			"timeout": 300,
 			"env": {
-				"Resources": {
-					"LeoCron": "${LeoCron}",
-					"LeoSettings": "${LeoSettings}",
-					"LeoSystem": "${LeoSystem}",
-					"Region": "${AWS::Region}"
-				}
+				"LeoCron": "${LeoCron}",
+				"LeoSettings": "${LeoSettings}",
+				"LeoSystem": "${LeoSystem}"
 			},
 			"role": "LeoCronRole"
 		}

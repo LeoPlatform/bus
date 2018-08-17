@@ -8,8 +8,7 @@
 		"test": "test"
 	},
 	"scripts": {
-		"test": "nodemon --exec \"mocha --recursive -w\" ",
-		"debug": "mocha --recursive"
+		"test": "leo-cli test ."
 	},
 	"config": {
 		"leo": {
@@ -19,11 +18,8 @@
 			"memory": 256,
 			"timeout": 300,
 			"env": {
-				"Resources": {
-					"LeoCron": "${LeoCron}",
-					"LeoSettings": "${LeoSettings}",
-					"Region": "${AWS::Region}"
-				}
+				"LeoCron": "${LeoCron}",
+				"LeoSettings": "${LeoSettings}"
 			},
 			"role": "LeoCronRole",
 			"build": {

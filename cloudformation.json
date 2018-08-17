@@ -1602,19 +1602,26 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoCronProcessor_1.0.1.zip"
+          "S3Key": "leo-bus/2.0.7/LeoCronProcessor_1.0.1.1534548416170.zip"
         },
         "Description": "Triggers bots to run by configuration",
         "Handler": "index.handler",
         "Environment": {
           "Variables": {
-            "Resources": {
-              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoSystem\":\"${LeoSystem}\",\"Region\":\"${AWS::Region}\"}"
+            "Resources": "{}",
+            "LeoCron": {
+              "Fn::Sub": "${LeoCron}"
+            },
+            "LeoSettings": {
+              "Fn::Sub": "${LeoSettings}"
+            },
+            "LeoSystem": {
+              "Fn::Sub": "${LeoSystem}"
             }
           }
         },
         "MemorySize": 256,
-        "Runtime": "nodejs6.10",
+        "Runtime": "nodejs8.10",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoCronRole.Arn}"
@@ -1642,7 +1649,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoCronScheduler_1.0.0.zip"
+          "S3Key": "leo-bus/2.0.7/LeoCronScheduler_1.0.0.1532646110248.zip"
         },
         "Description": "Triggers bots to run by configuration",
         "Handler": "index.handler",
@@ -1650,11 +1657,17 @@
           "Variables": {
             "Resources": {
               "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"Region\":\"${AWS::Region}\"}"
+            },
+            "LeoCron": {
+              "Fn::Sub": "${LeoCron}"
+            },
+            "LeoSettings": {
+              "Fn::Sub": "${LeoSettings}"
             }
           }
         },
         "MemorySize": 256,
-        "Runtime": "nodejs6.10",
+        "Runtime": "nodejs8.10",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoCronRole.Arn}"
