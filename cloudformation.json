@@ -587,7 +587,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoKinesisStreamProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/2.0.7/LeoKinesisStreamProcessor_1.0.0.1534874179340.zip"
         },
         "Description": "Ingests events from kinesis",
         "Handler": "index.handler",
@@ -599,7 +599,7 @@
           }
         },
         "MemorySize": 640,
-        "Runtime": "nodejs6.10",
+        "Runtime": "nodejs8.10",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoKinesisRole.Arn}"
@@ -676,7 +676,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoFirehoseStreamProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/2.0.7/LeoFirehoseStreamProcessor_1.0.0.1534874179337.zip"
         },
         "Description": "Ingests events from firehose",
         "Handler": "index.handler",
@@ -688,7 +688,7 @@
           }
         },
         "MemorySize": 640,
-        "Runtime": "nodejs6.10",
+        "Runtime": "nodejs8.10",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoFirehoseRole.Arn}"
@@ -717,7 +717,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoInstallFunction_1.0.0.zip"
+          "S3Key": "leo-bus/2.0.7/LeoInstallFunction_1.0.0.1534874179338.zip"
         },
         "Description": "Installs Bus bots into LeoCron table and registers external bots",
         "Handler": "index.handler",
@@ -732,7 +732,7 @@
           }
         },
         "MemorySize": 640,
-        "Runtime": "nodejs6.10",
+        "Runtime": "nodejs8.10",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoInstallRole.Arn}"
@@ -935,7 +935,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoEventTrigger_1.0.0.zip"
+          "S3Key": "leo-bus/2.0.7/LeoEventTrigger_1.0.0.1534874179333.zip"
         },
         "Description": "Triggers bots from a write to a queue",
         "Handler": "index.handler",
@@ -947,7 +947,7 @@
           }
         },
         "MemorySize": 128,
-        "Runtime": "nodejs6.10",
+        "Runtime": "nodejs8.10",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoCronRole.Arn}"
@@ -1249,7 +1249,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoS3LoadTrigger_1.0.1.zip"
+          "S3Key": "leo-bus/2.0.7/LeoS3LoadTrigger_1.0.1.1534874179343.zip"
         },
         "Description": "Adds Load Events to the Bus Command Queue",
         "Handler": "index.handler",
@@ -1261,7 +1261,7 @@
           }
         },
         "MemorySize": 1536,
-        "Runtime": "nodejs6.10",
+        "Runtime": "nodejs8.10",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoFirehoseRole.Arn}"
@@ -1602,7 +1602,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoCronProcessor_1.0.1.1534548416170.zip"
+          "S3Key": "leo-bus/2.0.7/LeoCronProcessor_1.0.1.1534874179335.zip"
         },
         "Description": "Triggers bots to run by configuration",
         "Handler": "index.handler",
@@ -1649,7 +1649,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoCronScheduler_1.0.0.1532646110248.zip"
+          "S3Key": "leo-bus/2.0.7/LeoCronScheduler_1.0.0.1534874179332.zip"
         },
         "Description": "Triggers bots to run by configuration",
         "Handler": "index.handler",
@@ -1763,7 +1763,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoBusApiProcessor_1.0.0.zip"
+          "S3Key": "leo-bus/2.0.7/LeoBusApiProcessor_1.0.0.1534874179330.zip"
         },
         "Description": "Handles api request to the bus",
         "Handler": "index.handler",
@@ -1776,7 +1776,7 @@
           }
         },
         "MemorySize": 1536,
-        "Runtime": "nodejs6.10",
+        "Runtime": "nodejs8.10",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoBotRole.Arn}"
@@ -1823,7 +1823,7 @@
           }
         },
         "MemorySize": 256,
-        "Runtime": "nodejs6.10",
+        "Runtime": "nodejs8.10",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoCronRole.Arn}"
@@ -1843,7 +1843,7 @@
               "S3Bucket"
             ]
           },
-          "S3Key": "leo-bus/2.0.7/LeoArchiveProcessor_1.0.0.1523895316433.zip"
+          "S3Key": "leo-bus/2.0.7/LeoArchiveProcessor_1.0.0.1534874179327.zip"
         },
         "Description": "This is a sample BOT Description",
         "Handler": "index.handler",
@@ -1855,8 +1855,8 @@
             }
           }
         },
-        "MemorySize": 512,
-        "Runtime": "nodejs6.10",
+        "MemorySize": 1024,
+        "Runtime": "nodejs8.10",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoBotRole.Arn}"
