@@ -24,7 +24,10 @@
 				"LeoSettings": "${LeoSettings}",
 				"LeoSystem": "${LeoSystem}"
 			},
-			"role": "LeoCronRole"
+			"role": "LeoCronRole",
+			"DependsOn": [
+				"LeoCron"
+			]
 		}
 	},
 	"keywords": [],

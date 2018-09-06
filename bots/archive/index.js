@@ -8,7 +8,7 @@ const moment = require("moment");
 
 const EventTable = leo.configuration.resources.LeoEvent;
 
-exports.handler = (settings, context, callback) => {
+exports.handler = require("leo-sdk/wrappers/cron")(async (settings, context, callback) => {
 
 	let parallelLimit = process.env.parallelLimit || settings.parallelLimit || 5;
 	let exit = false;
@@ -72,4 +72,4 @@ exports.handler = (settings, context, callback) => {
 			callback(err);
 		});
 	});
-};
+});

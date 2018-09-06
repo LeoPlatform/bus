@@ -38,7 +38,8 @@
 				"us-east-1"
 			],
 			"3rdParty": true,
-			"excludeProfiles": true
+			"excludeProfiles": true,
+			"no_env_param": true
 		}
 	}
 }
