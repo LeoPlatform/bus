@@ -1,6 +1,6 @@
 {
 	"name": "Leo_install",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Installs Bus bots into LeoCron table and registers external bots",
 	"logicalResource": "LeoInstallFunction",
 	"main": "index.js",
@@ -37,6 +37,10 @@
 					"LeoFirehoseRole": "${LeoFirehoseRole}",
 					"LeoSystem": "${LeoSystem}",
 					"Region": "${AWS::Region}"
+				},
+				"AWS": {
+					"AccountId": "${AWS::AccountId}",
+					"region": "${AWS::Region}"
 				}
 			}
 		}

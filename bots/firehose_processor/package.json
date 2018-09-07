@@ -36,7 +36,11 @@
 					"LeoSettings": "${LeoSettings}",
 					"Region": "${AWS::Region}"
 				}
-			}
+			},
+			"DependsOn": [
+				"LeoFirehoseStream",
+				"LeoFirehoseRole"
+			]
 		}
 	},
 	"keywords": [],

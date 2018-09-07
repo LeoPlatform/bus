@@ -20,8 +20,7 @@
 			"role": "LeoCronRole",
 			"cron": {
 				"id": "leo_cron_monitor",
-				"owner": "leo",
-				"lambdaName": null
+				"owner": "leo"
 			},
 			"env": {
 				"leosdk": {

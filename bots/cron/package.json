@@ -1,6 +1,6 @@
 {
 	"name": "leo_cron",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Triggers bots to run by configuration",
 	"logicalResource": "LeoCronProcessor",
 	"main": "index.js",
@@ -20,14 +20,14 @@
 			"memory": 256,
 			"timeout": 300,
 			"env": {
-				"Resources": {
-					"LeoCron": "${LeoCron}",
-					"LeoSettings": "${LeoSettings}",
-					"LeoSystem": "${LeoSystem}",
-					"Region": "${AWS::Region}"
-				}
+				"LeoCron": "${LeoCron}",
+				"LeoSettings": "${LeoSettings}",
+				"LeoSystem": "${LeoSystem}"
 			},
-			"role": "LeoCronRole"
+			"role": "LeoCronRole",
+			"DependsOn": [
+				"LeoCron"
+			]
 		}
 	},
 	"keywords": [],

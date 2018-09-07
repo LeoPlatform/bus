@@ -33,7 +33,11 @@
 					"LeoSystem": "${LeoSystem}",
 					"Region": "${AWS::Region}"
 				}
-			}
+			},
+			"DependsOn": [
+				"LeoKinesisStream",
+				"LeoKinesisRole"
+			]
 		}
 	},
 	"keywords": [],

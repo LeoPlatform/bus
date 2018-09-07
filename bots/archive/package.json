@@ -8,21 +8,39 @@
 		"test": "test"
 	},
 	"scripts": {
-		"test": "leo test . "
+		"test": "leo-cli test . "
 	},
 	"config": {
 		"leo": {
 			"type": "cron",
 			"name": "Leo_Core_archive",
 			"handler": "handler",
-			"role": null,
-			"memory": 128,
+			"role": "LeoBotRole",
+			"memory": 1024,
 			"timeout": 300,
 			"cron": {
 				"owner": "leo",
 				"name": "archive",
 				"settings": {},
-				"time": "0 * */30 * *"
+				"time": "0 */1 * * *"
+			},
+			"env": {
+				"leosdk": {
+					"region": "${AWS::Region}",
+					"kinesis": "${LeoKinesisStream}",
+					"s3": "${LeoS3}",
+					"firehose": "${LeoFirehoseStream}",
+					"resources": {
+						"LeoStream": "${LeoStream}",
+						"LeoCron": "${LeoCron}",
+						"LeoEvent": "${LeoEvent}",
+						"LeoSettings": "${LeoSettings}",
+						"LeoS3": "${LeoS3}",
+						"LeoKinesisStream": "${LeoKinesisStream}",
+						"LeoFirehoseStream": "${LeoFirehoseStream}",
+						"Region": "${AWS::Region}"
+					}
+				}
 			}
 		}
 	},
