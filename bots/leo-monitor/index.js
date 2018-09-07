@@ -6,10 +6,11 @@ var querystring = require('querystring');
 
 const ID = "leo_cron_monitor";
 
-exports.handler = function (event, context, callback) {
+exports.handler = function(event, context, callback) {
 	refreshCredentials().then(() => {
 		var loader = leo.load(ID, "monitor");
 		event.Records.forEach((record) => {
+			let now = record.dynamodb.ApproximateCreationDateTime * 1000;
 			var newImage = {
 				trigger: 0,
 				invokeTime: 0
@@ -35,8 +36,8 @@ exports.handler = function (event, context, callback) {
 					var instance = newImage.instances[i];
 					var oldInstance = oldImage && oldImage.instances[i];
 					if (instance.completedTime && (!oldInstance || oldInstance.completedTime == undefined)) {
-						var start = oldInstance.invokeTime;
-						var end = instance.completedTime;
+						var start = oldInstance.invokeTime || now;
+						var end = instance.completedTime || now;
 						loader.write({
 							id: newImage.id,
 							type: 'completed',
@@ -69,10 +70,10 @@ exports.handler = function (event, context, callback) {
 							type: 'read',
 							from: event,
 							checkpoint: newCheckpoint.checkpoint,
-							ts: newCheckpoint.ended_timestamp,
+							ts: newCheckpoint.ended_timestamp || now,
 							units: newCheckpoint.records,
-							start: newCheckpoint.started_timestamp,
-							source_ts: newCheckpoint.source_timestamp
+							start: newCheckpoint.started_timestamp || now,
+							source_ts: newCheckpoint.source_timestamp || now
 						});
 					}
 				});
@@ -91,10 +92,10 @@ exports.handler = function (event, context, callback) {
 							type: 'write',
 							to: event,
 							checkpoint: newCheckpoint.checkpoint,
-							ts: newCheckpoint.ended_timestamp,
+							ts: newCheckpoint.ended_timestamp || now,
 							units: newCheckpoint.records,
-							start: newCheckpoint.started_timestamp,
-							source_ts: newCheckpoint.source_timestamp
+							start: newCheckpoint.started_timestamp || now,
+							source_ts: newCheckpoint.source_timestamp || now
 						});
 					}
 				});
