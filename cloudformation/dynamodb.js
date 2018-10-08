@@ -43,8 +43,7 @@ module.exports = cf.add(cf.dynamodb.table("LeoStream", {
 	id: 'S',
 	autoscale: true,
 	throughput: {
-		read: 40,
-		write: 20
-	},
-	stream: "NEW_AND_OLD_IMAGES"
+		read: 5,
+		write: 5
+	}
 }));
