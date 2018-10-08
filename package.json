@@ -30,7 +30,7 @@
   "devDependencies": {
     "aws-sdk": "^2.329.0",
     "babel-preset-env": "^1.6.1",
-    "extend": "^3.0.2"
+    "extend": "^3.0.2",
 	"leo-aws": "^1.4.0"
   },
   "config": {
