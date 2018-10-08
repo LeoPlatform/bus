@@ -28,7 +28,8 @@
 		"moment": "^2.21.0"
 	},
 	"devDependencies": {
-		"babel-preset-env": "^1.6.1"
+		"babel-preset-env": "^1.6.1",
+		"leo-aws": "^1.4.0"
 	},
 	"config": {
 		"leo": {
