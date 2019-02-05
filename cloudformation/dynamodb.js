@@ -6,7 +6,9 @@ module.exports = cf.add(cf.dynamodb.table("LeoStream", {
 	autoscale: true,
 	throughput: {
 		read: 20,
-		write: 20
+		write: 20,
+		MaxReadCapacityUnits: 1000,
+		MaxWriteCapacityUnits: 1000
 	}
 })).add(cf.dynamodb.table("LeoArchive", {
 	event: 'S',

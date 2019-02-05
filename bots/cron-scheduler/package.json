@@ -1,6 +1,6 @@
 {
 	"name": "leo_cron_scheduler",
-	"version": "1.0.1",
+	"version": "1.0.3",
 	"description": "Triggers bots to run by configuration",
 	"logicalResource": "LeoCronScheduler",
 	"main": "index.js",

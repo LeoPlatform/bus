@@ -1,6 +1,6 @@
 {
 	"name": "leo_cron",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Triggers bots to run by configuration",
 	"logicalResource": "LeoCronProcessor",
 	"main": "index.js",
