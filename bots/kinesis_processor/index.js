@@ -95,7 +95,12 @@ exports.handler = function(event, context, callback) {
 				}
 				delete obj.stats;
 				delete obj.correlations;
-				done(null, obj);
+				
+				if (obj.records) { 
+					done(null, obj);
+				} else {
+					done();
+				}
 			});
 			if (useS3Mode) {
 				events[event] = ls.pipeline(ls.toS3GzipChunks(event, {}), assignIds, ls.toDynamoDB(StreamTable));
