@@ -24,7 +24,10 @@
 					"LeoSettings": "${LeoSettings}",
 					"Region": "${AWS::Region}"
 				}
-			}
+			},
+			"DependsOn": [
+				"LeoEvent"
+			]
 		}
 	},
 	"keywords": [],

@@ -13,8 +13,7 @@ const padLength = -1 * pad.length;
 
 const StreamTable = leo.configuration.resources.LeoStream;
 const EventTable = leo.configuration.resources.LeoEvent;
-
-
+const ttlSeconds = parseInt(process.env.ttlSeconds) || 604800; // Seconds in a week
 
 exports.handler = function(event, context, callback) {
 
@@ -38,7 +37,7 @@ exports.handler = function(event, context, callback) {
 	}
 
 	var timestamp = moment.utc(event.Records[0].kinesis.approximateArrivalTimestamp * 1000);
-	var ttl = timestamp.clone().add(1, "week").valueOf();
+	var ttl = Math.floor(timestamp.clone().add(ttlSeconds, "seconds").valueOf() / 1000);
 
 	var diff = moment.duration(moment.utc().diff(timestamp));
 	var currentTimeMilliseconds = moment.utc().valueOf();

@@ -13,7 +13,7 @@ const zlib = require("zlib");
 const fs = require("fs");
 const refUtil = require("leo-sdk/lib/reference.js");
 
-exports.handler = (event, context, callback) => {
+exports.handler = require("leo-sdk/wrappers/cron")(async (event, context, callback) => {
 	var source = "commands.s3_bus_load";
 	var botId = event.botId; //"Leo_firehose_processor";
 
@@ -119,4 +119,4 @@ exports.handler = (event, context, callback) => {
 	async.doWhilst(loop, () => {
 		return checkpointData.units > 0 && context.getRemainingTimeInMillis() * 0.8 > 0;
 	}, callback);
-};
+});

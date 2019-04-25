@@ -1,6 +1,6 @@
 {
 	"name": "leo_cron_scheduler",
-	"version": "1.0.0",
+	"version": "1.0.3",
 	"description": "Triggers bots to run by configuration",
 	"logicalResource": "LeoCronScheduler",
 	"main": "index.js",
@@ -8,8 +8,7 @@
 		"test": "test"
 	},
 	"scripts": {
-		"test": "nodemon --exec \"mocha --recursive -w\" ",
-		"debug": "mocha --recursive"
+		"test": "leo-cli test ."
 	},
 	"config": {
 		"leo": {
@@ -19,18 +18,18 @@
 			"memory": 256,
 			"timeout": 300,
 			"env": {
-				"Resources": {
-					"LeoCron": "${LeoCron}",
-					"LeoSettings": "${LeoSettings}",
-					"Region": "${AWS::Region}"
-				}
+				"LeoCron": "${LeoCron}",
+				"LeoSettings": "${LeoSettings}"
 			},
 			"role": "LeoCronRole",
 			"build": {
 				"include": [
 					"node_modules/later"
 				]
-			}
+			},
+			"DependsOn": [
+				"LeoCron"
+			]
 		}
 	},
 	"keywords": [],

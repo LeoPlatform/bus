@@ -529,6 +529,413 @@
         ]
       }
     },
+    "LeoArchiveProcessor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.7/LeoArchiveProcessor_1.0.0.1534874179327.zip"
+        },
+        "Description": "This is a sample BOT Description",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": "{}",
+            "leosdk": {
+              "Fn::Sub": "{\"region\":\"${AWS::Region}\",\"kinesis\":\"${LeoKinesisStream}\",\"s3\":\"${LeoS3}\",\"firehose\":\"${LeoFirehoseStream}\",\"resources\":{\"LeoStream\":\"${LeoStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoFirehoseStream\":\"${LeoFirehoseStream}\",\"Region\":\"${AWS::Region}\"}}"
+            }
+          }
+        },
+        "MemorySize": 1024,
+        "Runtime": "nodejs8.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoBotRole.Arn}"
+        }
+      }
+    },
+    "LeoBusApiProcessor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.7/LeoBusApiProcessor_1.0.0.1534874179330.zip"
+        },
+        "Description": "Handles api request to the bus",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": "",
+            "leosdk": {
+              "Fn::Sub": "{\"region\":\"${AWS::Region}\",\"kinesis\":\"${LeoKinesisStream}\",\"s3\":\"${LeoS3}\",\"firehose\":\"${LeoFirehoseStream}\",\"resources\":{\"LeoStream\":\"${LeoStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoFirehoseStream\":\"${LeoFirehoseStream}\",\"Region\":\"${AWS::Region}\"}}"
+            }
+          }
+        },
+        "MemorySize": 1536,
+        "Runtime": "nodejs8.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoBotRole.Arn}"
+        }
+      }
+    },
+    "LeoCronScheduler": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.7/LeoCronScheduler_1.0.0.1534874179332.zip"
+        },
+        "Description": "Triggers bots to run by configuration",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"Region\":\"${AWS::Region}\"}"
+            },
+            "LeoCron": {
+              "Fn::Sub": "${LeoCron}"
+            },
+            "LeoSettings": {
+              "Fn::Sub": "${LeoSettings}"
+            }
+          }
+        },
+        "MemorySize": 256,
+        "Runtime": "nodejs8.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoCronRole.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoCron"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a27df6f0-591b-4c93-af69-ae7ccbf08e2a"
+        }
+      }
+    },
+    "LeoEventTrigger": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.7/LeoEventTrigger_1.0.0.1534874179333.zip"
+        },
+        "Description": "Triggers bots from a write to a queue",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"Region\":\"${AWS::Region}\"}"
+            }
+          }
+        },
+        "MemorySize": 128,
+        "Runtime": "nodejs8.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoCronRole.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoEvent"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "4a6ccf43-ae99-40f4-8ce9-2f36e9dc3721"
+        }
+      }
+    },
+    "LeoCronProcessor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.7/LeoCronProcessor_1.0.1.1534874179335.zip"
+        },
+        "Description": "Triggers bots to run by configuration",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": "{}",
+            "LeoCron": {
+              "Fn::Sub": "${LeoCron}"
+            },
+            "LeoSettings": {
+              "Fn::Sub": "${LeoSettings}"
+            },
+            "LeoSystem": {
+              "Fn::Sub": "${LeoSystem}"
+            }
+          }
+        },
+        "MemorySize": 256,
+        "Runtime": "nodejs8.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoCronRole.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoCron"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "139dc7ef-dc15-4e23-92c4-b1be6637d63d"
+        }
+      }
+    },
+    "LeoFirehoseStreamProcessor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.7/LeoFirehoseStreamProcessor_1.0.0.1534874179337.zip"
+        },
+        "Description": "Ingests events from firehose",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoStream\":\"${LeoStream}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"Region\":\"${AWS::Region}\"}"
+            }
+          }
+        },
+        "MemorySize": 640,
+        "Runtime": "nodejs8.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoFirehoseRole.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoFirehoseStream",
+        "LeoFirehoseRole"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "185dc998-357e-41cc-89d5-18075c97043c"
+        }
+      }
+    },
+    "LeoInstallFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.7/LeoInstallFunction_1.0.0.1534874179338.zip"
+        },
+        "Description": "Installs Bus bots into LeoCron table and registers external bots",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoS3LoadTrigger\":\"${LeoS3LoadTrigger}\",\"LeoS3\":\"${LeoS3}\",\"LeoCron\":\"${LeoCron}\",\"LeoFirehoseStreamProcessor\":\"${LeoFirehoseStreamProcessor}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoBotPolicy\":\"${LeoBotPolicy}\",\"LeoFirehoseRole\":\"${LeoFirehoseRole}\",\"LeoSystem\":\"${LeoSystem}\",\"Region\":\"${AWS::Region}\"}"
+            },
+            "AWS": {
+              "Fn::Sub": "{\"AccountId\": \"${AWS::AccountId}\", \"region\":\"${AWS::Region}\"}"
+            }
+          }
+        },
+        "MemorySize": 640,
+        "Runtime": "nodejs8.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoInstallRole.Arn}"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "ca5c9484-1b52-4059-93fa-3f3f2d78914f"
+        }
+      }
+    },
+    "LeoKinesisStreamProcessor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.7/LeoKinesisStreamProcessor_1.0.0.1534874179340.zip"
+        },
+        "Description": "Ingests events from kinesis",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoStream\":\"${LeoStream}\",\"LeoS3\":\"${LeoS3}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoSystem\":\"${LeoSystem}\",\"Region\":\"${AWS::Region}\"}"
+            }
+          }
+        },
+        "MemorySize": 640,
+        "Runtime": "nodejs8.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoKinesisRole.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoKinesisStream",
+        "LeoKinesisRole"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "ffc5466e-cdd4-431d-a817-dffcdda2426c"
+        }
+      }
+    },
+    "LeoMonitor": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.1/LeoMonitor_1.0.0.zip"
+        },
+        "Description": "Writes bot stats to a queue",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": "",
+            "leosdk": {
+              "Fn::Sub": "{\"region\":\"${AWS::Region}\",\"kinesis\":\"${LeoKinesisStream}\",\"s3\":\"${LeoS3}\",\"firehose\":\"${LeoFirehoseStream}\",\"resources\":{\"LeoStream\":\"${LeoStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoFirehoseStream\":\"${LeoFirehoseStream}\",\"Region\":\"${AWS::Region}\"}}"
+            }
+          }
+        },
+        "MemorySize": 256,
+        "Runtime": "nodejs8.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoCronRole.Arn}"
+        }
+      }
+    },
+    "LeoS3LoadTrigger": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::FindInMap": [
+              "RegionMap",
+              {
+                "Ref": "AWS::Region"
+              },
+              "S3Bucket"
+            ]
+          },
+          "S3Key": "leo-bus/2.0.7/LeoS3LoadTrigger_1.0.1.1534874179343.zip"
+        },
+        "Description": "Adds Load Events to the Bus Command Queue",
+        "Handler": "index.handler",
+        "Environment": {
+          "Variables": {
+            "Resources": {
+              "Fn::Sub": "{\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"Region\":\"${AWS::Region}\"}"
+            }
+          }
+        },
+        "MemorySize": 1536,
+        "Runtime": "nodejs8.10",
+        "Timeout": 300,
+        "Role": {
+          "Fn::Sub": "${LeoFirehoseRole.Arn}"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "9af7296b-8169-42d8-ba76-8dcb8723ed7d"
+        }
+      }
+    },
+    "LeoInstall": {
+      "Type": "Custom::Install",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::Sub": "${LeoInstallFunction.Arn}"
+        }
+      },
+      "DependsOn": [
+        "LeoInstallFunction"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "0ffc9927-0388-44c8-b83e-b242004f6fe5"
+        }
+      }
+    },
     "LeoStream": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
@@ -563,184 +970,196 @@
         }
       }
     },
-    "LeoKinesisStream": {
-      "Type": "AWS::Kinesis::Stream",
+    "LeoArchive": {
+      "Type": "AWS::DynamoDB::Table",
       "Properties": {
-        "ShardCount": 1
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "daf052f3-2344-4667-b866-d86452968eea"
-        }
-      }
-    },
-    "LeoKinesisStreamProcessor": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::FindInMap": [
-              "RegionMap",
-              {
-                "Ref": "AWS::Region"
-              },
-              "S3Bucket"
-            ]
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "event",
+            "AttributeType": "S"
           },
-          "S3Key": "leo-bus/2.0.7/LeoKinesisStreamProcessor_1.0.0.zip"
-        },
-        "Description": "Ingests events from kinesis",
-        "Handler": "index.handler",
-        "Environment": {
-          "Variables": {
-            "Resources": {
-              "Fn::Sub": "{\"LeoStream\":\"${LeoStream}\",\"LeoS3\":\"${LeoS3}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoSystem\":\"${LeoSystem}\",\"Region\":\"${AWS::Region}\"}"
-            }
+          {
+            "AttributeName": "end",
+            "AttributeType": "S"
           }
-        },
-        "MemorySize": 640,
-        "Runtime": "nodejs6.10",
-        "Timeout": 300,
-        "Role": {
-          "Fn::Sub": "${LeoKinesisRole.Arn}"
-        }
-      },
-      "DependsOn": [
-        "LeoKinesisStream",
-        "LeoKinesisRole"
-      ],
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "ffc5466e-cdd4-431d-a817-dffcdda2426c"
-        }
-      }
-    },
-    "LeoKinesisStreamProcessorEventSource": {
-      "Type": "AWS::Lambda::EventSourceMapping",
-      "Properties": {
-        "BatchSize": 10000,
-        "Enabled": true,
-        "StartingPosition": "TRIM_HORIZON",
-        "EventSourceArn": {
-          "Fn::Sub": "${LeoKinesisStream.Arn}"
-        },
-        "FunctionName": {
-          "Ref": "LeoKinesisStreamProcessor"
-        }
-      },
-      "DependsOn": [
-        "LeoKinesisStream",
-        "LeoKinesisRole",
-        "LeoKinesisStreamProcessor"
-      ],
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "3ad35aac-4ae2-4ce5-ae58-9f9eaea5055c"
-        }
-      }
-    },
-    "LeoFirehoseStream": {
-      "Type": "AWS::KinesisFirehose::DeliveryStream",
-      "Properties": {
-        "S3DestinationConfiguration": {
-          "BucketARN": {
-            "Fn::Sub": "arn:aws:s3:::${LeoS3}"
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "event",
+            "KeyType": "HASH"
           },
-          "BufferingHints": {
-            "IntervalInSeconds": 60,
-            "SizeInMBs": 128
-          },
-          "Prefix": "firehose/",
-          "CompressionFormat": "UNCOMPRESSED",
-          "RoleARN": {
-            "Fn::Sub": "${LeoFirehoseRole.Arn}"
+          {
+            "AttributeName": "end",
+            "KeyType": "RANGE"
           }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "5",
+          "WriteCapacityUnits": "5"
         }
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
-          "id": "c67a892f-9385-451d-8457-2237fbcede54"
+          "id": "29f59309-16b5-4651-9eaa-af8f92546b03"
         }
       }
     },
-    "LeoFirehoseStreamProcessor": {
-      "Type": "AWS::Lambda::Function",
+    "LeoEvent": {
+      "Type": "AWS::DynamoDB::Table",
       "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::FindInMap": [
-              "RegionMap",
-              {
-                "Ref": "AWS::Region"
-              },
-              "S3Bucket"
-            ]
-          },
-          "S3Key": "leo-bus/2.0.7/LeoFirehoseStreamProcessor_1.0.0.zip"
-        },
-        "Description": "Ingests events from firehose",
-        "Handler": "index.handler",
-        "Environment": {
-          "Variables": {
-            "Resources": {
-              "Fn::Sub": "{\"LeoStream\":\"${LeoStream}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"Region\":\"${AWS::Region}\"}"
-            }
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "event",
+            "AttributeType": "S"
           }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "event",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "5",
+          "WriteCapacityUnits": "5"
         },
-        "MemorySize": 640,
-        "Runtime": "nodejs6.10",
-        "Timeout": 300,
-        "Role": {
-          "Fn::Sub": "${LeoFirehoseRole.Arn}"
+        "StreamSpecification": {
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
         }
       },
-      "DependsOn": [
-        "LeoFirehoseStream",
-        "LeoFirehoseRole"
-      ],
       "Metadata": {
         "AWS::CloudFormation::Designer": {
-          "id": "185dc998-357e-41cc-89d5-18075c97043c"
+          "id": "988eaa65-e07b-4c8a-b122-b4ecfd914c38"
         }
       }
     },
-    "LeoInstallFunction": {
-      "Type": "AWS::Lambda::Function",
+    "LeoSettings": {
+      "Type": "AWS::DynamoDB::Table",
       "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::FindInMap": [
-              "RegionMap",
-              {
-                "Ref": "AWS::Region"
-              },
-              "S3Bucket"
-            ]
-          },
-          "S3Key": "leo-bus/2.0.7/LeoInstallFunction_1.0.0.zip"
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "5",
+          "WriteCapacityUnits": "5"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "b4f0b5d1-e887-47ca-acd0-b6aecf4e5e70"
+        }
+      }
+    },
+    "LeoCron": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "20",
+          "WriteCapacityUnits": "20"
         },
-        "Description": "Installs Bus bots into LeoCron table and registers external bots",
-        "Handler": "index.handler",
-        "Environment": {
-          "Variables": {
-            "Resources": {
-              "Fn::Sub": "{\"LeoS3LoadTrigger\":\"${LeoS3LoadTrigger}\",\"LeoS3\":\"${LeoS3}\",\"LeoCron\":\"${LeoCron}\",\"LeoFirehoseStreamProcessor\":\"${LeoFirehoseStreamProcessor}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoBotPolicy\":\"${LeoBotPolicy}\",\"LeoFirehoseRole\":\"${LeoFirehoseRole}\",\"LeoSystem\":\"${LeoSystem}\",\"Region\":\"${AWS::Region}\"}"
+        "StreamSpecification": {
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "f236486a-1383-40dd-abd7-bdcf2cd304ea"
+        }
+      }
+    },
+    "LeoSystem": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "40",
+          "WriteCapacityUnits": "20"
+        },
+        "StreamSpecification": {
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "5b164754-24d7-47f6-a6fb-2ce883e6c0b9"
+        }
+      }
+    },
+    "LeoS3": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {},
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "19e3af96-efef-4ffa-8f33-34034b079093"
+        }
+      }
+    },
+    "LeoDeveloperGroup": {
+      "Type": "AWS::IAM::Group",
+      "Properties": {
+        "ManagedPolicyArns": [
+          {
+            "Ref": "LeoBotPolicy"
+          }
+        ],
+        "Policies": []
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "94c0817d-a4e1-4bb9-84bd-dd5c6a1b4fd3"
+        }
+      }
+    },
+    "LeoCronSchedulerRule": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "Leo Cron Scheduler Rule",
+        "ScheduleExpression": "rate(5 minutes)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::Sub": "${LeoCronScheduler.Arn}"
             },
-            "AWS": {
-              "Fn::Sub": "{\"AccountId\": \"${AWS::AccountId}\", \"region\":\"${AWS::Region}\"}"
-            }
+            "Id": "LeoCronSchedulerRule"
           }
-        },
-        "MemorySize": 640,
-        "Runtime": "nodejs6.10",
-        "Timeout": 300,
-        "Role": {
-          "Fn::Sub": "${LeoInstallRole.Arn}"
-        }
+        ]
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
-          "id": "ca5c9484-1b52-4059-93fa-3f3f2d78914f"
+          "id": "3bc4ec4b-c3e4-46c8-b654-91983cc52df8"
         }
       }
     },
@@ -824,141 +1243,351 @@
         }
       }
     },
-    "LeoInstall": {
-      "Type": "Custom::Install",
+    "LeoKinesisRole": {
+      "Type": "AWS::IAM::Role",
       "Properties": {
-        "ServiceToken": {
-          "Fn::Sub": "${LeoInstallFunction.Arn}"
-        }
-      },
-      "DependsOn": [
-        "LeoInstallFunction"
-      ],
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "0ffc9927-0388-44c8-b83e-b242004f6fe5"
-        }
-      }
-    },
-    "LeoArchive": {
-      "Type": "AWS::DynamoDB::Table",
-      "Properties": {
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "event",
-            "AttributeType": "S"
-          },
-          {
-            "AttributeName": "end",
-            "AttributeType": "S"
-          }
-        ],
-        "KeySchema": [
-          {
-            "AttributeName": "event",
-            "KeyType": "HASH"
-          },
-          {
-            "AttributeName": "end",
-            "KeyType": "RANGE"
-          }
-        ],
-        "ProvisionedThroughput": {
-          "ReadCapacityUnits": "5",
-          "WriteCapacityUnits": "5"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "29f59309-16b5-4651-9eaa-af8f92546b03"
-        }
-      }
-    },
-    "LeoEvent": {
-      "Type": "AWS::DynamoDB::Table",
-      "Properties": {
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "event",
-            "AttributeType": "S"
-          }
-        ],
-        "KeySchema": [
-          {
-            "AttributeName": "event",
-            "KeyType": "HASH"
-          }
-        ],
-        "ProvisionedThroughput": {
-          "ReadCapacityUnits": "5",
-          "WriteCapacityUnits": "5"
-        },
-        "StreamSpecification": {
-          "StreamViewType": "NEW_AND_OLD_IMAGES"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "988eaa65-e07b-4c8a-b122-b4ecfd914c38"
-        }
-      }
-    },
-    "LeoEventMapping": {
-      "Type": "AWS::Lambda::EventSourceMapping",
-      "Properties": {
-        "BatchSize": 500,
-        "Enabled": true,
-        "StartingPosition": "TRIM_HORIZON",
-        "EventSourceArn": {
-          "Fn::Sub": "${LeoEvent.StreamArn}"
-        },
-        "FunctionName": {
-          "Ref": "LeoEventTrigger"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "01aba2d2-519a-4826-9f55-376917fcaddd"
-        }
-      }
-    },
-    "LeoEventTrigger": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::FindInMap": [
-              "RegionMap",
-              {
-                "Ref": "AWS::Region"
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ],
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
               },
-              "S3Bucket"
-            ]
-          },
-          "S3Key": "leo-bus/2.0.7/LeoEventTrigger_1.0.0.zip"
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
         },
-        "Description": "Triggers bots from a write to a queue",
-        "Handler": "index.handler",
-        "Environment": {
-          "Variables": {
-            "Resources": {
-              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"Region\":\"${AWS::Region}\"}"
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          {
+            "Ref": "LeoBotPolicy"
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyName": "Leo_core",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "kinesis:DescribeStream",
+                    "kinesis:GetRecords",
+                    "kinesis:GetShardIterator",
+                    "kinesis:ListStreams"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoKinesisStream.Arn}"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:PutObject"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:aws:s3:::${LeoS3}"
+                    },
+                    {
+                      "Fn::Sub": "arn:aws:s3:::${LeoS3}/*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:PutItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:GetRecords",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:Query",
+                    "dynamodb:GetShardIterator",
+                    "dynamodb:DescribeStream",
+                    "dynamodb:ListStreams"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoEvent.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoStream.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoCron.Arn}"
+                    }
+                  ]
+                }
+              ]
             }
           }
-        },
-        "MemorySize": 128,
-        "Runtime": "nodejs6.10",
-        "Timeout": 300,
-        "Role": {
-          "Fn::Sub": "${LeoCronRole.Arn}"
-        }
+        ]
       },
-      "DependsOn": [
-        "LeoEvent"
-      ],
       "Metadata": {
         "AWS::CloudFormation::Designer": {
-          "id": "4a6ccf43-ae99-40f4-8ce9-2f36e9dc3721"
+          "id": "11639652-02bb-45c1-9e79-74859b0a77e3"
+        }
+      }
+    },
+    "LeoBotRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ],
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          {
+            "Ref": "LeoBotPolicy"
+          }
+        ],
+        "Policies": []
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "42671eb3-c481-43b8-8e45-1ad130906197"
+        }
+      }
+    },
+    "LeoFirehoseRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "firehose.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "sts:ExternalId": {
+                    "Ref": "AWS::AccountId"
+                  }
+                }
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ],
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        ],
+        "Policies": [
+          {
+            "PolicyName": "Leo_Bus_firehose",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:AbortMultipartUpload",
+                    "s3:GetBucketLocation",
+                    "s3:GetObject",
+                    "s3:ListBucket",
+                    "s3:ListBucketMultipartUploads",
+                    "s3:PutObject"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:aws:s3:::${LeoS3}"
+                    },
+                    {
+                      "Fn::Sub": "arn:aws:s3:::${LeoS3}/*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:PutItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:GetRecords"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoSettings.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoEvent.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoStream.Arn}"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "6f83a63c-2b80-40ed-8fba-1b080c5336f8"
+        }
+      }
+    },
+    "LeoCronRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ],
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          {
+            "Ref": "LeoBotPolicy"
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyName": "State_machine_exec",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "VisualEditor0",
+                  "Effect": "Allow",
+                  "Action": [
+                    "states:DescribeStateMachineForExecution",
+                    "states:ListStateMachines",
+                    "states:DescribeActivity",
+                    "states:DescribeStateMachine",
+                    "states:ListActivities",
+                    "states:DescribeExecution",
+                    "states:ListExecutions",
+                    "states:GetExecutionHistory",
+                    "states:StartExecution"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          },
+          {
+            "PolicyName": "Leo_cron",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:Scan",
+                    "dynamodb:PutItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:Query"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoCron.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoSystem.Arn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoCron.Arn}"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetRecords",
+                    "dynamodb:GetShardIterator",
+                    "dynamodb:DescribeStream",
+                    "dynamodb:ListStreams"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "${LeoCron.StreamArn}"
+                    },
+                    {
+                      "Fn::Sub": "${LeoEvent.StreamArn}"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "lambda:InvokeFunction"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:*"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "3913ca91-8fd5-4ce5-9542-0da94c0e9928"
         }
       }
     },
@@ -1102,468 +1731,81 @@
         }
       }
     },
-    "LeoKinesisRole": {
-      "Type": "AWS::IAM::Role",
+    "LeoKinesisStream": {
+      "Type": "AWS::Kinesis::Stream",
       "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": [
-                  "lambda.amazonaws.com"
-                ],
-                "AWS": {
-                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-                }
-              },
-              "Action": [
-                "sts:AssumeRole"
-              ]
-            }
-          ]
-        },
-        "ManagedPolicyArns": [
-          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-          {
-            "Ref": "LeoBotPolicy"
-          }
-        ],
-        "Policies": [
-          {
-            "PolicyName": "Leo_core",
-            "PolicyDocument": {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "kinesis:DescribeStream",
-                    "kinesis:GetRecords",
-                    "kinesis:GetShardIterator",
-                    "kinesis:ListStreams"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "${LeoKinesisStream.Arn}"
-                    }
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "s3:PutObject"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "arn:aws:s3:::${LeoS3}"
-                    },
-                    {
-                      "Fn::Sub": "arn:aws:s3:::${LeoS3}/*"
-                    }
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "dynamodb:PutItem",
-                    "dynamodb:BatchWriteItem",
-                    "dynamodb:BatchGetItem",
-                    "dynamodb:GetRecords",
-                    "dynamodb:UpdateItem",
-                    "dynamodb:Query",
-                    "dynamodb:GetShardIterator",
-                    "dynamodb:DescribeStream",
-                    "dynamodb:ListStreams"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "${LeoEvent.Arn}"
-                    },
-                    {
-                      "Fn::Sub": "${LeoStream.Arn}"
-                    },
-                    {
-                      "Fn::Sub": "${LeoCron.Arn}"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        ]
+        "ShardCount": 1
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
-          "id": "11639652-02bb-45c1-9e79-74859b0a77e3"
+          "id": "daf052f3-2344-4667-b866-d86452968eea"
         }
       }
     },
-    "LeoBotRole": {
-      "Type": "AWS::IAM::Role",
+    "LeoKinesisStreamProcessorEventSource": {
+      "Type": "AWS::Lambda::EventSourceMapping",
       "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": [
-                  "lambda.amazonaws.com"
-                ],
-                "AWS": {
-                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-                }
-              },
-              "Action": [
-                "sts:AssumeRole"
-              ]
-            }
-          ]
+        "BatchSize": 10000,
+        "Enabled": true,
+        "StartingPosition": "TRIM_HORIZON",
+        "EventSourceArn": {
+          "Fn::Sub": "${LeoKinesisStream.Arn}"
         },
-        "ManagedPolicyArns": [
-          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-          {
-            "Ref": "LeoBotPolicy"
-          }
-        ],
-        "Policies": []
+        "FunctionName": {
+          "Ref": "LeoKinesisStreamProcessor"
+        }
       },
+      "DependsOn": [
+        "LeoKinesisStream",
+        "LeoKinesisRole",
+        "LeoKinesisStreamProcessor"
+      ],
       "Metadata": {
         "AWS::CloudFormation::Designer": {
-          "id": "42671eb3-c481-43b8-8e45-1ad130906197"
+          "id": "3ad35aac-4ae2-4ce5-ae58-9f9eaea5055c"
         }
       }
     },
-    "LeoS3LoadTrigger": {
-      "Type": "AWS::Lambda::Function",
+    "LeoFirehoseStream": {
+      "Type": "AWS::KinesisFirehose::DeliveryStream",
       "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::FindInMap": [
-              "RegionMap",
-              {
-                "Ref": "AWS::Region"
-              },
-              "S3Bucket"
-            ]
+        "S3DestinationConfiguration": {
+          "BucketARN": {
+            "Fn::Sub": "arn:aws:s3:::${LeoS3}"
           },
-          "S3Key": "leo-bus/2.0.7/LeoS3LoadTrigger_1.0.1.zip"
-        },
-        "Description": "Adds Load Events to the Bus Command Queue",
-        "Handler": "index.handler",
-        "Environment": {
-          "Variables": {
-            "Resources": {
-              "Fn::Sub": "{\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"Region\":\"${AWS::Region}\"}"
-            }
-          }
-        },
-        "MemorySize": 1536,
-        "Runtime": "nodejs6.10",
-        "Timeout": 300,
-        "Role": {
-          "Fn::Sub": "${LeoFirehoseRole.Arn}"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "9af7296b-8169-42d8-ba76-8dcb8723ed7d"
-        }
-      }
-    },
-    "LeoS3": {
-      "Type": "AWS::S3::Bucket",
-      "Properties": {},
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "19e3af96-efef-4ffa-8f33-34034b079093"
-        }
-      }
-    },
-    "LeoFirehoseRole": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "firehose.amazonaws.com"
-              },
-              "Action": "sts:AssumeRole",
-              "Condition": {
-                "StringEquals": {
-                  "sts:ExternalId": {
-                    "Ref": "AWS::AccountId"
-                  }
-                }
-              }
-            },
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": [
-                  "lambda.amazonaws.com"
-                ],
-                "AWS": {
-                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-                }
-              },
-              "Action": [
-                "sts:AssumeRole"
-              ]
-            }
-          ]
-        },
-        "ManagedPolicyArns": [
-          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-        ],
-        "Policies": [
-          {
-            "PolicyName": "Leo_Bus_firehose",
-            "PolicyDocument": {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "s3:AbortMultipartUpload",
-                    "s3:GetBucketLocation",
-                    "s3:GetObject",
-                    "s3:ListBucket",
-                    "s3:ListBucketMultipartUploads",
-                    "s3:PutObject"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "arn:aws:s3:::${LeoS3}"
-                    },
-                    {
-                      "Fn::Sub": "arn:aws:s3:::${LeoS3}/*"
-                    }
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "dynamodb:PutItem",
-                    "dynamodb:GetItem",
-                    "dynamodb:UpdateItem",
-                    "dynamodb:BatchGetItem",
-                    "dynamodb:BatchWriteItem",
-                    "dynamodb:GetRecords"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "${LeoSettings.Arn}"
-                    },
-                    {
-                      "Fn::Sub": "${LeoEvent.Arn}"
-                    },
-                    {
-                      "Fn::Sub": "${LeoStream.Arn}"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "6f83a63c-2b80-40ed-8fba-1b080c5336f8"
-        }
-      }
-    },
-    "LeoSettings": {
-      "Type": "AWS::DynamoDB::Table",
-      "Properties": {
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "id",
-            "AttributeType": "S"
-          }
-        ],
-        "KeySchema": [
-          {
-            "AttributeName": "id",
-            "KeyType": "HASH"
-          }
-        ],
-        "ProvisionedThroughput": {
-          "ReadCapacityUnits": "5",
-          "WriteCapacityUnits": "5"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "b4f0b5d1-e887-47ca-acd0-b6aecf4e5e70"
-        }
-      }
-    },
-    "LeoDeveloperGroup": {
-      "Type": "AWS::IAM::Group",
-      "Properties": {
-        "ManagedPolicyArns": [
-          {
-            "Ref": "LeoBotPolicy"
-          }
-        ],
-        "Policies": []
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "94c0817d-a4e1-4bb9-84bd-dd5c6a1b4fd3"
-        }
-      }
-    },
-    "LeoCronRole": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": [
-                  "lambda.amazonaws.com"
-                ],
-                "AWS": {
-                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-                }
-              },
-              "Action": [
-                "sts:AssumeRole"
-              ]
-            }
-          ]
-        },
-        "ManagedPolicyArns": [
-          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-          {
-            "Ref": "LeoBotPolicy"
-          }
-        ],
-        "Policies": [
-          {
-            "PolicyName": "State_machine_exec",
-            "PolicyDocument": {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Sid": "VisualEditor0",
-                  "Effect": "Allow",
-                  "Action": [
-                    "states:DescribeStateMachineForExecution",
-                    "states:ListStateMachines",
-                    "states:DescribeActivity",
-                    "states:DescribeStateMachine",
-                    "states:ListActivities",
-                    "states:DescribeExecution",
-                    "states:ListExecutions",
-                    "states:GetExecutionHistory",
-                    "states:StartExecution"
-                  ],
-                  "Resource": "*"
-                }
-              ]
-            }
+          "BufferingHints": {
+            "IntervalInSeconds": 60,
+            "SizeInMBs": 128
           },
-          {
-            "PolicyName": "Leo_cron",
-            "PolicyDocument": {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "dynamodb:Scan",
-                    "dynamodb:PutItem",
-                    "dynamodb:BatchWriteItem",
-                    "dynamodb:BatchGetItem",
-                    "dynamodb:UpdateItem",
-                    "dynamodb:Query"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "${LeoCron.Arn}"
-                    },
-                    {
-                      "Fn::Sub": "${LeoSystem.Arn}"
-                    },
-                    {
-                      "Fn::Sub": "${LeoCron.Arn}"
-                    }
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "dynamodb:GetRecords",
-                    "dynamodb:GetShardIterator",
-                    "dynamodb:DescribeStream",
-                    "dynamodb:ListStreams"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "${LeoCron.StreamArn}"
-                    },
-                    {
-                      "Fn::Sub": "${LeoEvent.StreamArn}"
-                    }
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "lambda:InvokeFunction"
-                  ],
-                  "Resource": {
-                    "Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:*"
-                  }
-                }
-              ]
-            }
+          "Prefix": "firehose/",
+          "CompressionFormat": "UNCOMPRESSED",
+          "RoleARN": {
+            "Fn::Sub": "${LeoFirehoseRole.Arn}"
           }
-        ]
+        }
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
-          "id": "3913ca91-8fd5-4ce5-9542-0da94c0e9928"
+          "id": "c67a892f-9385-451d-8457-2237fbcede54"
         }
       }
     },
-    "LeoCron": {
-      "Type": "AWS::DynamoDB::Table",
+    "LeoEventMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
       "Properties": {
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "id",
-            "AttributeType": "S"
-          }
-        ],
-        "KeySchema": [
-          {
-            "AttributeName": "id",
-            "KeyType": "HASH"
-          }
-        ],
-        "ProvisionedThroughput": {
-          "ReadCapacityUnits": "20",
-          "WriteCapacityUnits": "20"
+        "BatchSize": 500,
+        "Enabled": true,
+        "StartingPosition": "TRIM_HORIZON",
+        "EventSourceArn": {
+          "Fn::Sub": "${LeoEvent.StreamArn}"
         },
-        "StreamSpecification": {
-          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        "FunctionName": {
+          "Ref": "LeoEventTrigger"
         }
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
-          "id": "f236486a-1383-40dd-abd7-bdcf2cd304ea"
+          "id": "01aba2d2-519a-4826-9f55-376917fcaddd"
         }
       }
     },
@@ -1589,133 +1831,17 @@
         }
       }
     },
-    "LeoCronProcessor": {
-      "Type": "AWS::Lambda::Function",
+    "LeoMonitorMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
       "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::FindInMap": [
-              "RegionMap",
-              {
-                "Ref": "AWS::Region"
-              },
-              "S3Bucket"
-            ]
-          },
-          "S3Key": "leo-bus/2.0.7/LeoCronProcessor_1.0.1.zip"
+        "BatchSize": 500,
+        "Enabled": true,
+        "StartingPosition": "TRIM_HORIZON",
+        "EventSourceArn": {
+          "Fn::Sub": "${LeoCron.StreamArn}"
         },
-        "Description": "Triggers bots to run by configuration",
-        "Handler": "index.handler",
-        "Environment": {
-          "Variables": {
-            "Resources": {
-              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoSystem\":\"${LeoSystem}\",\"Region\":\"${AWS::Region}\"}"
-            }
-          }
-        },
-        "MemorySize": 256,
-        "Runtime": "nodejs6.10",
-        "Timeout": 300,
-        "Role": {
-          "Fn::Sub": "${LeoCronRole.Arn}"
-        }
-      },
-      "DependsOn": [
-        "LeoCron"
-      ],
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "139dc7ef-dc15-4e23-92c4-b1be6637d63d"
-        }
-      }
-    },
-    "LeoCronScheduler": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::FindInMap": [
-              "RegionMap",
-              {
-                "Ref": "AWS::Region"
-              },
-              "S3Bucket"
-            ]
-          },
-          "S3Key": "leo-bus/2.0.7/LeoCronScheduler_1.0.0.zip"
-        },
-        "Description": "Triggers bots to run by configuration",
-        "Handler": "index.handler",
-        "Environment": {
-          "Variables": {
-            "Resources": {
-              "Fn::Sub": "{\"LeoCron\":\"${LeoCron}\",\"LeoSettings\":\"${LeoSettings}\",\"Region\":\"${AWS::Region}\"}"
-            }
-          }
-        },
-        "MemorySize": 256,
-        "Runtime": "nodejs6.10",
-        "Timeout": 300,
-        "Role": {
-          "Fn::Sub": "${LeoCronRole.Arn}"
-        }
-      },
-      "DependsOn": [
-        "LeoCron"
-      ],
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "a27df6f0-591b-4c93-af69-ae7ccbf08e2a"
-        }
-      }
-    },
-    "LeoSystem": {
-      "Type": "AWS::DynamoDB::Table",
-      "Properties": {
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "id",
-            "AttributeType": "S"
-          }
-        ],
-        "KeySchema": [
-          {
-            "AttributeName": "id",
-            "KeyType": "HASH"
-          }
-        ],
-        "ProvisionedThroughput": {
-          "ReadCapacityUnits": "40",
-          "WriteCapacityUnits": "20"
-        },
-        "StreamSpecification": {
-          "StreamViewType": "NEW_AND_OLD_IMAGES"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "5b164754-24d7-47f6-a6fb-2ce883e6c0b9"
-        }
-      }
-    },
-    "LeoCronSchedulerRule": {
-      "Type": "AWS::Events::Rule",
-      "Properties": {
-        "Description": "Leo Cron Scheduler Rule",
-        "ScheduleExpression": "rate(5 minutes)",
-        "State": "ENABLED",
-        "Targets": [
-          {
-            "Arn": {
-              "Fn::Sub": "${LeoCronScheduler.Arn}"
-            },
-            "Id": "LeoCronSchedulerRule"
-          }
-        ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "3bc4ec4b-c3e4-46c8-b654-91983cc52df8"
+        "FunctionName": {
+          "Ref": "LeoMonitor"
         }
       }
     },
@@ -1737,119 +1863,6 @@
         }
       }
     },
-    "LeoBusApiProcessor": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::FindInMap": [
-              "RegionMap",
-              {
-                "Ref": "AWS::Region"
-              },
-              "S3Bucket"
-            ]
-          },
-          "S3Key": "leo-bus/2.0.7/LeoBusApiProcessor_1.0.0.zip"
-        },
-        "Description": "Handles api request to the bus",
-        "Handler": "index.handler",
-        "Environment": {
-          "Variables": {
-            "Resources": "",
-            "leosdk": {
-              "Fn::Sub": "{\"region\":\"${AWS::Region}\",\"kinesis\":\"${LeoKinesisStream}\",\"s3\":\"${LeoS3}\",\"firehose\":\"${LeoFirehoseStream}\",\"resources\":{\"LeoStream\":\"${LeoStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoFirehoseStream\":\"${LeoFirehoseStream}\",\"Region\":\"${AWS::Region}\"}}"
-            }
-          }
-        },
-        "MemorySize": 1536,
-        "Runtime": "nodejs6.10",
-        "Timeout": 300,
-        "Role": {
-          "Fn::Sub": "${LeoBotRole.Arn}"
-        }
-      }
-    },
-    "LeoMonitorMapping": {
-      "Type": "AWS::Lambda::EventSourceMapping",
-      "Properties": {
-        "BatchSize": 500,
-        "Enabled": true,
-        "StartingPosition": "TRIM_HORIZON",
-        "EventSourceArn": {
-          "Fn::Sub": "${LeoCron.StreamArn}"
-        },
-        "FunctionName": {
-          "Ref": "LeoMonitor"
-        }
-      }
-    },
-    "LeoMonitor": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::FindInMap": [
-              "RegionMap",
-              {
-                "Ref": "AWS::Region"
-              },
-              "S3Bucket"
-            ]
-          },
-          "S3Key": "leo-bus/2.0.1/LeoMonitor_1.0.0.zip"
-        },
-        "Description": "Writes bot stats to a queue",
-        "Handler": "index.handler",
-        "Environment": {
-          "Variables": {
-            "Resources": "",
-            "leosdk": {
-              "Fn::Sub": "{\"region\":\"${AWS::Region}\",\"kinesis\":\"${LeoKinesisStream}\",\"s3\":\"${LeoS3}\",\"firehose\":\"${LeoFirehoseStream}\",\"resources\":{\"LeoStream\":\"${LeoStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoFirehoseStream\":\"${LeoFirehoseStream}\",\"Region\":\"${AWS::Region}\"}}"
-            }
-          }
-        },
-        "MemorySize": 256,
-        "Runtime": "nodejs6.10",
-        "Timeout": 300,
-        "Role": {
-          "Fn::Sub": "${LeoCronRole.Arn}"
-        }
-      }
-    },
-    "LeoArchiveProcessor": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::FindInMap": [
-              "RegionMap",
-              {
-                "Ref": "AWS::Region"
-              },
-              "S3Bucket"
-            ]
-          },
-          "S3Key": "leo-bus/2.0.7/LeoArchiveProcessor_1.0.0.1523895316433.zip"
-        },
-        "Description": "This is a sample BOT Description",
-        "Handler": "index.handler",
-        "Environment": {
-          "Variables": {
-            "Resources": "{}",
-            "leosdk": {
-              "Fn::Sub": "{\"region\":\"${AWS::Region}\",\"kinesis\":\"${LeoKinesisStream}\",\"s3\":\"${LeoS3}\",\"firehose\":\"${LeoFirehoseStream}\",\"resources\":{\"LeoStream\":\"${LeoStream}\",\"LeoCron\":\"${LeoCron}\",\"LeoEvent\":\"${LeoEvent}\",\"LeoSettings\":\"${LeoSettings}\",\"LeoS3\":\"${LeoS3}\",\"LeoKinesisStream\":\"${LeoKinesisStream}\",\"LeoFirehoseStream\":\"${LeoFirehoseStream}\",\"Region\":\"${AWS::Region}\"}}"
-            }
-          }
-        },
-        "MemorySize": 512,
-        "Runtime": "nodejs6.10",
-        "Timeout": 300,
-        "Role": {
-          "Fn::Sub": "${LeoBotRole.Arn}"
-        }
-      }
-    }
   },
   "Outputs": {
     "Role": {

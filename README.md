@@ -1,5 +1,7 @@
 # bus
 
+Leo Platform Quick Start Guide: https://github.com/LeoPlatform/Leo
+
 ## Better Data Flow
 LEO EventBus is an open source project connecting several AWS services (Kinesis, DynamoDB, S3 and Lambda) together to provide a more robust Data Pipeline.  LEO is deployed in your own Amazon cloud. Essentially, we created Apache Kafka for your own serverless AWS cloud.
 
@@ -61,3 +63,6 @@ Wait for the status to change from create_in_progress to update_complete
 
 Use one of our SDKs in order to interact with this stream
 NodeJs: https://github.com/LeoPlatform/Nodejs
+
+# Support
+Want to hire an expert, or need technical support? Reach out to the Leo team: https://leoinsights.com/contact
