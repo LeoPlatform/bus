@@ -42,9 +42,9 @@ click "Create Stack"
 
 Specify an Amazon S3 template  
 
-Region us-west-2: https://s3-us-west-2.amazonaws.com/leo-cli-publishbucket-1rgojx1iw5yq9/leo-bus/2.0.1/cloudformation.json   
+Region us-west-2: https://s3-us-west-2.amazonaws.com/leo-cli-publishbucket-1rgojx1iw5yq9/leo-bus/2.0.9/cloudformation.json   
 
-Region us-east-1: https://s3.amazonaws.com/leo-cli-publishbucket-166d6oumno1f5/leo-bus/2.0.1/cloudformation.json  
+Region us-east-1: https://s3.amazonaws.com/leo-cli-publishbucket-166d6oumno1f5/leo-bus/2.0.9/cloudformation.json  
 
 Click "next"
 ![pasted image at 2017_11_10 08_37 pm](https://user-images.githubusercontent.com/1404265/32686436-1c16c44c-c662-11e7-8383-bd94c8f1d803.png)
