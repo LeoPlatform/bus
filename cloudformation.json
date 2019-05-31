@@ -555,7 +555,7 @@
           }
         },
         "MemorySize": 1024,
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoBotRole.Arn}"
@@ -588,7 +588,7 @@
           }
         },
         "MemorySize": 1536,
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoBotRole.Arn}"
@@ -626,7 +626,7 @@
           }
         },
         "MemorySize": 256,
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoCronRole.Arn}"
@@ -666,7 +666,7 @@
           }
         },
         "MemorySize": 128,
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoCronRole.Arn}"
@@ -713,7 +713,7 @@
           }
         },
         "MemorySize": 256,
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoCronRole.Arn}"
@@ -753,7 +753,7 @@
           }
         },
         "MemorySize": 640,
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoFirehoseRole.Arn}"
@@ -797,7 +797,7 @@
           }
         },
         "MemorySize": 640,
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoInstallRole.Arn}"
@@ -834,7 +834,7 @@
           }
         },
         "MemorySize": 640,
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoKinesisRole.Arn}"
@@ -876,7 +876,7 @@
           }
         },
         "MemorySize": 256,
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoCronRole.Arn}"
@@ -908,7 +908,7 @@
           }
         },
         "MemorySize": 1536,
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 300,
         "Role": {
           "Fn::Sub": "${LeoFirehoseRole.Arn}"
