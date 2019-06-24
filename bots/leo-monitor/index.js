@@ -34,7 +34,7 @@ exports.handler = function(event, context, callback) {
 			if (newImage.instances) {
 				Object.keys(newImage.instances).forEach(i => {
 					var instance = newImage.instances[i];
-					var oldInstance = oldImage && oldImage.instances[i];
+					var oldInstance = oldImage && oldImage.instances && oldImage.instances.length && oldImage.instances[i];
 					if (instance.completedTime && (!oldInstance || oldInstance.completedTime == undefined)) {
 						var start = oldInstance.invokeTime || now;
 						var end = instance.completedTime || now;
