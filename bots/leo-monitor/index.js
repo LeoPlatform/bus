@@ -36,7 +36,7 @@ exports.handler = function(event, context, callback) {
 					var instance = newImage.instances[i];
 					var oldInstance = oldImage && oldImage.instances && oldImage.instances[i];
 					if (instance.completedTime && (!oldInstance || oldInstance.completedTime == undefined)) {
-						var start = oldInstance.invokeTime || now;
+						var start = (oldInstance && oldInstance.invokeTime) || now;
 						var end = instance.completedTime || now;
 						loader.write({
 							id: newImage.id,
