@@ -56,10 +56,10 @@ api.start(id, {
 					units: events.length
 				}, (err, cpData) => {
 					if (err) {
-						console.log("Checkpoint Error:", err)
+						console.log("Checkpoint Error:", err);
 						return done(err);
 					}
-					console.log("Checkpoint Data:", cpData)
+					console.log("Checkpoint Data:", cpData);
 					done();
 				});
 			});
@@ -69,7 +69,7 @@ api.start(id, {
 	}, function ending(err) {
 		api.end(id, err, startData.token, (err, endData) => {
 			if (err) {
-				console.log("End Error:", err)
+				console.log("End Error:", err);
 				return;
 			}
 

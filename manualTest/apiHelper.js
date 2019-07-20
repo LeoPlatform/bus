@@ -8,7 +8,7 @@ module.exports = function (lambdaFunctionName, lambda) {
 			if (!err && response && response.FunctionError) {
 				err = JSON.parse(response.Payload);
 				if (err.errorMessage) {
-					err = err.errorMessage
+					err = err.errorMessage;
 				}
 			} else if (response && response.Payload != undefined) {
 				response = JSON.parse(response.Payload);
@@ -116,4 +116,4 @@ module.exports = function (lambdaFunctionName, lambda) {
 			}, callback);
 		}
 	};
-}
+};

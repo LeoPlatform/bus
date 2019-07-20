@@ -1,5 +1,4 @@
 "use strict";
-const aws = require("aws-sdk");
 const leo = require("leo-sdk");
 
 module.exports = function(resource, data) {
@@ -29,7 +28,7 @@ module.exports = function(resource, data) {
 				} else {
 					resolve();
 				}
-			})
+			});
 		});
 	} else {
 		return Promise.resolve();
@@ -46,17 +45,17 @@ function fixTypes(node) {
 	let type = typeof node;
 	if (Array.isArray(node)) {
 		for (let i = 0; i < node.length; i++) {
-			node[i] = fixTypes(node[i])
+			node[i] = fixTypes(node[i]);
 		}
 	} else if (type == "object" && node !== null) {
 		Object.keys(node).map(key => {
 			node[key] = fixTypes(node[key]);
-		})
+		});
 	} else if (type == "string") {
 		if (numberRegex.test(node)) {
 			return parseFloat(node);
 		} else if (boolRegex.test(node)) {
-			return node.toLowerCase() == "true"
+			return node.toLowerCase() == "true";
 		} else if (nullRegex.test(node)) {
 			return null;
 		} else if (undefinedRegex.test(node)) {

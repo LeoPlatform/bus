@@ -9,8 +9,6 @@ leo.configuration.update({
 const ls = leo.streams;
 const cron = leo.bot;
 const async = require("async");
-const zlib = require("zlib");
-const fs = require("fs");
 const refUtil = require("leo-sdk/lib/reference.js");
 
 exports.handler = require("leo-sdk/wrappers/cron")(async (event, context, callback) => {
@@ -64,7 +62,7 @@ exports.handler = require("leo-sdk/wrappers/cron")(async (event, context, callba
 						console.log(err);
 						done(err);
 					});
-			}, (err, result) => done(err, obj));
+			}, (err) => done(err, obj));
 		}), ls.through((obj, done) => {
 			checkpointData.eid = obj.eid;
 			checkpointData.units += obj.units || 1;
