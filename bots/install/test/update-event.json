@@ -1,0 +1,55 @@
+{
+    "RequestType": "Update",
+    "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoInstallFunction-20XDTI81LGFJ",
+    "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-east-1%3A117870855864%3Astack/reptest-stack/250a69e0-a44c-11e9-9bda-0a82639e0346%7CLeoRegister%7C062e1862-f584-4d8e-b7c5-d57bd8125fb8?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190712T052222Z&X-Amz-SignedHeaders=host&X-Amz-Expires=7200&X-Amz-Credential=AKIA6L7Q4OWTTYC3DXNI%2F20190712%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=6a178142225f052490245054f4395bf32372c135c725ca9b10dcb648edce7521",
+    "StackId": "arn:aws:cloudformation:us-east-1:117870855864:stack/reptest-stack/250a69e0-a44c-11e9-9bda-0a82639e0346",
+    "RequestId": "062e1862-f584-4d8e-b7c5-d57bd8125fb8",
+    "LogicalResourceId": "LeoRegister",
+    "PhysicalResourceId": "LeoRegister",
+    "ResourceType": "Custom::Install",
+    "ResourceProperties": {
+        "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoInstallFunction-20XDTI81LGFJ",
+        "TestrepSampleenrich": {
+            "id": "testrep-sampleenrich",
+            "triggers": [
+                "testrep_random_numbers"
+            ],
+            "lambdaName": "reptest-stack-TestrepSampleenrich-1FV55V07N9Y06"
+        },
+        "TestrepSampleload": {
+            "id": "testrep-sampleload",
+            "time": "0 */1 * * * * ",
+            "lambdaName": "reptest-stack-TestrepSampleload-PUEISLHSXEZO"
+        },
+        "TestrepSamplesqs": {
+            "id": "testrep-samplesqs",
+            "triggers": [
+                "testrep_enriched_numbers"
+            ],
+            "lambdaName": "reptest-stack-TestrepSamplesqs-6R3BP3239DP7"
+        }
+    },
+    "OldResourceProperties": {
+        "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoInstallFunction-20XDTI81LGFJ",
+        "Version": "1.0",
+        "TestrepSampleenrich": {
+            "id": "testrep-sampleenrich",
+            "triggers": [
+                "testrep_random_numbers"
+            ],
+            "lambdaName": "reptest-stack-TestrepSampleenrich-1FV55V07N9Y06"
+        },
+        "TestrepSampleload": {
+            "id": "testrep-sampleload",
+            "time": "0 */1 * * * * ",
+            "lambdaName": "reptest-stack-TestrepSampleload-PUEISLHSXEZO"
+        },
+        "TestrepSamplesqs": {
+            "id": "testrep-samplesqs",
+            "triggers": [
+                "testrep_enriched_numbers"
+            ],
+            "lambdaName": "reptest-stack-TestrepSamplesqs-6R3BP3239DP7"
+        }
+    }
+}

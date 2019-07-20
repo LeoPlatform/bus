@@ -26,7 +26,6 @@ module.exports = function() {
 			SourceArn: `arn:aws:s3:::${bucket}`,
 			StatementId: "S3-bus-events-upload-trigger"
 		}, (err) => {
-			console.log("Permissions");
 			if (err && !err.message.startsWith("The statement id (S3-bus-events-upload-trigger) provided already exists")) {
 				reject(err);
 				return;
@@ -94,7 +93,7 @@ module.exports = function() {
 			console.log("Policies", policies);
 			var arn = leo.resources.LeoBotPolicy;
 			if (policies.AttachedPolicies.filter(p => p.PolicyArn == arn).length == 0) {
-				iam.attachRolePolicy({
+				iam.attachRolePolicy({ // TODO: Why are we manually doing this? can't this be done in cloudformation? this prevents the stacks from deleting cleanly. If this is needed perhpas we should respond to the 'Delete' event by removing this resource.
 					PolicyArn: arn,
 					RoleName: roleName
 				}, (err, result) => {

@@ -1,31 +1,19 @@
 {
-	"name": "Leo_install",
-	"version": "1.0.4",
-	"description": "Installs Bus bots into LeoCron table and registers external bots",
-	"logicalResource": "LeoInstallFunction",
+	"name": "create-replication-bots",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Creates the Replication Bots from the Replication Parameters",
+	"logicalResource": "LeoCreateReplicationBots",
 	"main": "index.js",
 	"directories": {
 		"test": "test"
 	},
-	"scripts": {
-		"test": "nodemon --exec \"mocha --recursive -w\" "
-	},
 	"config": {
 		"leo": {
-			"type": "raw",
-			"name": "Leo_install",
-			"handler": "handler",
-			"role": "LeoInstallRole",
-			"memory": 640,
+			"type": "bot",
+			"memory": 256,
 			"timeout": 300,
-			"cron": {
-				"name": "Leo_install",
-				"owner": "leo",
-				"settings": {},
-				"triggers": [
-					"commands.s3_bus_load_v2"
-				]
-			},
+			"role": "LeoInstallRole",
 			"env": {
 				"Resources": {
 					"LeoS3LoadTrigger": "${LeoS3LoadTrigger}",
@@ -45,7 +33,5 @@
 			}
 		}
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC"
+	"dependencies": {}
 }

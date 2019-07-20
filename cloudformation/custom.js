@@ -9,7 +9,23 @@ module.exports = {
 				"Version": "2.0"
 			},
 			"DependsOn": [
-				"LeoInstallFunction"
+				"LeoInstallFunction", "SourceQueueReplicator"
+			]
+		},
+		"ReplicationBots": {
+			"Type": "Custom::ReplicationBots",
+			"Properties": {
+				"AccountId": { "Ref": "AWS::AccountId" },
+				"QueueReplicationSourceAccount": { "Ref": "QueueReplicationSourceAccount"},
+				"QueueReplicationQueueMapping": { "Ref": "QueueReplicationQueueMapping"},
+				"ReplicatorLambdaName": { "Fn::GetAtt": ["SourceQueueReplicator", "Arn"] },
+				"ServiceToken": {
+					"Fn::Sub": "${LeoCreateReplicationBots.Arn}"
+				},
+				"Version": "2.0"
+			},
+			"DependsOn": [
+				"LeoCreateReplicationBots", "SourceQueueReplicator", "LeoInstallRole"
 			]
 		},
 	}

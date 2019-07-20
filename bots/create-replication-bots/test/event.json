@@ -1,0 +1,17 @@
+{
+  "RequestType": "Create",
+  "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoCreateReplicationBots-SXPYBPN1PFX6",
+  "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-east-1%3A117870855864%3Astack/dev-bus/d0b44b50-a9cc-11e9-a732-0a00a1b75a8c%7CReplicationBots%7Ccbd25110-1195-48a5-9b02-7966f851a19f?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190720T082854Z&X-Amz-SignedHeaders=host&X-Amz-Expires=7200&X-Amz-Credential=AKIA6L7Q4OWTTYC3DXNI%2F20190720%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=632117d0b7ae0ce3e54d72a4664f8ff52b3d3c6f31d3f6edaa3064758982a5c5",
+  "StackId": "arn:aws:cloudformation:us-east-1:117870855864:stack/dev-bus/d0b44b50-a9cc-11e9-a732-0a00a1b75a8c",
+  "RequestId": "cbd25110-1195-48a5-9b02-7966f851a19f",
+  "LogicalResourceId": "ReplicationBots",
+  "ResourceType": "Custom::ReplicationBots",
+  "ResourceProperties": {
+      "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoCreateReplicationBots-SXPYBPN1PFX6",
+      "AccountId": "117870855864",
+      "QueueReplicationSourceAccount": "<destination aws account id>",
+      "Version": "2.0",
+      "QueueReplicationQueueMapping": "[]",
+      "ReplicatorLambdaName": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-SourceQueueReplicator-5P1LICQ6JLQX"
+  }
+}

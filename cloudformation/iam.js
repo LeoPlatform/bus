@@ -1,5 +1,36 @@
 module.exports = {
 	Resources: {
+		"SourceQueueReplicatorRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Principal": {
+								"Service": [
+									"lambda.amazonaws.com"
+								],
+								"AWS": {
+									"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+								}
+							},
+							"Action": [
+								"sts:AssumeRole"
+							]
+						}
+					]
+				},
+				"ManagedPolicyArns": [
+					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+					{
+						"Ref": "LeoBotPolicy"
+					}
+				],
+				"Policies": [	]
+			}
+		},
 		"LeoInstallRole": {
 			"Type": "AWS::IAM::Role",
 			"Properties": {
@@ -66,6 +97,17 @@ module.exports = {
 									"Resource": [
 										{
 											"Fn::Sub": "${LeoFirehoseRole.Arn}"
+										}
+									]
+								},
+								{
+									"Effect": "Allow",
+									"Action": [
+										"dynamodb:UpdateItem"
+									],
+									"Resource": [
+										{
+											"Fn::Sub": "${LeoCron.Arn}"
 										}
 									]
 								}

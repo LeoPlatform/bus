@@ -131,6 +131,17 @@ module.exports = {
 					"Fn::Sub": "${AWS::StackName}-Register"
 				}
 			}
+		},
+		"SourceQueueReplicator": {
+			"Description": "Leo Source Queue Replicator Bot",
+			"Value": {
+				"Fn::Sub": "${SourceQueueReplicator.Arn}"
+			},
+			"Export": {
+				"Name": {
+					"Fn::Sub": "${AWS::StackName}-SourceQueueReplicator"
+				}
+			}
 		}
 	}
 };

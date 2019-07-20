@@ -4,8 +4,14 @@
 	"description": "Improve Kinesis burstability, durability, and replay",
 	"main": "index.js",
 	"scripts": {
-		"test": "mocha --recursive -w",
-		"setup": "setup"
+		"test:libs": "mocha --recursive 'test/**/*.test.js'",
+		"test:libs:watch": "mocha --recursive -w 'test/**/*.test.js'",
+		"test:bots": "mocha --recursive 'bots/**/*.test.js'",
+		"test:bots:watch": "mocha --recursive -w 'bots/**/*.test.js'",
+		"test:int": "mocha 'test/**/*.integration.js'",
+		"setup": "setup",
+		"package": "leo-cli publish -s",
+		"deploy": "leo-cli publish -s -d dev"
 	},
 	"repository": {
 		"type": "git",
@@ -30,8 +36,12 @@
 	"devDependencies": {
 		"aws-sdk": "^2.466.0",
 		"babel-preset-env": "^1.7.0",
+		"chai": "^4.2.0",
 		"extend": "^3.0.2",
-		"leo-aws": "^1.4.2"
+		"leo-aws": "^1.4.2",
+		"mocha": "^6.1.4",
+		"proxyquire": "^2.1.1",
+		"sinon": "^7.3.2"
 	},
 	"config": {
 		"leo": {

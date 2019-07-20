@@ -1,0 +1,22 @@
+{
+	"name": "source-queue-replicator",
+	"version": "1.0.0",
+	"description": "Replicates queues based on Queue Replication configuration",
+	"logicalResource": "SourceQueueReplicator",
+	"main": "index.js",
+	"directories": {
+		"test": "test"
+	},
+	"config": {
+		"leo": {
+			"type": "bot",
+			"memory": 256,
+			"timeout": 300,
+			"role": "SourceQueueReplicatorRole"
+		}
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {}
+}
