@@ -17,8 +17,7 @@ exports.handler = (event, _, callback) => {
 	// Handle 3rd party install requests
 	let steps = [];
 	const ignoreProperties = [ 'ServiceToken', 'Version' ];
-	let keys = Object.keys(event.ResourceProperties || {}).filter(k => ignoreProperties.includes(k));
-
+	let keys = Object.keys(event.ResourceProperties || {}).filter(k => !ignoreProperties.includes(k));
 	if (keys.length) {
 		event.PhysicalResourceId = event.LogicalResourceId;
 		keys.map(key => {

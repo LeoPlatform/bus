@@ -1,15 +1,14 @@
 {
-  "RequestType": "Create",
-  "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoInstallFunction-ZWFXFTXYJD2L",
-  "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-east-1%3A117870855864%3Astack/dev-bus/bba6b280-a5f7-11e9-8fe6-12a619bb25d0%7CLeoInstall%7C91716c99-e584-459b-a913-2a80de307ebd?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190714T060134Z&X-Amz-SignedHeaders=host&X-Amz-Expires=7200&X-Amz-Credential=AKIA6L7Q4OWTTYC3DXNI%2F20190714%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=6d4e9f85d85acb620b0557a17cf95c1644e5c431e9484e01921f22e7d3ea2d47",
-  "StackId": "arn:aws:cloudformation:us-east-1:117870855864:stack/dev-bus/bba6b280-a5f7-11e9-8fe6-12a619bb25d0",
-  "RequestId": "91716c99-e584-459b-a913-2a80de307ebd",
-  "LogicalResourceId": "LeoInstall",
-  "ResourceType": "Custom::Install",
-  "ResourceProperties": {
-      "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoInstallFunction-ZWFXFTXYJD2L",
-      "AccountId": "117870855864",
-      "Version": "2.0",
-      "StackName": "dev-bus"
-  }
+    "RequestType": "Delete",
+    "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoInstallFunction-2DNLF3K71R4F",
+    "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-east-1%3A117870855864%3Astack/dev-bus/6ea6aa60-ab3a-11e9-a24c-120371d9064c%7CLeoInstall%7C7da1bd48-b755-4f34-a28b-5befae521e90?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190720T222711Z&X-Amz-SignedHeaders=host&X-Amz-Expires=7200&X-Amz-Credential=AKIA6L7Q4OWTTYC3DXNI%2F20190720%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=f8b449dd75704f6c970328bac8e793e238a83cf5d5f31d0187dc8351fda4e3be",
+    "StackId": "arn:aws:cloudformation:us-east-1:117870855864:stack/dev-bus/6ea6aa60-ab3a-11e9-a24c-120371d9064c",
+    "RequestId": "7da1bd48-b755-4f34-a28b-5befae521e90",
+    "LogicalResourceId": "LeoInstall",
+    "PhysicalResourceId": "install",
+    "ResourceType": "Custom::Install",
+    "ResourceProperties": {
+        "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoInstallFunction-2DNLF3K71R4F",
+        "Version": "2.0"
+    }
 }

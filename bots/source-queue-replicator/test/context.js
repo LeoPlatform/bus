@@ -1,0 +1,30 @@
+module.exports = {
+	callbackWaitsForEmptyEventLoop: () => {},
+	succeed: () => {},
+	fail: () => {},
+	done: () => {},
+	functionVersion: '$LATEST',
+	functionName: 'dev-bus-SourceQueueReplicator-LMH7CSWIHV0V',
+	memoryLimitInMB: '256',
+	logGroupName: '/aws/lambda/dev-bus-SourceQueueReplicator-LMH7CSWIHV0V',
+	logStreamName: '2019/07/21/[$LATEST]05001aa0b16845c58f8a4e2da276e36f',
+	clientContext: undefined,
+	identity: undefined,
+	invokedFunctionArn: 'arn:aws:lambda:us-east-1:117870855864:function:dev-bus-SourceQueueReplicator-LMH7CSWIHV0V',
+	awsRequestId: 'fc26eb04-25bd-4931-b6dc-6353d86d8341',
+	getRemainingTimeInMillis: () => {},
+	resources: {
+		LeoS3LoadTrigger: 'dev-bus-LeoS3LoadTrigger-1WMPG1KLUO6SO',
+		LeoS3: 'dev-bus-leos3-12x7otlxqvfc9',
+		LeoCron: 'dev-bus-LeoCron-1R71DIP2YNVQO',
+		LeoFirehoseStreamProcessor: 'dev-bus-LeoFirehoseStreamProcessor-177IBRJ96SAGG',
+		LeoSettings: 'dev-bus-LeoSettings-1TM01O0QXR3Q7',
+		LeoBotPolicy: 'arn:aws:iam::117870855864:policy/dev-bus-LeoBotPolicy-2SZ8EPXLN9V',
+		LeoFirehoseRole: 'dev-bus-LeoFirehoseRole-1VTHP7JNGI8NT',
+		LeoSystem: 'dev-bus-LeoSystem-S04AG2OZ1MQT',
+		Region: 'us-east-1'
+	},
+	botId: 'testrep_random_numbers-replication',
+	getCheckpoint: () => {},
+	settings: {}
+}

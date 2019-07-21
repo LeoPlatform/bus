@@ -1,22 +1,32 @@
 "use strict";
 const leo = require("leo-sdk");
 
-function getSourceQueue(mapping){
-	if (typeof mapping === "string") return mapping;
-	return mapping.source;
+function getSourceQueue(mapping) {
+	if (typeof mapping === "string") {
+		return {
+			sourceQueue: mapping,
+			destQueue: mapping
+		};
+	}
+	return {
+		sourceQueue: mapping.source,
+		destQueue: mapping.destination
+	};
 }
 
-module.exports = function (
-	{ AccountId: account, 
-		ReplicatorLambdaName: lambdaName, 
-		QueueReplicationSourceAccount: sourceAccount,
-		QueueReplicationQueueMapping
-	}) {
+module.exports = function ({
+	AccountId: account,
+	ReplicatorLambdaName: lambdaName,
+	QueueReplicationSourceAccount: sourceAccount,
+	QueueReplicationDestinationAccount: destinationAccount,
+	QueueReplicationDestinationLeoBusStackName: destinationBusStack,
+	QueueReplicationQueueMapping
+}) {
 
 	let queueMapping;
 	try {
 		queueMapping = JSON.parse(QueueReplicationQueueMapping);
-		if (!Array.isArray(queueMapping)) 
+		if (!Array.isArray(queueMapping))
 			return Promise.reject(new Error("Malformed QueueReplicationQueueMapping parameter. Must be JSON Array."));
 	} catch (err) {
 		return Promise.reject(new Error("Malformed QueueReplicationQueueMapping parameter. Must be valid JSON."));
@@ -27,12 +37,18 @@ module.exports = function (
 		// The source account is responsible for replicating the data to the destination account
 		const createBotPromises = [];
 		queueMapping.forEach(qm => {
-			const sourceQueue = getSourceQueue(qm);
+			const { sourceQueue, destQueue } = getSourceQueue(qm);
 			const botId = `${sourceQueue}-replication`;
 			const botModel = {
 				"id": botId,
-				"triggers": [sourceQueue],
-				"lambdaName": lambdaName
+				"triggers": [`queue:${sourceQueue}`],
+				"lambdaName": lambdaName,
+				"settings": {
+					"source": sourceQueue,
+					"destinationQueue": destQueue,
+					"destinationAccount": destinationAccount,
+					"destinationBusStack": destinationBusStack
+				}
 			};
 			let createBotPromise;
 			try {

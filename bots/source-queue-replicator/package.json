@@ -12,7 +12,22 @@
 			"type": "bot",
 			"memory": 256,
 			"timeout": 300,
-			"role": "SourceQueueReplicatorRole"
+			"role": "SourceQueueReplicatorRole",
+			"env": {
+				"Resources": {
+					"Region": "${AWS::Region}",
+					"LeoCron": "${LeoCron}",
+					"LeoEvent": "${LeoEvent}",
+					"LeoS3": "${LeoS3}",
+					"LeoSettings": "${LeoSettings}",
+					"LeoStream": "${LeoStream}",
+					"LeoSystem": "${LeoSystem}"
+				},
+				"AWS": {
+					"AccountId": "${AWS::AccountId}",
+					"region": "${AWS::Region}"
+				}
+			}
 		}
 	},
 	"keywords": [],

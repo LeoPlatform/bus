@@ -11,7 +11,8 @@
 		"test:int": "mocha 'test/**/*.integration.js'",
 		"setup": "setup",
 		"package": "leo-cli publish -s",
-		"deploy": "leo-cli publish -s -d dev"
+		"deploy:dev": "leo-cli publish -s -d dev",
+		"deploy:test": "leo-cli publish -s -d test"
 	},
 	"repository": {
 		"type": "git",

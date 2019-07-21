@@ -1,6 +1,6 @@
 {
 	"name": "create-replication-bots",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"private": true,
 	"description": "Creates the Replication Bots from the Replication Parameters",
 	"logicalResource": "LeoCreateReplicationBots",
@@ -27,8 +27,8 @@
 					"Region": "${AWS::Region}"
 				},
 				"AWS": {
-					"AccountId": "${AWS::AccountId}",
-					"region": "${AWS::Region}"
+					"region": "${AWS::Region}",
+					"AccountId": "${AWS::AccountId}"
 				}
 			}
 		}
