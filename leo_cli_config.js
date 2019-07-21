@@ -12,6 +12,7 @@ module.exports = {
 			stack: 'dev-bus',
 			parameters: {
 				QueueReplicationSourceAccount: "117870855864",
+				QueueReplicationSourceLeoBusStackName: "dev-bus",
 				QueueReplicationDestinationAccount: "117870855864",
 				QueueReplicationDestinationLeoBusStackName: "test-bus",
 				QueueReplicationQueueMapping: '["testrep_random_numbers"]'
@@ -22,6 +23,7 @@ module.exports = {
 			stack: 'test-bus',
 			parameters: {
 				QueueReplicationSourceAccount: "117870855864",
+				QueueReplicationSourceLeoBusStackName: "dev-bus",
 				QueueReplicationDestinationAccount: "117870855864",
 				QueueReplicationDestinationLeoBusStackName: "test-bus",
 				QueueReplicationQueueMapping: '["testrep_random_numbers"]'

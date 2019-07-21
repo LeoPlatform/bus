@@ -4,6 +4,10 @@ module.exports = {
 			"Type" : "String",
 			"Description" : "The account where replication source queues are located."
 		},
+		"QueueReplicationSourceLeoBusStackName" : {
+			"Type" : "String",
+			"Description" : "The Leo bus stack that is responsible for replicating a queue."
+		},
 		"QueueReplicationDestinationAccount" : {
 			"Type" : "String",
 			"Description" : "The AWS Account that is the destination for Queue Replication. May be the same as the source account, if replicating between bus instances in the same account."

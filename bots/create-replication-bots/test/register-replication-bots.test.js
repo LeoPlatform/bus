@@ -31,8 +31,12 @@ describe("add-replication-queues", () => {
 
 		const event = { 
 			AccountId: '123456789', 
+			StackName: 'unit-test-source-stack',
 			ReplicatorLambdaName: 'fooLambdaName', 
 			QueueReplicationSourceAccount: '123456789',
+			QueueReplicationDestinationAccount: '123456789',
+			QueueReplicationDestinationLeoBusStackName: 'unit-test-dest-stack',
+			QueueReplicationSourceLeoBusStackName: 'unit-test-source-stack',
 			QueueReplicationQueueMapping: '["fooQueue", "barQueue"]'
 		};
 
@@ -43,11 +47,19 @@ describe("add-replication-queues", () => {
 
 		expect(fooCallArgs).to.be.an('array').that.includes('fooQueue-replication');
 		expect(fooCallArgs[1].lambdaName).to.equal('fooLambdaName');
-		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('fooQueue');
+		expect(fooCallArgs[1].settings.destinationAccount).to.equal('123456789');
+		expect(fooCallArgs[1].settings.destinationBusStack).to.equal('unit-test-dest-stack');
+		expect(fooCallArgs[1].settings.destinationQueue).to.equal('fooQueue');
+		expect(fooCallArgs[1].settings.source).to.equal('fooQueue');
+		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('queue:fooQueue');
 
 		expect(barCallArgs).to.be.an('array').that.includes('barQueue-replication');
 		expect(barCallArgs[1].lambdaName).to.equal('fooLambdaName');
-		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('barQueue');
+		expect(barCallArgs[1].settings.destinationAccount).to.equal('123456789');
+		expect(barCallArgs[1].settings.destinationBusStack).to.equal('unit-test-dest-stack');
+		expect(barCallArgs[1].settings.destinationQueue).to.equal('barQueue');
+		expect(barCallArgs[1].settings.source).to.equal('barQueue');
+		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('queue:barQueue');
 	});
   
 	it('works with objects', async () => {
@@ -56,8 +68,12 @@ describe("add-replication-queues", () => {
 
 		const event = { 
 			AccountId: '123456789', 
+			StackName: 'unit-test-source-stack',
 			ReplicatorLambdaName: 'fooLambdaName', 
 			QueueReplicationSourceAccount: '123456789',
+			QueueReplicationDestinationAccount: '123456789',
+			QueueReplicationDestinationLeoBusStackName: 'unit-test-dest-stack',
+			QueueReplicationSourceLeoBusStackName: 'unit-test-source-stack',
 			QueueReplicationQueueMapping: `[
 				{ "source": "fooSource", "destination": "fooDestination"}, 
 				{ "source": "barSource", "destination": "barDestination"}
@@ -71,18 +87,30 @@ describe("add-replication-queues", () => {
 
 		expect(fooCallArgs).to.be.an('array').that.includes('fooSource-replication');
 		expect(fooCallArgs[1].lambdaName).to.equal('fooLambdaName');
-		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('fooSource');
+		expect(fooCallArgs[1].settings.destinationAccount).to.equal('123456789');
+		expect(fooCallArgs[1].settings.destinationBusStack).to.equal('unit-test-dest-stack');
+		expect(fooCallArgs[1].settings.destinationQueue).to.equal('fooDestination');
+		expect(fooCallArgs[1].settings.source).to.equal('fooSource');
+		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('queue:fooSource');
 
 		expect(barCallArgs).to.be.an('array').that.includes('barSource-replication');
 		expect(barCallArgs[1].lambdaName).to.equal('fooLambdaName');
-		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('barSource');
+		expect(barCallArgs[1].settings.destinationAccount).to.equal('123456789');
+		expect(barCallArgs[1].settings.destinationBusStack).to.equal('unit-test-dest-stack');
+		expect(barCallArgs[1].settings.destinationQueue).to.equal('barDestination');
+		expect(barCallArgs[1].settings.source).to.equal('barSource');
+		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('queue:barSource');
 	});
   
-	it('does not register bots in non-source account', async () => {
+	it('does not register bots in destination account', async () => {
 		const event = { 
 			AccountId: '123456789', 
+			StackName: 'unit-test-dest-stack',
 			ReplicatorLambdaName: 'fooLambdaName', 
 			QueueReplicationSourceAccount: '987654321',
+			QueueReplicationDestinationAccount: '123456789',
+			QueueReplicationDestinationLeoBusStackName: 'unit-test-dest-stack',
+			QueueReplicationSourceLeoBusStackName: 'unit-test-source-stack',
 			QueueReplicationQueueMapping: `[
 				{ "source": "fooSource", "destination": "fooDestination"}, 
 				{ "source": "barSource", "destination": "barDestination"}

@@ -563,7 +563,8 @@ module.exports = {
 								"ec2:CreateNetworkInterface",
 								"ec2:DescribeNetworkInterfaces",
 								"ec2:DetachNetworkInterface",
-								"ec2:DeleteNetworkInterface"
+								"ec2:DeleteNetworkInterface",
+								"cloudformation:DescribeStacks"
 							],
 							"Resource": "*"
 						},

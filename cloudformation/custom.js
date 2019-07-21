@@ -16,11 +16,16 @@ module.exports = {
 			"Type": "Custom::ReplicationBots",
 			"Properties": {
 				"AccountId": { "Ref": "AWS::AccountId" },
+				"StackName": { "Ref": "AWS::StackName" },
 				"QueueReplicationSourceAccount": { "Ref": "QueueReplicationSourceAccount"},
 				"QueueReplicationDestinationAccount": { "Ref": "QueueReplicationDestinationAccount"},
 				"QueueReplicationDestinationLeoBusStackName": { "Ref": "QueueReplicationDestinationLeoBusStackName"},
+				"QueueReplicationSourceLeoBusStackName": { "Ref": "QueueReplicationSourceLeoBusStackName"},
 				"QueueReplicationQueueMapping": { "Ref": "QueueReplicationQueueMapping"},
 				"ReplicatorLambdaName": { "Fn::GetAtt": ["SourceQueueReplicator", "Arn"] },
+				"DestinationLeoBotRoleArn": {
+					"Fn::ImportValue": { "Fn::Sub": "${QueueReplicationSourceLeoBusStackName}-Role"}
+				},
 				"ServiceToken": {
 					"Fn::Sub": "${LeoCreateReplicationBots.Arn}"
 				},

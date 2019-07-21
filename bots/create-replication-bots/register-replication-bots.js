@@ -15,12 +15,15 @@ function getSourceQueue(mapping) {
 }
 
 module.exports = function ({
-	AccountId: account,
+	AccountId: currentAccount,
+	StackName: currentStack,
 	ReplicatorLambdaName: lambdaName,
 	QueueReplicationSourceAccount: sourceAccount,
 	QueueReplicationDestinationAccount: destinationAccount,
 	QueueReplicationDestinationLeoBusStackName: destinationBusStack,
-	QueueReplicationQueueMapping
+	QueueReplicationSourceLeoBusStackName: sourceBusStack,
+	QueueReplicationQueueMapping,
+	DestinationLeoBotRoleArn
 }) {
 
 	let queueMapping;
@@ -32,8 +35,8 @@ module.exports = function ({
 		return Promise.reject(new Error("Malformed QueueReplicationQueueMapping parameter. Must be valid JSON."));
 	}
 
-	const isSourceAccount = (account === sourceAccount);
-	if (isSourceAccount) {
+	const isSourceStack = (currentAccount === sourceAccount && currentStack === sourceBusStack );
+	if (isSourceStack) {
 		// The source account is responsible for replicating the data to the destination account
 		const createBotPromises = [];
 		queueMapping.forEach(qm => {
@@ -47,7 +50,8 @@ module.exports = function ({
 					"source": sourceQueue,
 					"destinationQueue": destQueue,
 					"destinationAccount": destinationAccount,
-					"destinationBusStack": destinationBusStack
+					"destinationBusStack": destinationBusStack,
+					"destinationLeoBotRoleArn": DestinationLeoBotRoleArn
 				}
 			};
 			let createBotPromise;

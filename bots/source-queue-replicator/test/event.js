@@ -4,4 +4,5 @@ module.exports = {
 	destinationBusStack: 'test-bus',
 	destinationAccount: '117870855864',
 	botId: 'testrep_random_numbers-replication',
+	destinationLeoBotRoleArn: 'arn:aws:iam::117870855864:role/test-bus-LeoBotRole-1DZJ1EXJO06X4'
 };
