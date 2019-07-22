@@ -23,13 +23,16 @@ module.exports = {
 				"QueueReplicationSourceLeoBusStackName": { "Ref": "QueueReplicationSourceLeoBusStackName"},
 				"QueueReplicationQueueMapping": { "Ref": "QueueReplicationQueueMapping"},
 				"ReplicatorLambdaName": { "Fn::GetAtt": ["SourceQueueReplicator", "Arn"] },
+				"DestinationLeoBotPolicyArn": {
+					"Fn::ImportValue": { "Fn::Sub": "${QueueReplicationDestinationLeoBusStackName}-Policy"}
+				},
 				"DestinationLeoBotRoleArn": {
-					"Fn::ImportValue": { "Fn::Sub": "${QueueReplicationSourceLeoBusStackName}-Role"}
+					"Fn::ImportValue": { "Fn::Sub": "${QueueReplicationDestinationLeoBusStackName}-Role"}
 				},
 				"ServiceToken": {
 					"Fn::Sub": "${LeoCreateReplicationBots.Arn}"
 				},
-				"Version": "2.2"
+				"Version": "2.3"
 			},
 			"DependsOn": [
 				"LeoCreateReplicationBots", "SourceQueueReplicator", "LeoInstallRole"

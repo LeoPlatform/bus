@@ -23,7 +23,8 @@ module.exports = function ({
 	QueueReplicationDestinationLeoBusStackName: destinationBusStack,
 	QueueReplicationSourceLeoBusStackName: sourceBusStack,
 	QueueReplicationQueueMapping,
-	DestinationLeoBotRoleArn
+	DestinationLeoBotRoleArn,
+	DestinationLeoBotPolicyArn
 }) {
 
 	let queueMapping;
@@ -51,7 +52,8 @@ module.exports = function ({
 					"destinationQueue": destQueue,
 					"destinationAccount": destinationAccount,
 					"destinationBusStack": destinationBusStack,
-					"destinationLeoBotRoleArn": DestinationLeoBotRoleArn
+					"destinationLeoBotRoleArn": DestinationLeoBotRoleArn,
+					"destinationLeoBotPolicyArn": DestinationLeoBotPolicyArn
 				}
 			};
 			let createBotPromise;

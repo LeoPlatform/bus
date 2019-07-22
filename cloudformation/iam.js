@@ -28,7 +28,24 @@ module.exports = {
 						"Ref": "LeoBotPolicy"
 					}
 				],
-				"Policies": [	]
+				"Policies": [	
+					{
+						"PolicyName": "SourceQueueReplicatorRolePolicy",
+						"PolicyDocument": {
+							"Version": "2012-10-17",
+							"Statement": [
+								{
+									"Effect": "Allow",
+									"Action": "sts:AssumeRole",
+									"Resource":{
+										"Fn::Sub": "arn:aws:iam::${QueueReplicationDestinationAccount}:role/${QueueReplicationDestinationLeoBusStackName}*"
+									} 
+								}
+							]
+						}
+					}
+
+				]
 			}
 		},
 		"LeoInstallRole": {
