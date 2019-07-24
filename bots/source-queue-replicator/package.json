@@ -13,6 +13,7 @@
 			"memory": 256,
 			"timeout": 300,
 			"role": "SourceQueueReplicatorRole",
+			"condition": "IsSourceStack",
 			"env": {
 				"Resources": {
 					"Region": "${AWS::Region}",

@@ -1,53 +1,5 @@
 module.exports = {
 	Resources: {
-		"SourceQueueReplicatorRole": {
-			"Type": "AWS::IAM::Role",
-			"Properties": {
-				"AssumeRolePolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Principal": {
-								"Service": [
-									"lambda.amazonaws.com"
-								],
-								"AWS": {
-									"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-								}
-							},
-							"Action": [
-								"sts:AssumeRole"
-							]
-						}
-					]
-				},
-				"ManagedPolicyArns": [
-					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-					{
-						"Ref": "LeoBotPolicy"
-					}
-				],
-				"Policies": [	
-					{
-						"PolicyName": "SourceQueueReplicatorRolePolicy",
-						"PolicyDocument": {
-							"Version": "2012-10-17",
-							"Statement": [
-								{
-									"Effect": "Allow",
-									"Action": "sts:AssumeRole",
-									"Resource":{
-										"Fn::Sub": "arn:aws:iam::${QueueReplicationDestinationAccount}:role/${QueueReplicationDestinationLeoBusStackName}*"
-									} 
-								}
-							]
-						}
-					}
-
-				]
-			}
-		},
 		"LeoInstallRole": {
 			"Type": "AWS::IAM::Role",
 			"Properties": {
@@ -232,19 +184,40 @@ module.exports = {
 			"Properties": {
 				"AssumeRolePolicyDocument": {
 					"Version": "2012-10-17",
-					"Statement": [
+					"Statement": [						
 						{
-							"Effect": "Allow",
-							"Principal": {
-								"Service": [
-									"lambda.amazonaws.com"
-								],
-								"AWS": {
-									"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+							"Fn::If" : [
+								"IsDestinationAccount",
+								{
+									"Effect": "Allow",
+									"Principal": {
+										"Service": [
+											"lambda.amazonaws.com"
+										],
+										"AWS":[{
+											"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+										},{
+											"Fn::Sub": "arn:aws:iam::${QueueReplicationSourceAccountId}:root"
+										}],
+									},
+									"Action": [
+										"sts:AssumeRole"
+									]
+								},
+								{
+									"Effect": "Allow",
+									"Principal": {
+										"Service": [
+											"lambda.amazonaws.com"
+										],
+										"AWS": {
+											"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+										},
+									},
+									"Action": [
+										"sts:AssumeRole"
+									]
 								}
-							},
-							"Action": [
-								"sts:AssumeRole"
 							]
 						}
 					]

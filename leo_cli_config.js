@@ -2,7 +2,7 @@
 module.exports = {
 	publish: [{
 		leoaws: {
-			profile: 'personal',
+			profile: 'seriouscoderone',
 			region: 'us-east-1'
 		},
 		public: true,
@@ -11,22 +11,22 @@ module.exports = {
 		dev: {
 			stack: 'dev-bus',
 			parameters: {
-				QueueReplicationSourceAccount: "117870855864",
-				QueueReplicationSourceLeoBusStackName: "dev-bus",
-				QueueReplicationDestinationAccount: "117870855864",
-				QueueReplicationDestinationLeoBusStackName: "test-bus",
-				QueueReplicationQueueMapping: '["testrep_random_numbers"]'
+				QueueReplicationSourceAccountId: '',
+				QueueReplicationSourceLeoBusStackName: '',
+				QueueReplicationDestinationLeoBotRoleArn: '',
+				QueueReplicationDestinationLeoBusStackName: '',
+				QueueReplicationQueueMapping: '[]'
 			},
 			region: 'us-east-1'
 		},
 		test: {
 			stack: 'test-bus',
 			parameters: {
-				QueueReplicationSourceAccount: "117870855864",
-				QueueReplicationSourceLeoBusStackName: "dev-bus",
-				QueueReplicationDestinationAccount: "117870855864",
-				QueueReplicationDestinationLeoBusStackName: "test-bus",
-				QueueReplicationQueueMapping: '["testrep_random_numbers"]'
+				QueueReplicationSourceAccountId: '',
+				QueueReplicationSourceLeoBusStackName: '',
+				QueueReplicationDestinationLeoBotRoleArn: '',
+				QueueReplicationDestinationLeoBusStackName: '',
+				QueueReplicationQueueMapping: '[]'
 			},
 			region: 'us-east-1'
 		}

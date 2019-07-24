@@ -9,7 +9,7 @@
   "ResourceProperties": {
       "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoCreateReplicationBots-SXPYBPN1PFX6",
       "AccountId": "117870855864",
-      "QueueReplicationSourceAccount": "<destination aws account id>",
+      "QueueReplicationSourceAccountId": "<destination aws account id>",
       "Version": "2.0",
       "QueueReplicationQueueMapping": "[]",
       "ReplicatorLambdaName": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-SourceQueueReplicator-5P1LICQ6JLQX"

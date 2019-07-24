@@ -33,8 +33,8 @@ describe("add-replication-queues", () => {
 			AccountId: '123456789', 
 			StackName: 'unit-test-source-stack',
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationSourceAccount: '123456789',
-			QueueReplicationDestinationAccount: '123456789',
+			QueueReplicationSourceAccountId: '123456789',
+			QueueReplicationDestinationLeoBotRoleArn: '123456789',
 			QueueReplicationDestinationLeoBusStackName: 'unit-test-dest-stack',
 			QueueReplicationSourceLeoBusStackName: 'unit-test-source-stack',
 			QueueReplicationQueueMapping: '["fooQueue", "barQueue"]'
@@ -70,8 +70,8 @@ describe("add-replication-queues", () => {
 			AccountId: '123456789', 
 			StackName: 'unit-test-source-stack',
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationSourceAccount: '123456789',
-			QueueReplicationDestinationAccount: '123456789',
+			QueueReplicationSourceAccountId: '123456789',
+			QueueReplicationDestinationLeoBotRoleArn: '123456789',
 			QueueReplicationDestinationLeoBusStackName: 'unit-test-dest-stack',
 			QueueReplicationSourceLeoBusStackName: 'unit-test-source-stack',
 			QueueReplicationQueueMapping: `[
@@ -107,8 +107,8 @@ describe("add-replication-queues", () => {
 			AccountId: '123456789', 
 			StackName: 'unit-test-dest-stack',
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationSourceAccount: '987654321',
-			QueueReplicationDestinationAccount: '123456789',
+			QueueReplicationSourceAccountId: '987654321',
+			QueueReplicationDestinationLeoBotRoleArn: '123456789',
 			QueueReplicationDestinationLeoBusStackName: 'unit-test-dest-stack',
 			QueueReplicationSourceLeoBusStackName: 'unit-test-source-stack',
 			QueueReplicationQueueMapping: `[
