@@ -1,6 +1,6 @@
 {
 	"name": "leo-bus",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Improve Kinesis burstability, durability, and replay",
 	"main": "index.js",
 	"scripts": {
@@ -24,7 +24,7 @@
 	"dependencies": {
 		"deep-diff": "^1.0.2",
 		"leo-cron": "^1.0.0",
-		"leo-sdk": "^3.0.1",
+		"leo-sdk": "^3.1.4",
 		"moment": "^2.24.0"
 	},
 	"devDependencies": {
