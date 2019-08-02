@@ -4,38 +4,68 @@ const leo = require("leo-sdk");
 // TODO: On update.. delete the old bots. you can compare with old params passed in
 // TODO: On delete.. do nothing. Just success return
 
-function getSourceQueue(mapping) {
-	if (typeof mapping === "string") {
+function getInfoFromQ(mapping) {
+	for (let [key, value] of Object.entries(mapping)) {
 		return {
-			sourceQueue: mapping,
-			destQueue: mapping
+			sourceQueue: key,
+			destAccount: value.account,
+			destStack: value.stack,
+			destQueue: value.destination
 		};
 	}
-	return {
-		sourceQueue: mapping.source,
-		destQueue: mapping.destination
-	};
 }
 
 module.exports = function ({
 	ReplicatorLambdaName: lambdaName,
-	QueueReplicationDestinationLeoBusStackName: destinationBusStack,
-	QueueReplicationQueueMapping,
-	QueueReplicationDestinationLeoBotRoleArn: destinationLeoBotRoleArn
+	QueueReplicationDestinationLeoBotRoleARNs: destinationLeoBotRoleARNs,
+	QueueReplicationMapping
 }) {
+
+	const accountStackArnMap = destinationLeoBotRoleARNs.split(",").reduce((obj, cur) => {
+		const accountStackMatch = cur.match(/arn:aws:iam::(.*):role\/(.*)-LeoBotRole/);
+		if (!accountStackMatch || !accountStackMatch[1] || !accountStackMatch[2]) {
+			return obj;
+		}
+		const accountStack = `${accountStackMatch[1]}:${accountStackMatch[2]}`;
+		if (!(accountStack in obj)) {
+			obj[accountStack] = cur.trim();
+		} 
+		return obj;
+	}, {});
+
+	if (Object.keys(accountStackArnMap).length === 0) {
+		return Promise.reject(new Error("Malformed QueueReplicationDestinationLeoBotRoleARNs parameter. Should be a comma delimited list of LeoBotRole ARNs."));
+	}
 
 	let queueMapping;
 	try {
-		queueMapping = JSON.parse(QueueReplicationQueueMapping);
-		if (!Array.isArray(queueMapping))
-			return Promise.reject(new Error("Malformed QueueReplicationQueueMapping parameter. Must be JSON Array."));
+		const parsedQueueMap = JSON.parse(QueueReplicationMapping);
+		if (!Array.isArray(parsedQueueMap)) {
+			return Promise.reject(new Error("Malformed QueueReplicationMapping parameter. Must be JSON Array."));
+		}
+		queueMapping = parsedQueueMap.map(getInfoFromQ);
 	} catch (err) {
-		return Promise.reject(new Error("Malformed QueueReplicationQueueMapping parameter. Must be valid JSON."));
+		return Promise.reject(new Error("Malformed QueueReplicationMapping parameter. Must be valid JSON."));
+	}
+
+	const queueMapsHaveAccountStacks = queueMapping.reduce((doesMatch, qm) => {
+		if (!doesMatch) return false;
+		if (!accountStackArnMap[`${qm.destAccount}:${qm.destStack}`]) return false;
+		return true;
+	}, true);
+
+	const accountStacksHaveQueueMaps = Object.keys(accountStackArnMap).reduce((doesMatch, acctSt) => {
+		if (!doesMatch) return false;
+		if (!queueMapping.find((qm) => acctSt === `${qm.destAccount}:${qm.destStack}`)) return false;
+		return true;
+	}, true);
+
+	if (!queueMapsHaveAccountStacks || !accountStacksHaveQueueMaps) {
+		return Promise.reject(new Error("QueueReplication* parameters do not match per account and stack"));
 	}
 
 	const createBotPromises = [];
-	queueMapping.forEach(qm => {
-		const { sourceQueue, destQueue } = getSourceQueue(qm);
+	queueMapping.forEach(({ sourceQueue, destAccount, destStack, destQueue }) => {
 		const botId = `${sourceQueue}-replication`;
 		const botModel = {
 			"id": botId,
@@ -44,15 +74,15 @@ module.exports = function ({
 			"settings": {
 				"sourceQueue": sourceQueue,
 				"destinationQueue": destQueue,
-				"destinationBusStack": destinationBusStack,
-				"destinationLeoBotRoleArn": destinationLeoBotRoleArn
+				"destinationBusStack": destStack,
+				"destinationLeoBotRoleArn": accountStackArnMap[`${destAccount}:${destStack}`]
 			}
 		};
 		let createBotPromise;
 		try {
 			createBotPromise = leo.bot.createBot(botId, botModel);
 		} catch (err) {
-			return Promise.reject(new Error("Error Creating Bot."));
+			createBotPromises.push(Promise.reject(new Error("Error Creating Bot.")));
 		}
 		createBotPromises.push(createBotPromise);
 	});

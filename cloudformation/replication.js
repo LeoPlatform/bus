@@ -1,57 +1,50 @@
 module.exports = {
 	Parameters: {
-		"QueueReplicationSourceAccountId" : {
-			"Type" : "String",
-			"Description" : "The account where replication source queues are located. Populate this parameter in the destination account to allow the source account access."
+		"TrustedAWSPrinciples" : {
+			"Type" : "CommaDelimitedList",
+			"Description" : "List of AWS principles this stack trusts. (i.e. arn:aws:iam::<account_id>:root) Trusted accounts can assume the role of a bot on this stack and write to it."
 		},
-		"QueueReplicationSourceLeoBusStackName" : {
-			"Type" : "String",
-			"Description" : "The Leo bus stack that is responsible for replicating a queue. You can replicate queues between stacks in the same account, so this helps differentiate."
+		"QueueReplicationDestinationLeoBotRoleARNs" : {
+			"Type" : "CommaDelimitedList",
+			"Description" : "List of LeoBotRole Arn's this stack will assume for replication."
 		},
-		"QueueReplicationDestinationLeoBotRoleArn" : {
+		"QueueReplicationMapping" : {
 			"Type" : "String",
-			"Description" : "The LeoBotRole ARN from the destination account. This enables the replication bot to assume the role of a bot in the destination account."
-		},
-		"QueueReplicationDestinationLeoBusStackName" : {
-			"Type" : "String",
-			"Description" : "The Leo bus stack name that will receive the replicated queue. The replication bot will leverage this stack to learn about the Leo resources in the destination account."
-		},
-		"QueueReplicationQueueMapping" : {
-			"Type" : "String",
-			"Default" : "[]",
-			"Description" : "A JSON array of Source-Destination Queue Mappings. i.e. [{source: \"srcqueue\", destination: \"dstqueue\"}, \"samequeue\"] (if source & destination are named the same, then just a list of strings). This parameter is only used by the source account."
+			"Default": "[]",
+			"Description" : "JSON Array of Objects of the form [{\"SOURCE_QUEUE\": { \"account\": \"DEST_ACCOUNT_ID\", \"stack\": \"DEST_STACK_NAME\", \"destination\":  \"DEST_QUEUE\"}}, {...}]"
 		}
 	},
 	Conditions: {
-		IsSourceStack: {
-			"Fn::And": [
-				{ "Fn::Equals" : [{ "Ref" : "AWS::AccountId" }, { "Ref": "QueueReplicationSourceAccountId" }] },
-				{ "Fn::Equals" : [{ "Ref" : "AWS::StackName" }, { "Ref": "QueueReplicationSourceLeoBusStackName" }] }
+		IsTrustingAccount: {
+			"Fn::Not": [
+				{ "Fn::Equals" : [{ "Fn::Join" : [ ",", { "Ref" : "TrustedAWSPrinciples" } ] }, ""] }
 			]			
 		},
-		IsDestinationAccount: {
+		IsReplicatingStack: {
 			"Fn::And": [
 				{
 					"Fn::Not": [
-						{ "Fn::Equals" : [{ "Ref" : "QueueReplicationSourceAccountId" }, ""] }
+						{ "Fn::Equals" : [{ "Fn::Join" : [ ",", { "Ref" : "QueueReplicationDestinationLeoBotRoleARNs" } ] }, ""] }
 					]			
 				},
 				{
 					"Fn::Not": [
-						{ "Fn::Equals" : [{ "Ref" : "QueueReplicationSourceAccountId" }, { "Ref": "AWS::AccountId" }] }
+						{ "Fn::Equals" : [{ "Ref" : "QueueReplicationMapping" }, "[]"] }
 					]			
 				}
 			]			
 		}
 	},
 	Resources: {
-		"ReplicationBots": {
-			"Type": "Custom::ReplicationBots",
-			"Condition": "IsSourceStack",
+		"SourceQueueReplicator": {
+			"Condition": "IsReplicatingStack"
+		},
+		"RegisterReplicationBots": {
+			"Type": "Custom::RegisterReplicationBots",
+			"Condition": "IsReplicatingStack",
 			"Properties": {
-				"QueueReplicationDestinationLeoBotRoleArn": { "Ref": "QueueReplicationDestinationLeoBotRoleArn"},
-				"QueueReplicationDestinationLeoBusStackName": { "Ref": "QueueReplicationDestinationLeoBusStackName"},
-				"QueueReplicationQueueMapping": { "Ref": "QueueReplicationQueueMapping"},
+				"QueueReplicationDestinationLeoBotRoleARNs": { "Ref": "QueueReplicationDestinationLeoBotRoleARNs"},
+				"QueueReplicationMapping": { "Ref": "QueueReplicationMapping"},
 				"ReplicatorLambdaName": { "Fn::GetAtt": ["SourceQueueReplicator", "Arn"] },
 				"ServiceToken": {
 					"Fn::Sub": "${LeoCreateReplicationBots.Arn}"
@@ -64,7 +57,7 @@ module.exports = {
 		},
 		"SourceQueueReplicatorRole": {
 			"Type": "AWS::IAM::Role",
-			"Condition": "IsSourceStack",
+			"Condition": "IsReplicatingStack",
 			"Properties": {
 				"AssumeRolePolicyDocument": {
 					"Version": "2012-10-17",
@@ -101,7 +94,7 @@ module.exports = {
 									"Effect": "Allow",
 									"Action": "sts:AssumeRole",
 									"Resource":{
-										"Ref": "QueueReplicationDestinationLeoBotRoleArn"
+										"Ref": "QueueReplicationDestinationLeoBotRoleARNs"
 									} 
 								}
 							]
@@ -115,7 +108,7 @@ module.exports = {
 	Outputs: {
 		"SourceQueueReplicator": {
 			"Description": "Leo Source Queue Replicator Bot",
-			"Condition": "IsSourceStack",
+			"Condition": "IsReplicatingStack",
 			"Value": {
 				"Fn::Sub": "${SourceQueueReplicator.Arn}"
 			},

@@ -27,4 +27,4 @@ module.exports = {
 	botId: 'testrep_random_numbers-replication',
 	getCheckpoint: () => {},
 	settings: {}
-}
+};

@@ -184,43 +184,49 @@ module.exports = {
 			"Properties": {
 				"AssumeRolePolicyDocument": {
 					"Version": "2012-10-17",
-					"Statement": [						
-						{
-							"Fn::If" : [
-								"IsDestinationAccount",
-								{
-									"Effect": "Allow",
-									"Principal": {
-										"Service": [
-											"lambda.amazonaws.com"
-										],
-										"AWS":[{
-											"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-										},{
-											"Fn::Sub": "arn:aws:iam::${QueueReplicationSourceAccountId}:root"
-										}],
+					"Statement": 	{
+						"Fn::If" : [
+							"IsTrustingAccount",
+							[{
+								"Effect": "Allow",
+								"Principal": {
+									"Service": [
+										"lambda.amazonaws.com"
+									],
+									"AWS": {
+										"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
 									},
-									"Action": [
-										"sts:AssumeRole"
-									]
 								},
-								{
-									"Effect": "Allow",
-									"Principal": {
-										"Service": [
-											"lambda.amazonaws.com"
-										],
-										"AWS": {
-											"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-										},
+								"Action": [
+									"sts:AssumeRole"
+								]
+							},{
+								"Effect": "Allow",
+								"Principal": {
+									"AWS":{
+										"Ref": "TrustedAWSPrinciples"
 									},
-									"Action": [
-										"sts:AssumeRole"
-									]
-								}
-							]
-						}
-					]
+								},
+								"Action": [
+									"sts:AssumeRole"
+								]
+							}],
+							[{
+								"Effect": "Allow",
+								"Principal": {
+									"Service": [
+										"lambda.amazonaws.com"
+									],
+									"AWS": {
+										"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+									},
+								},
+								"Action": [
+									"sts:AssumeRole"
+								]
+							}]
+						]
+					}
 				},
 				"ManagedPolicyArns": [
 					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",

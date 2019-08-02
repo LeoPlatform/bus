@@ -26,18 +26,13 @@ describe("add-replication-queues", () => {
 		createBotFunc.resetHistory();
 	});
   
-	it('works with strings', async () => {
+	it('works', async () => {
 		createBotFunc.resolves({ success: "true" });
 
 		const event = { 
-			AccountId: '123456789', 
-			StackName: 'unit-test-source-stack',
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationSourceAccountId: '123456789',
-			QueueReplicationDestinationLeoBotRoleArn: '123456789',
-			QueueReplicationDestinationLeoBusStackName: 'unit-test-dest-stack',
-			QueueReplicationSourceLeoBusStackName: 'unit-test-source-stack',
-			QueueReplicationQueueMapping: '["fooQueue", "barQueue"]'
+			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
 		};
 
 		await registerReplicationBots(event);
@@ -47,78 +42,146 @@ describe("add-replication-queues", () => {
 
 		expect(fooCallArgs).to.be.an('array').that.includes('fooQueue-replication');
 		expect(fooCallArgs[1].lambdaName).to.equal('fooLambdaName');
-		expect(fooCallArgs[1].settings.destinationAccount).to.equal('123456789');
-		expect(fooCallArgs[1].settings.destinationBusStack).to.equal('unit-test-dest-stack');
-		expect(fooCallArgs[1].settings.destinationQueue).to.equal('fooQueue');
-		expect(fooCallArgs[1].settings.source).to.equal('fooQueue');
-		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('queue:fooQueue');
+		expect(fooCallArgs[1].settings.destinationLeoBotRoleArn).to.equal('arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX');
+		expect(fooCallArgs[1].settings.destinationBusStack).to.equal('test-bus');
+		expect(fooCallArgs[1].settings.destinationQueue).to.equal('DEST_QUEUE');
+		expect(fooCallArgs[1].settings.sourceQueue).to.equal('fooQueue');
+		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('fooQueue');
 
 		expect(barCallArgs).to.be.an('array').that.includes('barQueue-replication');
 		expect(barCallArgs[1].lambdaName).to.equal('fooLambdaName');
-		expect(barCallArgs[1].settings.destinationAccount).to.equal('123456789');
-		expect(barCallArgs[1].settings.destinationBusStack).to.equal('unit-test-dest-stack');
-		expect(barCallArgs[1].settings.destinationQueue).to.equal('barQueue');
-		expect(barCallArgs[1].settings.source).to.equal('barQueue');
-		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('queue:barQueue');
+		expect(barCallArgs[1].settings.destinationLeoBotRoleArn).to.equal('arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY');
+		expect(barCallArgs[1].settings.destinationBusStack).to.equal('dev-bus');
+		expect(barCallArgs[1].settings.destinationQueue).to.equal('DEST_QUEUEB');
+		expect(barCallArgs[1].settings.sourceQueue).to.equal('barQueue');
+		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('barQueue');
 	});
   
-	it('works with objects', async () => {
-
-		createBotFunc.resolves({ success: "true" });
-
+	it('fails with malformed QueueReplicationDestinationLeoBotRoleARNs', (done) => {
+	
 		const event = { 
-			AccountId: '123456789', 
-			StackName: 'unit-test-source-stack',
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationSourceAccountId: '123456789',
-			QueueReplicationDestinationLeoBotRoleArn: '123456789',
-			QueueReplicationDestinationLeoBusStackName: 'unit-test-dest-stack',
-			QueueReplicationSourceLeoBusStackName: 'unit-test-source-stack',
-			QueueReplicationQueueMapping: `[
-				{ "source": "fooSource", "destination": "fooDestination"}, 
-				{ "source": "barSource", "destination": "barDestination"}
-			]`
+			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iadfm::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeosdBotRole-XXXXX',
+			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
 		};
 
-		await registerReplicationBots(event);
-
-		const fooCallArgs = createBotFunc.getCall(0).args;
-		const barCallArgs = createBotFunc.getCall(1).args;
-
-		expect(fooCallArgs).to.be.an('array').that.includes('fooSource-replication');
-		expect(fooCallArgs[1].lambdaName).to.equal('fooLambdaName');
-		expect(fooCallArgs[1].settings.destinationAccount).to.equal('123456789');
-		expect(fooCallArgs[1].settings.destinationBusStack).to.equal('unit-test-dest-stack');
-		expect(fooCallArgs[1].settings.destinationQueue).to.equal('fooDestination');
-		expect(fooCallArgs[1].settings.source).to.equal('fooSource');
-		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('queue:fooSource');
-
-		expect(barCallArgs).to.be.an('array').that.includes('barSource-replication');
-		expect(barCallArgs[1].lambdaName).to.equal('fooLambdaName');
-		expect(barCallArgs[1].settings.destinationAccount).to.equal('123456789');
-		expect(barCallArgs[1].settings.destinationBusStack).to.equal('unit-test-dest-stack');
-		expect(barCallArgs[1].settings.destinationQueue).to.equal('barDestination');
-		expect(barCallArgs[1].settings.source).to.equal('barSource');
-		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('queue:barSource');
+		registerReplicationBots(event).then(() => {
+			done(new Error("Should have failed"));
+		}, (err) => {
+			expect(err.message).to.be.equal("Malformed QueueReplicationDestinationLeoBotRoleARNs parameter. Should be a comma delimited list of LeoBotRole ARNs.");
+			done();
+		}).catch((err) => {
+			done(err);
+		});
 	});
   
-	it('does not register bots in destination account', async () => {
+	it('fails with malformed QueueReplicationMapping', (done) => {
+	
 		const event = { 
-			AccountId: '123456789', 
-			StackName: 'unit-test-dest-stack',
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationSourceAccountId: '987654321',
-			QueueReplicationDestinationLeoBotRoleArn: '123456789',
-			QueueReplicationDestinationLeoBusStackName: 'unit-test-dest-stack',
-			QueueReplicationSourceLeoBusStackName: 'unit-test-source-stack',
-			QueueReplicationQueueMapping: `[
-				{ "source": "fooSource", "destination": "fooDestination"}, 
-				{ "source": "barSource", "destination": "barDestination"}
-			]`
+			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
 		};
 
-		await registerReplicationBots(event);
+		registerReplicationBots(event).then(() => {
+			done(new Error("Should have failed"));
+		}, (err) => {
+			expect(err.message).to.be.equal("Malformed QueueReplicationMapping parameter. Must be valid JSON.");
+			done();
+		}).catch((err) => {
+			done(err);
+		});
+	});
+  
+	it('fails with QueueReplicationMapping not array', (done) => {
+	
+		const event = { 
+			ReplicatorLambdaName: 'fooLambdaName', 
+			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationMapping: '{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}'
+		};
 
-		expect(createBotFunc.called).to.be.equal(false);
+		registerReplicationBots(event).then(() => {
+			done(new Error("Should have failed"));
+		}, (err) => {
+			expect(err.message).to.be.equal("Malformed QueueReplicationMapping parameter. Must be JSON Array.");
+			done();
+		}).catch((err) => {
+			done(err);
+		});
+	});
+  
+	it('fails with queuemap missing ARNs', (done) => {
+	
+		const event = { 
+			ReplicatorLambdaName: 'fooLambdaName', 
+			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}]'
+		};
+
+		registerReplicationBots(event).then(() => {
+			done(new Error("Should have failed"));
+		}, (err) => {
+			expect(err.message).to.be.equal("QueueReplication* parameters do not match per account and stack");
+			done();
+		}).catch((err) => {
+			done(err);
+		});
+	});
+  
+	it('fails with ARNs missing queuemap', (done) => {
+	
+		const event = { 
+			ReplicatorLambdaName: 'fooLambdaName', 
+			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY',
+			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
+		};
+
+		registerReplicationBots(event).then(() => {
+			done(new Error("Should have failed"));
+		}, (err) => {
+			expect(err.message).to.be.equal("QueueReplication* parameters do not match per account and stack");
+			done();
+		}).catch((err) => {
+			done(err);
+		});
+	});
+  
+	it('fails creating bot: rejected', (done) => {
+		createBotFunc.rejects(new Error("Bot Rejected"));
+
+		const event = { 
+			ReplicatorLambdaName: 'fooLambdaName', 
+			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
+		};
+
+		registerReplicationBots(event).then(() => {
+			done(new Error("Should have failed"));
+		}, (err) => {
+			expect(err.message).to.be.equal("Bot Rejected");
+			done();
+		}).catch((err) => {
+			done(err);
+		});
+	});
+  
+	it('fails creating bot: throws', (done) => {
+		createBotFunc.throws(new Error("Bot Failure"));
+
+		const event = { 
+			ReplicatorLambdaName: 'fooLambdaName', 
+			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
+		};
+
+		registerReplicationBots(event).then(() => {
+			done(new Error("Should have failed"));
+		}, (err) => {
+			expect(err.message).to.be.equal("Error Creating Bot.");
+			done();
+		}).catch((err) => {
+			done(err);
+		});
 	});
 });

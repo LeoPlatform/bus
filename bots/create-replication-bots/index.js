@@ -4,7 +4,7 @@ const registerReplicationBots = require("./register-replication-bots");
 const sendCustomResourceResponse = require('../../lib/sendCustomResourceResponse');
 
 exports.handler = (event, _, callback) => {
-	console.log(JSON.stringify(event, null, 2));
+	// console.log(JSON.stringify(event, null, 2));
 	try {
 		event.PhysicalResourceId = event.LogicalResourceId;
 		registerReplicationBots(event.ResourceProperties).then(() => {
