@@ -31,7 +31,7 @@ describe("add-replication-queues", () => {
 
 		const event = { 
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY', 'arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX'],
 			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
 		};
 
@@ -40,7 +40,7 @@ describe("add-replication-queues", () => {
 		const fooCallArgs = createBotFunc.getCall(0).args;
 		const barCallArgs = createBotFunc.getCall(1).args;
 
-		expect(fooCallArgs).to.be.an('array').that.includes('fooQueue-replication');
+		expect(fooCallArgs).to.be.an('array').that.includes('replicate-fooQueue-to-11111-test-bus-DEST_QUEUE');
 		expect(fooCallArgs[1].lambdaName).to.equal('fooLambdaName');
 		expect(fooCallArgs[1].settings.destinationLeoBotRoleArn).to.equal('arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX');
 		expect(fooCallArgs[1].settings.destinationBusStack).to.equal('test-bus');
@@ -48,7 +48,7 @@ describe("add-replication-queues", () => {
 		expect(fooCallArgs[1].settings.sourceQueue).to.equal('fooQueue');
 		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('fooQueue');
 
-		expect(barCallArgs).to.be.an('array').that.includes('barQueue-replication');
+		expect(barCallArgs).to.be.an('array').that.includes('replicate-barQueue-to-22222-dev-bus-DEST_QUEUEB');
 		expect(barCallArgs[1].lambdaName).to.equal('fooLambdaName');
 		expect(barCallArgs[1].settings.destinationLeoBotRoleArn).to.equal('arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY');
 		expect(barCallArgs[1].settings.destinationBusStack).to.equal('dev-bus');
@@ -57,11 +57,104 @@ describe("add-replication-queues", () => {
 		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('barQueue');
 	});
   
+	it('works with destination convetion', async () => {
+		createBotFunc.resolves({ success: "true" });
+
+		const event = { 
+			ReplicatorLambdaName: 'fooLambdaName', 
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY', 'arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX'],
+			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus" }}, {"barQueue": { "account": "22222", "stack": "dev-bus"}}]'
+		};
+
+		await registerReplicationBots(event);
+
+		const fooCallArgs = createBotFunc.getCall(0).args;
+		const barCallArgs = createBotFunc.getCall(1).args;
+
+		expect(fooCallArgs).to.be.an('array').that.includes('replicate-fooQueue-to-11111-test-bus-fooQueue');
+		expect(fooCallArgs[1].lambdaName).to.equal('fooLambdaName');
+		expect(fooCallArgs[1].settings.destinationLeoBotRoleArn).to.equal('arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX');
+		expect(fooCallArgs[1].settings.destinationBusStack).to.equal('test-bus');
+		expect(fooCallArgs[1].settings.destinationQueue).to.equal('fooQueue');
+		expect(fooCallArgs[1].settings.sourceQueue).to.equal('fooQueue');
+		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('fooQueue');
+
+		expect(barCallArgs).to.be.an('array').that.includes('replicate-barQueue-to-22222-dev-bus-barQueue');
+		expect(barCallArgs[1].lambdaName).to.equal('fooLambdaName');
+		expect(barCallArgs[1].settings.destinationLeoBotRoleArn).to.equal('arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY');
+		expect(barCallArgs[1].settings.destinationBusStack).to.equal('dev-bus');
+		expect(barCallArgs[1].settings.destinationQueue).to.equal('barQueue');
+		expect(barCallArgs[1].settings.sourceQueue).to.equal('barQueue');
+		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('barQueue');
+	});
+  
+	it('works with account and stack convetion. Default to first ARNs account and stack', async () => {
+		createBotFunc.resolves({ success: "true" });
+
+		const event = { 
+			ReplicatorLambdaName: 'fooLambdaName', 
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY'],
+			QueueReplicationMapping: '[{"fooQueue": { "stack": "dev-bus" }}, {"barQueue": { "account": "22222" }}]'
+		};
+
+		await registerReplicationBots(event);
+
+		const fooCallArgs = createBotFunc.getCall(0).args;
+		const barCallArgs = createBotFunc.getCall(1).args;
+
+		expect(fooCallArgs).to.be.an('array').that.includes('replicate-fooQueue-to-22222-dev-bus-fooQueue');
+		expect(fooCallArgs[1].lambdaName).to.equal('fooLambdaName');
+		expect(fooCallArgs[1].settings.destinationLeoBotRoleArn).to.equal('arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY');
+		expect(fooCallArgs[1].settings.destinationBusStack).to.equal('dev-bus');
+		expect(fooCallArgs[1].settings.destinationQueue).to.equal('fooQueue');
+		expect(fooCallArgs[1].settings.sourceQueue).to.equal('fooQueue');
+		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('fooQueue');
+
+		expect(barCallArgs).to.be.an('array').that.includes('replicate-barQueue-to-22222-dev-bus-barQueue');
+		expect(barCallArgs[1].lambdaName).to.equal('fooLambdaName');
+		expect(barCallArgs[1].settings.destinationLeoBotRoleArn).to.equal('arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY');
+		expect(barCallArgs[1].settings.destinationBusStack).to.equal('dev-bus');
+		expect(barCallArgs[1].settings.destinationQueue).to.equal('barQueue');
+		expect(barCallArgs[1].settings.sourceQueue).to.equal('barQueue');
+		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('barQueue');
+	});
+  
+	it('works with string convetion. Default to first ARNs account and stack', async () => {
+		createBotFunc.resolves({ success: "true" });
+
+		const event = { 
+			ReplicatorLambdaName: 'fooLambdaName', 
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY'],
+			QueueReplicationMapping: '["fooQueue", "barQueue"]'
+		};
+
+		await registerReplicationBots(event);
+
+		const fooCallArgs = createBotFunc.getCall(0).args;
+		const barCallArgs = createBotFunc.getCall(1).args;
+
+		expect(fooCallArgs).to.be.an('array').that.includes('replicate-fooQueue-to-22222-dev-bus-fooQueue');
+		expect(fooCallArgs[1].lambdaName).to.equal('fooLambdaName');
+		expect(fooCallArgs[1].settings.destinationLeoBotRoleArn).to.equal('arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY');
+		expect(fooCallArgs[1].settings.destinationBusStack).to.equal('dev-bus');
+		expect(fooCallArgs[1].settings.destinationQueue).to.equal('fooQueue');
+		expect(fooCallArgs[1].settings.sourceQueue).to.equal('fooQueue');
+		expect(fooCallArgs[1].triggers).to.be.an('array').that.includes('fooQueue');
+
+		expect(barCallArgs).to.be.an('array').that.includes('replicate-barQueue-to-22222-dev-bus-barQueue');
+		expect(barCallArgs[1].lambdaName).to.equal('fooLambdaName');
+		expect(barCallArgs[1].settings.destinationLeoBotRoleArn).to.equal('arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY');
+		expect(barCallArgs[1].settings.destinationBusStack).to.equal('dev-bus');
+		expect(barCallArgs[1].settings.destinationQueue).to.equal('barQueue');
+		expect(barCallArgs[1].settings.sourceQueue).to.equal('barQueue');
+		expect(barCallArgs[1].triggers).to.be.an('array').that.includes('barQueue');
+	});
+  
 	it('fails with malformed QueueReplicationDestinationLeoBotRoleARNs', (done) => {
 	
 		const event = { 
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iadfm::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeosdBotRole-XXXXX',
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iadfm::22222:role/dev-bus-LeoBotRole-YYYYY', 'arn:aws:iam::11111:role/test-bus-LeosdBotRole-XXXXX'],
 			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
 		};
 
@@ -79,7 +172,7 @@ describe("add-replication-queues", () => {
 	
 		const event = { 
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY', 'arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX'],
 			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
 		};
 
@@ -97,7 +190,7 @@ describe("add-replication-queues", () => {
 	
 		const event = { 
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY', 'arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX'],
 			QueueReplicationMapping: '{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}'
 		};
 
@@ -115,7 +208,7 @@ describe("add-replication-queues", () => {
 	
 		const event = { 
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY', 'arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX'],
 			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}]'
 		};
 
@@ -133,7 +226,7 @@ describe("add-replication-queues", () => {
 	
 		const event = { 
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY',
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY'],
 			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
 		};
 
@@ -152,7 +245,7 @@ describe("add-replication-queues", () => {
 
 		const event = { 
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY', 'arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX'],
 			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
 		};
 
@@ -171,7 +264,7 @@ describe("add-replication-queues", () => {
 
 		const event = { 
 			ReplicatorLambdaName: 'fooLambdaName', 
-			QueueReplicationDestinationLeoBotRoleARNs: 'arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY, arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX',
+			QueueReplicationDestinationLeoBotRoleARNs: ['arn:aws:iam::22222:role/dev-bus-LeoBotRole-YYYYY', 'arn:aws:iam::11111:role/test-bus-LeoBotRole-XXXXX'],
 			QueueReplicationMapping: '[{"fooQueue": { "account": "11111", "stack": "test-bus", "destination":  "DEST_QUEUE"}}, {"barQueue": { "account": "22222", "stack": "dev-bus", "destination":  "DEST_QUEUEB"}}]'
 		};
 

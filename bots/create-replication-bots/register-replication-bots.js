@@ -4,15 +4,26 @@ const leo = require("leo-sdk");
 // TODO: On update.. delete the old bots. you can compare with old params passed in
 // TODO: On delete.. do nothing. Just success return
 
-function getInfoFromQ(mapping) {
-	for (let [key, value] of Object.entries(mapping)) {
-		return {
-			sourceQueue: key,
-			destAccount: value.account,
-			destStack: value.stack,
-			destQueue: value.destination
-		};
-	}
+function getInfoFromQ({defaultAccount, defaultStack}) {
+	return (mapping) => {
+		if (typeof mapping === 'string') {
+			return {
+				sourceQueue: mapping,
+				destAccount: defaultAccount,
+				destStack: defaultStack,
+				destQueue: mapping
+			};
+		}
+
+		for (let [key, value] of Object.entries(mapping)) {
+			return {
+				sourceQueue: key,
+				destAccount: value.account ? value.account : defaultAccount,
+				destStack: value.stack ? value.stack : defaultStack,
+				destQueue: value.destination ? value.destination : key
+			};
+		}
+	};
 }
 
 module.exports = function ({
@@ -33,17 +44,21 @@ module.exports = function ({
 		return obj;
 	}, {});
 
-	if (Object.keys(accountStackArnMap).length === 0) {
+	var accountStacks = Object.keys(accountStackArnMap);
+	if (accountStacks.length === 0) {
 		return Promise.reject(new Error("Malformed QueueReplicationDestinationLeoBotRoleARNs parameter. Should be a comma delimited list of LeoBotRole ARNs."));
 	}
-
+	const accountStackDefaults = {
+		defaultAccount: accountStacks[0].split(":")[0], 
+		defaultStack: accountStacks[0].split(":")[1]
+	};
 	let queueMapping;
 	try {
 		const parsedQueueMap = JSON.parse(QueueReplicationMapping);
 		if (!Array.isArray(parsedQueueMap)) {
 			return Promise.reject(new Error("Malformed QueueReplicationMapping parameter. Must be JSON Array."));
 		}
-		queueMapping = parsedQueueMap.map(getInfoFromQ);
+		queueMapping = parsedQueueMap.map(getInfoFromQ(accountStackDefaults));
 	} catch (err) {
 		return Promise.reject(new Error("Malformed QueueReplicationMapping parameter. Must be valid JSON."));
 	}

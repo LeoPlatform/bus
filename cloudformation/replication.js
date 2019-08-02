@@ -6,12 +6,12 @@ module.exports = {
 		},
 		"QueueReplicationDestinationLeoBotRoleARNs" : {
 			"Type" : "CommaDelimitedList",
-			"Description" : "List of LeoBotRole Arn's this stack will assume for replication."
+			"Description" : "List of LeoBotRole Arn's this stack will assume for replication. The AccountId and Stack of the first ARN become the default AccountId and Stack used when defining the QueueReplicationMapping."
 		},
 		"QueueReplicationMapping" : {
 			"Type" : "String",
 			"Default": "[]",
-			"Description" : "JSON Array of Objects of the form [{\"SOURCE_QUEUE\": { \"account\": \"DEST_ACCOUNT_ID\", \"stack\": \"DEST_STACK_NAME\", \"destination\":  \"DEST_QUEUE\"}}, {...}]"
+			"Description" : "JSON Array of Objects and/or Strings the form [\"SOURCE_QUEUE_A\", {\"SOURCE_QUEUE_B\": { \"account\": \"DEST_ACCOUNT_ID\", \"stack\": \"DEST_STACK_NAME\", \"destination\":  \"DEST_QUEUE\"}}, {...}]. Omitting \"destination\" will default to the source queue name. Omitting \"account\" or \"stack\" will default to the first AccountId and Stack of the LeoBotRoleArn list. Simply listing a string will assume all defaults."
 		}
 	},
 	Conditions: {
