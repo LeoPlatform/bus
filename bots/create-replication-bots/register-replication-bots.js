@@ -21,7 +21,7 @@ module.exports = function ({
 	QueueReplicationMapping
 }) {
 
-	const accountStackArnMap = destinationLeoBotRoleARNs.split(",").reduce((obj, cur) => {
+	const accountStackArnMap = destinationLeoBotRoleARNs.reduce((obj, cur) => {
 		const accountStackMatch = cur.match(/arn:aws:iam::(.*):role\/(.*)-LeoBotRole/);
 		if (!accountStackMatch || !accountStackMatch[1] || !accountStackMatch[2]) {
 			return obj;
@@ -66,7 +66,7 @@ module.exports = function ({
 
 	const createBotPromises = [];
 	queueMapping.forEach(({ sourceQueue, destAccount, destStack, destQueue }) => {
-		const botId = `${sourceQueue}-replication`;
+		const botId = `replicate-${sourceQueue}-to-${destAccount}-${destStack}-${destQueue}`;
 		const botModel = {
 			"id": botId,
 			"triggers": [sourceQueue],
