@@ -4,12 +4,13 @@ const registerBot = require("./steps/register.js");
 const s3LoadTrigger = require('./steps/s3-load-trigger.js');
 const addCrons = require('./steps/add-crons.js');
 const sendCustomResourceResponse = require('../../lib/sendCustomResourceResponse');
+const logger = require('leo-logger');
 
 exports.handler = (event, _, callback) => {
-	console.log(JSON.stringify(event, null, 2));
+	logger.log(JSON.stringify(event, null, 2));
 
 	process.on('uncaughtException', function (err) {
-		console.log("Got unhandled Exception: ", err);
+		logger.error("Got unhandled Exception: ", err);
 		sendCustomResourceResponse(event, 'FAILED', 'Uncaught Exception')
 			.then(() => callback()).catch(callback);
 	});
@@ -31,11 +32,11 @@ exports.handler = (event, _, callback) => {
 	}
 
 	Promise.all(steps).then(() => {
-		console.log("Got success");
+		logger.info("Got success");
 		sendCustomResourceResponse(event, 'SUCCESS')
 			.then((result) => callback(null, result)).catch(callback);
 	}).catch((err) => {
-		console.log("Got error:", err);
+		logger.error("Got error:", err);
 		sendCustomResourceResponse(event, 'FAILED', 'It Failed!')
 			.then((result) => callback(null, result)).catch(callback);
 	});
