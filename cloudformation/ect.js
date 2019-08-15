@@ -2,7 +2,17 @@ module.exports = {
     Resources: {
         "LeoS3": {
             "Type": "AWS::S3::Bucket",
-            "Properties": {},
+            "Properties": {
+                "BucketEncryption": {
+                  "ServerSideEncryptionConfiguration": [
+                    {
+                      "ServerSideEncryptionByDefault": {
+                        "SSEAlgorithm": "AES256"
+                      }
+                    }
+                  ]
+                }               
+            },
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
                     "id": "19e3af96-efef-4ffa-8f33-34034b079093"

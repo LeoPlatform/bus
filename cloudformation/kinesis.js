@@ -3,7 +3,11 @@ module.exports = {
         "LeoKinesisStream": {
             "Type": "AWS::Kinesis::Stream",
             "Properties": {
-                "ShardCount": 1
+                "ShardCount": 1,
+                "StreamEncryption": { 
+                    "EncryptionType": "KMS", 
+                    "KeyId": "alias/aws/kinesis" 
+                }
             },
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
