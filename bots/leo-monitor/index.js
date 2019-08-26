@@ -28,13 +28,13 @@ exports.handler = function(event, context, callback) {
 			return;
 		}
 
-		//Let's check if it started since last time
+		// Let's check if it started since last time
 		if (newImage.instances) {
 			Object.keys(newImage.instances).forEach(i => {
 				var instance = newImage.instances[i];
-				var oldInstance = oldImage && oldImage.instances[i];
+				var oldInstance = oldImage && oldImage.instances && oldImage.instances[i];
 				if (instance.completedTime && (!oldInstance || oldInstance.completedTime == undefined)) {
-					const start = oldInstance.invokeTime || now;
+					const start = (oldInstance && oldInstance.invokeTime) || now;
 					var end = instance.completedTime || now;
 					loader.write({
 						id: newImage.id,
