@@ -75,7 +75,7 @@ api.start(id, {
 			checkpoint: checkpoint
 		}, (err, endData) => {
 			if (err) {
-				console.log("End Error:", err)
+				console.log("End Error:", err);
 				return;
 			}
 

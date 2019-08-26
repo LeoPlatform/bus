@@ -25,8 +25,8 @@ module.exports = function() {
 			SourceAccount: accountId,
 			SourceArn: `arn:aws:s3:::${bucket}`,
 			StatementId: "S3-bus-events-upload-trigger"
-		}, (err, r) => {
-			console.log("Permissions")
+		}, (err) => {
+			console.log("Permissions");
 			if (err && !err.message.startsWith("The statement id (S3-bus-events-upload-trigger) provided already exists")) {
 				reject(err);
 				return;
@@ -39,7 +39,7 @@ module.exports = function() {
 					reject(err);
 					return;
 				}
-				console.log(data)
+				console.log(data);
 				var exists = data.LambdaFunctionConfigurations.filter(c => c.Id == "bus-events-upload").length != 0;
 				//console.log(exists)
 				if (!exists) {
@@ -67,7 +67,7 @@ module.exports = function() {
 						} else {
 							resolve();
 						}
-					})
+					});
 				} else {
 					resolve();
 				}
@@ -87,11 +87,11 @@ module.exports = function() {
 			RoleName: roleName
 		}, (err, policies) => {
 			if (err) {
-				console.log(err)
+				console.log(err);
 				reject(err);
 				return;
 			}
-			console.log("Policies", policies)
+			console.log("Policies", policies);
 			var arn = leo.resources.LeoBotPolicy;
 			if (policies.AttachedPolicies.filter(p => p.PolicyArn == arn).length == 0) {
 				iam.attachRolePolicy({
@@ -104,7 +104,7 @@ module.exports = function() {
 					} else {
 						resolve();
 					}
-				})
+				});
 			} else {
 				resolve();
 			}

@@ -12,7 +12,7 @@ module.exports = function (buildDir, newCloudformation, done) {
 			value: {}
 		};
 		resources[override.id || key] = extend(newCloudformation.Resources[key], override.value);
-		delete resources[override.id || key].Metadata
+		delete resources[override.id || key].Metadata;
 	});
 
 	legacy.Outputs = newCloudformation.Outputs;
@@ -30,7 +30,7 @@ module.exports = function (buildDir, newCloudformation, done) {
 
 	fs.writeFileSync(path.resolve(buildDir, "legacy-cloudformation.json"), output);
 	done();
-}
+};
 
 
 let overrides = {
@@ -127,4 +127,4 @@ let overrides = {
 			],
 		}
 	}
-}
+};

@@ -18,9 +18,9 @@ exports.handler = require("leo-sdk/wrappers/cron")(async (settings, context, cal
 
 	let cb = callback;
 	callback = (err, data) => {
-		clearTimeout(timeout)
+		clearTimeout(timeout);
 		cb(err, data);
-	}
+	};
 
 	let stopTime = moment().add(context.getRemainingTimeInMillis() * 0.7, "milliseconds");
 

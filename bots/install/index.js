@@ -2,7 +2,6 @@
 
 const https = require("https");
 const url = require("url");
-const leo = require("leo-sdk");
 exports.handler = (event, context, callback) => {
 	console.log(event);
 
