@@ -29,7 +29,6 @@
 	},
 	"homepage": "https://github.com/LeoPlatform/bus#readme",
 	"dependencies": {
-		"aws-sdk": "^2.466.0",
 		"deep-diff": "^1.0.2",
 		"leo-cron": "^1.0.0",
 		"leo-logger": "^1.0.1",
@@ -37,6 +36,7 @@
 		"moment": "^2.24.0"
 	},
 	"devDependencies": {
+		"aws-sdk": "^2.466.0",
 		"babel-preset-env": "^1.7.0",
 		"chai": "^4.2.0",
 		"extend": "^3.0.2",

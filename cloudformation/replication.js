@@ -36,7 +36,7 @@ module.exports = {
 		}
 	},
 	Resources: {
-		"SourceQueueReplicator": {
+		"SourceQueueReplicator": { //NOTE: This is an extra condition for the bot. The remaining details will be added during the build.
 			"Condition": "IsReplicatingStack"
 		},
 		"RegisterReplicationBots": {

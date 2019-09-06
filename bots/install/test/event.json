@@ -1,14 +1,14 @@
 {
     "RequestType": "Delete",
-    "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoInstallFunction-2DNLF3K71R4F",
-    "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-east-1%3A117870855864%3Astack/dev-bus/6ea6aa60-ab3a-11e9-a24c-120371d9064c%7CLeoInstall%7C7da1bd48-b755-4f34-a28b-5befae521e90?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190720T222711Z&X-Amz-SignedHeaders=host&X-Amz-Expires=7200&X-Amz-Credential=AKIA6L7Q4OWTTYC3DXNI%2F20190720%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=f8b449dd75704f6c970328bac8e793e238a83cf5d5f31d0187dc8351fda4e3be",
-    "StackId": "arn:aws:cloudformation:us-east-1:117870855864:stack/dev-bus/6ea6aa60-ab3a-11e9-a24c-120371d9064c",
-    "RequestId": "7da1bd48-b755-4f34-a28b-5befae521e90",
+    "ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:dev-bus-LeoInstallFunction-222222222222",
+    "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-east-1%3A111111111111%3Astack/dev-bus/...",
+    "StackId": "arn:aws:cloudformation:us-east-1:111111111111:stack/dev-bus/11111111-uuid-uuid-uuid-222222222222",
+    "RequestId": "11111111-uuid-uuid-uuid-222222222222",
     "LogicalResourceId": "LeoInstall",
     "PhysicalResourceId": "install",
     "ResourceType": "Custom::Install",
     "ResourceProperties": {
-        "ServiceToken": "arn:aws:lambda:us-east-1:117870855864:function:dev-bus-LeoInstallFunction-2DNLF3K71R4F",
+        "ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:dev-bus-LeoInstallFunction-2DNLF3K71R4F",
         "Version": "2.0"
     }
 }
