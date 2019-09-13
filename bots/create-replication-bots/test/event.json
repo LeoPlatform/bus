@@ -1,0 +1,11 @@
+{
+  "RequestType": "Create",
+  "ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:LeoCreateReplicationBots-Resource",
+  "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-east-1%111111111111%...",
+  "StackId": "arn:aws:cloudformation:us-east-1:111111111111:stack/dev-bus/11111111-uuid-uuid-uuid-222222222222",
+  "RequestId": "11111111-uuid-uuid-uuid-222222222222",
+  "LogicalResourceId": "ReplicationBots",
+  "ResourceType": "Custom::ReplicationBots",
+  "ResourceProperties": {
+  }
+}

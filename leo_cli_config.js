@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
 	publish: [{
 		leoaws: {
@@ -10,6 +11,11 @@ module.exports = {
 	deploy: {
 		dev: {
 			stack: 'dev-bus',
+			parameters: {
+				TrustedAWSPrinciples: '',
+				QueueReplicationDestinationLeoBotRoleARNs: '',
+				QueueReplicationMapping: '[]'
+			},
 			region: 'us-east-1'
 		}
 	}

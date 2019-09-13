@@ -1,0 +1,37 @@
+{
+	"name": "create-replication-bots",
+	"version": "1.0.1",
+	"private": true,
+	"description": "Creates the Replication Bots from the Replication Parameters",
+	"logicalResource": "LeoCreateReplicationBots",
+	"main": "index.js",
+	"directories": {
+		"test": "test"
+	},
+	"config": {
+		"leo": {
+			"type": "bot",
+			"memory": 256,
+			"timeout": 300,
+			"role": "LeoInstallRole",
+			"env": {
+				"Resources": {
+					"LeoS3LoadTrigger": "${LeoS3LoadTrigger}",
+					"LeoS3": "${LeoS3}",
+					"LeoCron": "${LeoCron}",
+					"LeoFirehoseStreamProcessor": "${LeoFirehoseStreamProcessor}",
+					"LeoSettings": "${LeoSettings}",
+					"LeoBotPolicy": "${LeoBotPolicy}",
+					"LeoFirehoseRole": "${LeoFirehoseRole}",
+					"LeoSystem": "${LeoSystem}",
+					"Region": "${AWS::Region}"
+				},
+				"AWS": {
+					"region": "${AWS::Region}",
+					"AccountId": "${AWS::AccountId}"
+				}
+			}
+		}
+	},
+	"dependencies": {}
+}

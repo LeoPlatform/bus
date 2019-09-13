@@ -131,6 +131,6 @@ module.exports = {
 					"Fn::Sub": "${AWS::StackName}-Register"
 				}
 			}
-		}
+		},
 	}
 };
