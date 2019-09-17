@@ -68,6 +68,17 @@ module.exports = {
 											"Fn::Sub": "${LeoFirehoseRole.Arn}"
 										}
 									]
+								},
+								{
+									"Effect": "Allow",
+									"Action": [
+										"dynamodb:UpdateItem"
+									],
+									"Resource": [
+										{
+											"Fn::Sub": "${LeoCron.Arn}"
+										}
+									]
 								}
 							]
 						}
@@ -173,22 +184,49 @@ module.exports = {
 			"Properties": {
 				"AssumeRolePolicyDocument": {
 					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Principal": {
-								"Service": [
-									"lambda.amazonaws.com"
-								],
-								"AWS": {
-									"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-								}
-							},
-							"Action": [
-								"sts:AssumeRole"
-							]
-						}
-					]
+					"Statement": 	{
+						"Fn::If" : [
+							"IsTrustingAccount",
+							[{
+								"Effect": "Allow",
+								"Principal": {
+									"Service": [
+										"lambda.amazonaws.com"
+									],
+									"AWS": {
+										"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+									},
+								},
+								"Action": [
+									"sts:AssumeRole"
+								]
+							},{
+								"Effect": "Allow",
+								"Principal": {
+									"AWS":{
+										"Ref": "TrustedAWSPrinciples"
+									},
+								},
+								"Action": [
+									"sts:AssumeRole"
+								]
+							}],
+							[{
+								"Effect": "Allow",
+								"Principal": {
+									"Service": [
+										"lambda.amazonaws.com"
+									],
+									"AWS": {
+										"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+									},
+								},
+								"Action": [
+									"sts:AssumeRole"
+								]
+							}]
+						]
+					}
 				},
 				"ManagedPolicyArns": [
 					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
@@ -521,7 +559,8 @@ module.exports = {
 								"ec2:CreateNetworkInterface",
 								"ec2:DescribeNetworkInterfaces",
 								"ec2:DetachNetworkInterface",
-								"ec2:DeleteNetworkInterface"
+								"ec2:DeleteNetworkInterface",
+								"cloudformation:DescribeStacks"
 							],
 							"Resource": "*"
 						},
