@@ -253,8 +253,7 @@ exports.handler = function(event, context, callback) {
 			event.event_source_timestamp = event.timestamp;
 		}
 		if (typeof event.event_source_timestamp !== "number"){
-		    console.log("Fixing non number event_source_timestamp", JSON.stringify(event, null, 2))
-		    event.event_source_timestamp = moment(event.event_source_timestamp).valueOf()
+		    event.event_source_timestamp = moment(event.event_source_timestamp).valueOf();
 		}
 		getEventStream(event.event, forceEventId, archive).write(event, callback);
 	}), function(err) {
