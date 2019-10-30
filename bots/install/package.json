@@ -1,6 +1,6 @@
 {
 	"name": "Leo_install",
-	"version": "1.0.1",
+	"version": "1.0.4",
 	"description": "Installs Bus bots into LeoCron table and registers external bots",
 	"logicalResource": "LeoInstallFunction",
 	"main": "index.js",

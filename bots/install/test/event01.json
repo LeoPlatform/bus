@@ -1,0 +1,29 @@
+{
+	"RequestType": "Create",
+	"ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:dev-bus-LeoInstallFunction-222222222222",
+	"ResponseURL": "https://11111111-uuid-uuid-uuid-222222222222.mock.pstmn.io",
+	"StackId": "arn:aws:cloudformation:us-east-1:111111111111:stack/reptest-stack/11111111-uuid-uuid-uuid-222222222222",
+	"RequestId": "11111111-uuid-uuid-uuid-222222222222",
+	"LogicalResourceId": "LeoRegister",
+	"ResourceType": "Custom::Install",
+	"ResourceProperties": {
+		"StackName": "foostack",
+		"AccountId": "123123123",
+		"ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:dev-bus-LeoInstallFunction-222222222222",
+		"TestrepSampleenrich": {
+			"id": "testrep-sampleenrich",
+			"triggers": ["testrep_random_numbers"],
+			"lambdaName": "reptest-stack-TestrepSampleenrich-222222222222"
+		},
+		"TestrepSampleload": {
+			"id": "testrep-sampleload",
+			"time": "0 */1 * * * * ",
+			"lambdaName": "reptest-stack-TestrepSampleload-222222222222"
+		},
+		"TestrepSamplesqs": {
+			"id": "testrep-samplesqs",
+			"triggers": ["testrep_enriched_numbers"],
+			"lambdaName": "reptest-stack-TestrepSamplesqs-222222222222"
+		}
+	}
+}

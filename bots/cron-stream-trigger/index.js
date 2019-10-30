@@ -30,7 +30,7 @@ exports.handler = function (event, context, done) {
 		.then(setTriggers)
 		.then(function (result) {
 			console.log(`Triggered at time: ${result.time} for ids: ${JSON.stringify(result.data)}`);
-			done(null, result)
+			done(null, result);
 		})
 		.catch(done);
 	//}, 500)
@@ -50,7 +50,7 @@ function setTriggers(results) {
 			};
 			var eav = {
 				":trigger": moment.now()
-			}
+			};
 
 			var i = 0;
 			Object.keys(data.events).forEach(function (key) {
@@ -72,10 +72,10 @@ function setTriggers(results) {
 				"ReturnConsumedCapacity": 'TOTAL'
 			};
 
-			dynamodb.docClient.update(command, callback)
-		}, function (err, data) {
+			dynamodb.docClient.update(command, callback);
+		}, function (err) {
 			if (err) {
-				console.log(err)
+				console.log(err);
 				reject(err);
 			} else {
 				resolve({
@@ -112,7 +112,7 @@ function getIdsToTrigger(cronTable, records) {
 }
 
 function max() {
-	var max = arguments[0]
+	var max = arguments[0];
 	for (var i = 1; i < arguments.length; ++i) {
 		if (arguments[i] != null && arguments[i] != undefined) {
 			max = max > arguments[i] ? max : arguments[i];
@@ -126,11 +126,11 @@ function getCronTable() {
 
 		var now = moment.now();
 		if (!cache || lastCacheTime + MAX_CACHE_MILLISECONDS <= now) {
-			console.log("Looking up the Current Cron Table", now - lastCacheTime, MAX_CACHE_MILLISECONDS)
+			console.log("Looking up the Current Cron Table", now - lastCacheTime, MAX_CACHE_MILLISECONDS);
 			cache = {};
 			var params = {
 				TableName: CRON_TABLE
-			}
+			};
 			dynamodb.query(params, {
 				method: "scan",
 				mb: 10

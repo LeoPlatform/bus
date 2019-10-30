@@ -1,11 +1,18 @@
 {
 	"name": "leo-bus",
-	"version": "2.0.9",
+	"version": "2.2.1",
 	"description": "Improve Kinesis burstability, durability, and replay",
 	"main": "index.js",
 	"scripts": {
-		"test": "mocha --recursive -w",
-		"setup": "setup"
+		"test:libs": "mocha --recursive 'test/**/*.test.js'",
+		"test:libs:watch": "mocha --recursive -w 'test/**/*.test.js'",
+		"test:bots": "mocha --recursive 'bots/**/*.test.js'",
+		"test:bots:watch": "mocha --recursive -w 'bots/**/*.test.js'",
+		"test:int": "mocha 'test/**/*.integration.js'",
+		"setup": "setup",
+		"package": "leo-cli publish -s",
+		"deploy:dev": "leo-cli publish -s -d dev --force all",
+		"deploy:test": "leo-cli publish -s -d test --force all"
 	},
 	"repository": {
 		"type": "git",
@@ -22,16 +29,21 @@
 	},
 	"homepage": "https://github.com/LeoPlatform/bus#readme",
 	"dependencies": {
-		"deep-diff": "^0.3.8",
-		"leo-cron": "^1.0.0",
-		"leo-sdk": "^1.0.33",
-		"moment": "^2.21.0"
+		"deep-diff": "1.0.2",
+		"leo-cron": "1.0.0",
+		"leo-logger": "1.0.1",
+		"leo-sdk": "3.1.8",
+		"moment": "2.24.0"
 	},
 	"devDependencies": {
-		"aws-sdk": "^2.329.0",
-		"babel-preset-env": "^1.6.1",
+		"aws-sdk": "^2.466.0",
+		"babel-preset-env": "^1.7.0",
+		"chai": "^4.2.0",
 		"extend": "^3.0.2",
-		"leo-aws": "^1.4.0"
+		"leo-aws": "1.4.4",
+		"mocha": "^6.1.4",
+		"proxyquire": "^2.1.1",
+		"sinon": "^7.3.2"
 	},
 	"config": {
 		"leo": {

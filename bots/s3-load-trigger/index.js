@@ -1,10 +1,6 @@
 "use strict";
 
 var leo = require("leo-sdk");
-var fs = require("fs");
-var async = require("async");
-var moment = require("moment");
-var zlib = require('zlib');
 var configure = leo.configuration;
 configure.update({
 	kinesis: leo.configuration.resources.LeoKinesisStream,
@@ -48,13 +44,13 @@ exports.handler = (event, context, callback) => {
 	var opts = {
 		prefix: "firehose/"
 	};
-	console.log(configure)
+	console.log(configure);
 	console.log("Triggered By Event", JSON.stringify(event));
 	dynamodb.getSetting(setting_id, (err, data) => {
 		if (err) {
 			callback(err);
 		} else {
-			let position = data && data.value || ""
+			let position = data && data.value || "";
 			console.log("Position:", position);
 			listFilesFromKey(bucket, position, opts, function (err, files) {
 				if (err) {
@@ -62,14 +58,14 @@ exports.handler = (event, context, callback) => {
 					callback(err);
 				} else {
 					if (files.length == 0) {
-						console.log("No new Files")
+						console.log("No new Files");
 						callback();
 						return;
 					}
 
-					console.log(files)
+					console.log(files);
 
-					var firstKey = files[0].Key;
+					// var firstKey = files[0].Key;
 					var lastKey = files[files.length - 1].Key;
 
 					var stream = leo.load("Leo_core_s3_load_trigger", "commands.s3_bus_load", {
@@ -121,4 +117,4 @@ exports.handler = (event, context, callback) => {
 			});
 		}
 	});
-}
+};

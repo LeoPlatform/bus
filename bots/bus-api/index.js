@@ -3,7 +3,6 @@
 let leo = require("leo-sdk");
 let ls = leo.streams;
 let async = require("async");
-let moment = require("moment");
 
 let configure = leo.configuration;
 configure.update({
@@ -12,16 +11,13 @@ configure.update({
 	firehose: configure.resources.LeoFirehoseStream,
 });
 
-let s3 = leo.aws.s3;
-let dynamodb = leo.aws.dynamodb;
-
 let handlers = {
 	start,
 	end,
 	read,
 	write,
 	checkpoint
-}
+};
 exports.handler = (event, context, callback) => {
 	let request = event.body || event;
 	if (request.type in handlers) {
@@ -29,7 +25,7 @@ exports.handler = (event, context, callback) => {
 	} else {
 		callback(`Unsupported action '${request.type}'.`);
 	}
-}
+};
 
 
 function start(request, context, callback) {
@@ -61,7 +57,7 @@ function start(request, context, callback) {
 }
 
 function end(request, context, callback) {
-	let token = request.token || {}
+	let token = request.token || {};
 	configure.registry.__cron = {
 		id: request.id,
 		ts: token.ts,
@@ -77,7 +73,7 @@ function end(request, context, callback) {
 			checkpoint(Object.assign({}, request.checkpoint, {
 				id: request.id
 			}), context, cb);
-		}
+		};
 	}
 
 	cp((err) => {
@@ -182,8 +178,8 @@ function checkpoint(request, context, callback) {
 		type: request.type
 	};
 	if (request.event) {
-		params.eid = event.eid || params.eid;
-		params.source_timestamp = event.source_timestamp || params.source_timestamp;
+		params.eid = request.event.eid || params.eid;
+		params.source_timestamp = request.event.source_timestamp || params.source_timestamp;
 	}
 	if (params.units == undefined) {
 		params.units = 1;

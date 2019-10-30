@@ -4,3 +4,5 @@ node_modules/
 *.swp
 **/test/out/
 .idea
+.vscode
+cloudformation.json

@@ -1,5 +1,6 @@
 "use strict";
 const aws = require("aws-sdk");
+const logger = require("leo-logger");
 
 module.exports = function() {
 	return Promise.all([new Promise((resolve, reject) => {
@@ -13,7 +14,7 @@ module.exports = function() {
 		var lambda = new aws.Lambda({
 			region: leo.aws.region
 		});
-		console.log(leo.resources, leo.aws);
+		logger.info(leo.resources, leo.aws);
 		var functionName = leo.resources.LeoS3LoadTrigger;
 		var bucket = leo.resources.LeoS3;
 		var accountId = leo.aws.AccountId;
@@ -25,8 +26,7 @@ module.exports = function() {
 			SourceAccount: accountId,
 			SourceArn: `arn:aws:s3:::${bucket}`,
 			StatementId: "S3-bus-events-upload-trigger"
-		}, (err, r) => {
-			console.log("Permissions")
+		}, (err) => {
 			if (err && !err.message.startsWith("The statement id (S3-bus-events-upload-trigger) provided already exists")) {
 				reject(err);
 				return;
@@ -35,13 +35,12 @@ module.exports = function() {
 				Bucket: bucket
 			}, (err, data) => {
 				if (err) {
-					console.log(err);
+					logger.error(err);
 					reject(err);
 					return;
 				}
-				console.log(data)
+				logger.info(data);
 				var exists = data.LambdaFunctionConfigurations.filter(c => c.Id == "bus-events-upload").length != 0;
-				//console.log(exists)
 				if (!exists) {
 					data.LambdaFunctionConfigurations.push({
 						Id: "bus-events-upload",
@@ -56,18 +55,18 @@ module.exports = function() {
 							}
 						}
 					});
-					console.log(JSON.stringify(data, null, 2));
+					logger.info(JSON.stringify(data, null, 2));
 					s3.putBucketNotificationConfiguration({
 						Bucket: bucket,
 						NotificationConfiguration: data
 					}, (err, result) => {
-						console.log(err, result);
+						logger.error(err, result);
 						if (err) {
 							reject(err);
 						} else {
 							resolve();
 						}
-					})
+					});
 				} else {
 					resolve();
 				}
@@ -87,24 +86,25 @@ module.exports = function() {
 			RoleName: roleName
 		}, (err, policies) => {
 			if (err) {
-				console.log(err)
+				logger.error(err);
 				reject(err);
 				return;
 			}
-			console.log("Policies", policies)
+			logger.info("Policies", policies);
 			var arn = leo.resources.LeoBotPolicy;
 			if (policies.AttachedPolicies.filter(p => p.PolicyArn == arn).length == 0) {
-				iam.attachRolePolicy({
+				iam.attachRolePolicy({ // TODO: Why are we manually doing this? can't this be done in cloudformation? this prevents the stacks from deleting cleanly. If this is needed perhpas we should respond to the 'Delete' event by removing this resource.
 					PolicyArn: arn,
 					RoleName: roleName
 				}, (err, result) => {
-					console.log("Add Managed Bot To FirehoseRole", err, result);
+					logger.info("Add Managed Bot To FirehoseRole", result);
 					if (err) {
+						logger.error(err);
 						reject(err);
 					} else {
 						resolve();
 					}
-				})
+				});
 			} else {
 				resolve();
 			}

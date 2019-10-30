@@ -1,5 +1,5 @@
 describe("local", function() {
-	it("Should be able to read an S3 file and add it to the stream", function(done) {
+	it("Should be able to read an S3 file and add it to the stream", function() {
 		this.timeout(60000);
 		process.env.resources = JSON.stringify({
 			LeoStream: 'Staging-LeoStream-1RXA45W93PBKT',
