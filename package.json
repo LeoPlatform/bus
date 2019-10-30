@@ -1,6 +1,6 @@
 {
 	"name": "leo-bus",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"description": "Improve Kinesis burstability, durability, and replay",
 	"main": "index.js",
 	"scripts": {
@@ -29,18 +29,18 @@
 	},
 	"homepage": "https://github.com/LeoPlatform/bus#readme",
 	"dependencies": {
-		"deep-diff": "^1.0.2",
-		"leo-cron": "^1.0.0",
-		"leo-logger": "^1.0.1",
-		"leo-sdk": "^3.1.4",
-		"moment": "^2.24.0"
+		"deep-diff": "1.0.2",
+		"leo-cron": "1.0.0",
+		"leo-logger": "1.0.1",
+		"leo-sdk": "3.1.8",
+		"moment": "2.24.0"
 	},
 	"devDependencies": {
 		"aws-sdk": "^2.466.0",
 		"babel-preset-env": "^1.7.0",
 		"chai": "^4.2.0",
 		"extend": "^3.0.2",
-		"leo-aws": "^1.4.2",
+		"leo-aws": "1.4.4",
 		"mocha": "^6.1.4",
 		"proxyquire": "^2.1.1",
 		"sinon": "^7.3.2"
