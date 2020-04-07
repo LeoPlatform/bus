@@ -1,7 +1,7 @@
 "use strict";
 const leo = require("leo-sdk");
 const ls = leo.streams;
-const logger = require("leo-sdk/lib/logger.js")("leo-archive");
+const logger = require('leo-logger')('leo-archive');
 const dynamodb = leo.aws.dynamodb;
 const async = require("async");
 const moment = require("moment");
