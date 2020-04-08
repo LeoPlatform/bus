@@ -2,10 +2,12 @@ module.exports = {
 	Parameters: {
 		"TrustedAWSPrinciples" : {
 			"Type" : "CommaDelimitedList",
+            "Default": "",
 			"Description" : "List of AWS principles this stack trusts. (i.e. arn:aws:iam::<account_id>:root) Trusted accounts can assume the role of a bot on this stack and write to it."
 		},
 		"QueueReplicationDestinationLeoBotRoleARNs" : {
 			"Type" : "CommaDelimitedList",
+            "Default": "",
 			"Description" : "List of LeoBotRole Arn's this stack will assume for replication. The AccountId and Stack of the first ARN become the default AccountId and Stack used when defining the QueueReplicationMapping."
 		},
 		"QueueReplicationMapping" : {
