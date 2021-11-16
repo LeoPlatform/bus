@@ -36,7 +36,7 @@
 		"moment": "2.24.0"
 	},
 	"devDependencies": {
-		"aws-sdk": "^2.466.0",
+		"aws-sdk": "^2.814.0",
 		"babel-preset-env": "^1.7.0",
 		"chai": "^4.2.0",
 		"extend": "^3.0.2",
