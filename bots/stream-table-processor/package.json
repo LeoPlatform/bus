@@ -1,0 +1,32 @@
+{
+	"name": "leo_stream_table_processor",
+	"version": "1.0.2",
+	"description": "Responds to records changed in LeoStream",
+	"logicalResource": "LeoStreamTableProcessor",
+	"main": "index.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "nodemon --exec \"mocha --recursive -w\" ",
+		"debug": "mocha --recursive"
+	},
+	"config": {
+		"leo": {
+			"type": "bot",
+			"name": "Leo_core_stream_table_processor",
+			"handler": "handler",
+			"memory": 256,
+			"timeout": 30,
+			"env": {
+				"LeoStream": "${LeoStream}",
+				"LeoSettings": "${LeoSettings}"
+			},
+			"role": "LeoCronRole"
+		}
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {}
+}

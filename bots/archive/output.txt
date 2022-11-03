@@ -1,0 +1,1330 @@
+loading C:\dev\leo\config\leo-bus\process.js
+cron.wrapper Registry {
+  "context": {
+    "awsRequestId": "requestid-local1610739035798",
+    "callbackWaitsForEmptyEventLoop": false,
+    "resources": {},
+    "botId": "Leo_Core_archive",
+    "settings": {}
+  },
+  "__cron": {
+    "id": "Leo_Core_archive",
+    "iid": "0",
+    "ts": 1610739035798,
+    "force": true
+  },
+  "id": "Leo_Core_archive"
+}
+[LEOCRON]:check:Leo_Core_archive:0:1610739035798:requestid-local1610739035798
+cron.wrapper Locking on  __cron { id: 'Leo_Core_archive',
+  iid: '0',
+  ts: 1610739035798,
+  force: true }
+[LEOCRON]:start:Leo_Core_archive:0:1610739035798:requestid-local1610739035798
+leo-archive { botId: 'Leo_Core_archive',
+  __cron:
+   { id: 'Leo_Core_archive',
+     iid: '0',
+     ts: 1610739035798,
+     force: true },
+  archive_options:
+   { path_regex:
+      { country: '/\\/country$/i',
+        address: '/\\/address_?\\d*$/i',
+        credit_card_last_four: '/\\/card_?last_?four$/i',
+        city: '/\\/city$/i',
+        phone: '/\\/[^/]*_?phone$/i',
+        'from/to_name': '/\\/[^/]+_(?:to|from)_name$/i',
+        name: '/\\/(?:first|last)_?name$/i',
+        last_actor: '/\\/last_actor$/i',
+        tracking_number: '/\\/tracking_number$/i',
+        state: '/\\/(?:region|state)$/i',
+        email: '/\\/email(?:_?address)?$/i' } } }
+leo-archive warehouse-checksum Skipped. Skip Flag: false, Archvied: true
+leo-archive dw.load Skipped. Skip Flag: false, Archvied: true
+leo-archive InvoiceObjectsV2 Skipped. Skip Flag: false, Archvied: true
+leo-archive order-checksum Skipped. Skip Flag: false, Archvied: true
+leo-archive order-entity Skipped. Skip Flag: false, Archvied: true
+leo-archive zendesk-satisfaction-rating Starting Processing
+leo-archive zendesk-satisfaction-rating queue start:  z/0
+leo-archive deleted-chargify-subscription Skipped. Skip Flag: false, Archvied: true
+leo-archive invoice-dw-checksum Starting Processing
+leo-archive invoice-dw-checksum queue start:  z/0
+leo-archive invoice-dw-checksum-id Starting Processing
+leo-archive invoice-dw-checksum-id queue start:  z/0
+leo-archive ApiMetrics Starting Processing
+leo-archive ApiMetrics queue start:  z/0
+leo-archive test-end-to-end Starting Processing
+leo-archive test-end-to-end queue start:  z/0
+leo-archive atomic-action Starting Processing
+leo-archive atomic-action queue start:  z/0
+leo-archive chargify-dim Skipped. Skip Flag: false, Archvied: true
+leo-archive mongo-item Starting Processing
+leo-archive mongo-item queue start:  z/0
+leo-archive ApiLogDW_error Skipped. Skip Flag: false, Archvied: true
+leo-archive pending-order Starting Processing
+leo-archive pending-order queue start:  z/0
+leo-archive api-call Starting Processing
+leo-archive api-call queue start:  z/0
+leo-archive system.es-api-log Starting Processing
+leo-archive system.es-api-log queue start:  z/0
+leo-archive catalog-api-event Starting Processing
+leo-archive catalog-api-event queue start:  z/0
+leo-archive return-dw-checksum-id Starting Processing
+leo-archive return-dw-checksum-id queue start:  z/0
+leo-archive company-es-checksum-id Starting Processing
+leo-archive company-es-checksum-id queue start:  z/0
+leo-archive account Starting Processing
+leo-archive account queue start:  z/0
+leo-archive shipment-dw-checksum-id Starting Processing
+leo-archive shipment-dw-checksum-id queue start:  z/0
+leo-archive invoice Starting Processing
+leo-archive invoice queue start:  z/0
+leo-archive modified-item-catalog Starting Processing
+leo-archive modified-item-catalog queue start:  z/0
+leo-archive hubspot-deal Starting Processing
+leo-archive hubspot-deal queue start:  z/0
+leo-archive item-es-checksum Starting Processing
+leo-archive item-es-checksum queue start:  z/0
+leo-archive order-entity-old-new Starting Processing
+leo-archive order-entity-old-new queue start:  z/0
+leo-archive ApiLog Skipped. Skip Flag: false, Archvied: true
+leo-archive item-checksum Skipped. Skip Flag: false, Archvied: true
+leo-archive invite-es-checksum Skipped. Skip Flag: false, Archvied: true
+leo-archive account-dw-checksum-id Starting Processing
+leo-archive account-dw-checksum-id queue start:  z/0
+leo-archive modified-return Starting Processing
+leo-archive modified-return queue start:  z/0
+leo-archive ValidationComparison Starting Processing
+leo-archive ValidationComparison queue start:  z/0
+leo-archive modified-order-item Starting Processing
+leo-archive modified-order-item queue start:  z/0
+leo-archive BotChangeLog Starting Processing
+leo-archive BotChangeLog queue start:  z/0
+leo-archive websocket-notify Starting Processing
+leo-archive websocket-notify queue start:  z/0
+leo-archive people Starting Processing
+leo-archive people Complete
+leo-archive account-dim Skipped. Skip Flag: false, Archvied: true
+leo-archive item-entity-old-new Starting Processing
+leo-archive item-entity-old-new queue start:  z/0
+leo-archive undeliverable-shipment Starting Processing
+leo-archive undeliverable-shipment queue start:  z/0
+leo-archive invoice-es-checksum-id Starting Processing
+leo-archive invoice-es-checksum-id queue start:  z/0
+leo-archive api-log Skipped. Skip Flag: false, Archvied: true
+leo-archive order-aggregation-old-new Starting Processing
+leo-archive order-aggregation-old-new queue start:  z/0
+leo-archive item-quantity-dim_error Starting Processing
+leo-archive item-quantity-dim_error queue start:  z/0
+leo-archive shipment-dim Skipped. Skip Flag: false, Archvied: true
+leo-archive bot.mongo-common-load-account.error Starting Processing
+leo-archive bot.mongo-common-load-account.error queue start:  z/0
+leo-archive order-anomaly Starting Processing
+leo-archive order-anomaly queue start:  z/0
+leo-archive IdConvertedAsSku Starting Processing
+leo-archive IdConvertedAsSku queue start:  z/0
+leo-archive system.es-inventory Starting Processing
+leo-archive system.es-inventory queue start:  z/0
+leo-archive stream-catalog-changelog Starting Processing
+leo-archive stream-catalog-changelog queue start:  z/0
+leo-archive modified-warehouse-item Starting Processing
+leo-archive modified-warehouse-item queue start:  z/0
+leo-archive order-item-cancel Starting Processing
+leo-archive order-item-cancel queue start:  z/0
+leo-archive ddb-order-entity-old-new Skipped. Skip Flag: false, Archvied: true
+leo-archive invite-es-checksum-id Starting Processing
+leo-archive invite-es-checksum-id queue start:  z/0
+leo-archive item-history Starting Processing
+leo-archive item-history queue start:  z/0
+leo-archive core_ingest Starting Processing
+leo-archive core_ingest queue start:  z/0
+leo-archive dw.load - error Skipped. Skip Flag: false, Archvied: true
+leo-archive bot.item-test-mongo-catalog-load-item.error Starting Processing
+leo-archive bot.item-test-mongo-catalog-load-item.error queue start:  z/0
+leo-archive order-dw-checksum-id Starting Processing
+leo-archive order-dw-checksum-id queue start:  z/0
+leo-archive bot.item-test-item-es-checksum-id-to-item-es-checksum.error Starting Processing
+leo-archive bot.item-test-item-es-checksum-id-to-item-es-checksum.error queue start:  z/0
+leo-archive catalog-ingest Starting Processing
+leo-archive catalog-ingest queue start:  z/0
+leo-archive return-entity-old-new Starting Processing
+leo-archive return-entity-old-new queue start:  z/0
+leo-archive bot.account-test-account-entity-old-new-to-modified-account.error Starting Processing
+leo-archive bot.account-test-account-entity-old-new-to-modified-account.error queue start:  z/0
+leo-archive return-es-checksum Starting Processing
+leo-archive return-es-checksum queue start:  z/0
+leo-archive test-apiv3 Starting Processing
+leo-archive test-apiv3 queue start:  z/0
+leo-archive notification-recipient-intent Starting Processing
+leo-archive notification-recipient-intent queue start:  z/0
+leo-archive xray.event.load Starting Processing
+leo-archive xray.event.load queue start:  z/0
+leo-archive order-old-new Skipped. Skip Flag: false, Archvied: true
+leo-archive system.es-invoice Starting Processing
+leo-archive system.es-invoice queue start:  z/0
+leo-archive order-manual Skipped. Skip Flag: false, Archvied: true
+leo-archive xray.error Starting Processing
+leo-archive xray.error queue start:  z/0
+leo-archive system.TestDW_aurora Starting Processing
+leo-archive system.TestDW_aurora queue start:  z/0
+leo-archive bot.account-test-mongo-common-load-account.error Starting Processing
+leo-archive bot.account-test-mongo-common-load-account.error queue start:  z/0
+leo-archive bot.item-test-mongo-item-to-item.error Starting Processing
+leo-archive bot.item-test-mongo-item-to-item.error queue start:  z/0
+leo-archive shipment Starting Processing
+leo-archive shipment queue start:  z/0
+leo-archive account-dim_error Skipped. Skip Flag: false, Archvied: true
+leo-archive warehouse-item-history Starting Processing
+leo-archive warehouse-item-history queue start:  z/0
+leo-archive dw.load_error Skipped. Skip Flag: false, Archvied: true
+leo-archive account-checksum Skipped. Skip Flag: false, Archvied: true
+leo-archive company-dw-checksum-id Starting Processing
+leo-archive company-dw-checksum-id queue start:  z/0
+leo-archive order-new-old Starting Processing
+leo-archive order-new-old queue start:  z/0
+leo-archive order Starting Processing
+leo-archive order queue start:  z/0
+leo-archive item-es-checksum-id Starting Processing
+leo-archive item-es-checksum-id queue start:  z/0
+leo-archive return Starting Processing
+leo-archive return queue start:  z/0
+leo-archive selectOther Skipped. Skip Flag: false, Archvied: true
+leo-archive user-dw-checksum-id Starting Processing
+leo-archive user-dw-checksum-id queue start:  z/0
+leo-archive rates-expedited Starting Processing
+leo-archive rates-expedited queue start:  z/0
+leo-archive bulk-action-update Starting Processing
+leo-archive bulk-action-update queue start:  z/0
+leo-archive account-es-checksum-id Starting Processing
+leo-archive account-es-checksum-id queue start:  z/0
+leo-archive invite-checksum Skipped. Skip Flag: false, Archvied: true
+leo-archive item Starting Processing
+leo-archive item queue start:  z/0
+leo-archive shipment-dw-checksum Starting Processing
+leo-archive shipment-dw-checksum queue start:  z/0
+leo-archive system.pg Starting Processing
+leo-archive system.pg queue start:  z/0
+leo-archive item-dw-checksum Starting Processing
+leo-archive item-dw-checksum queue start:  z/0
+leo-archive hubspot-contact Starting Processing
+leo-archive hubspot-contact queue start:  z/0
+leo-archive test-order Skipped. Skip Flag: false, Archvied: true
+leo-archive user-checksum Skipped. Skip Flag: false, Archvied: true
+leo-archive notification-intent Starting Processing
+leo-archive notification-intent queue start:  z/0
+leo-archive firehose_test_queue Starting Processing
+leo-archive firehose_test_queue queue start:  z/0
+leo-archive WebhookChecksum Starting Processing
+leo-archive WebhookChecksum queue start:  z/0
+leo-archive archived-process Starting Processing
+leo-archive archived-process queue start:  z/0
+leo-archive bot.account-test-account-offload-ddb-account-entity.error Starting Processing
+leo-archive bot.account-test-account-offload-ddb-account-entity.error queue start:  z/0
+leo-archive bulk-action-step Starting Processing
+leo-archive bulk-action-step queue start:  z/0
+leo-archive modified-account Starting Processing
+leo-archive modified-account queue start:  z/0
+leo-archive item-update-warehouse Starting Processing
+leo-archive item-update-warehouse queue start:  z/0
+leo-archive system.xray.elasticsearch.event Starting Processing
+leo-archive system.xray.elasticsearch.event queue start:  z/0
+leo-archive xray.stats.load Starting Processing
+leo-archive xray.stats.load queue start:  z/0
+leo-archive warehouse-dw-checksum Starting Processing
+leo-archive warehouse-dw-checksum queue start:  z/0
+leo-archive shippo-tracking Starting Processing
+leo-archive shippo-tracking queue start:  z/0
+leo-archive test-shipment Skipped. Skip Flag: false, Archvied: true
+leo-archive order-dw-checksum Starting Processing
+leo-archive order-dw-checksum queue start:  z/0
+leo-archive account-es-checksum Starting Processing
+leo-archive account-es-checksum queue start:  z/0
+leo-archive modified-item-quantity Starting Processing
+leo-archive modified-item-quantity queue start:  z/0
+leo-archive sns-email-events Starting Processing
+leo-archive sns-email-events queue start:  z/0
+leo-archive chargify-invoice Skipped. Skip Flag: false, Archvied: true
+leo-archive order-es-checksum Starting Processing
+leo-archive order-es-checksum queue start:  z/0
+leo-archive concurrent-api-execution Skipped. Skip Flag: false, Archvied: true
+leo-archive rates-optional Starting Processing
+leo-archive rates-optional queue start:  z/0
+leo-archive return-es-checksum-id Starting Processing
+leo-archive return-es-checksum-id queue start:  z/0
+leo-archive modified-invoice Starting Processing
+leo-archive modified-invoice queue start:  z/0
+leo-archive invoice-checksum Skipped. Skip Flag: false, Archvied: true
+leo-archive test-inventory Starting Processing
+leo-archive test-inventory queue start:  z/0
+leo-archive company Starting Processing
+leo-archive company queue start:  z/0
+leo-archive ddb-order-old-new Skipped. Skip Flag: false, Archvied: true
+leo-archive system.es-item Starting Processing
+leo-archive system.es-item queue start:  z/0
+leo-archive order-item-shipment Starting Processing
+leo-archive order-item-shipment queue start:  z/0
+leo-archive item-aggregation-old-new Starting Processing
+leo-archive item-aggregation-old-new queue start:  z/0
+leo-archive item-manual Skipped. Skip Flag: false, Archvied: true
+leo-archive rates-required Starting Processing
+leo-archive rates-required queue start:  z/0
+leo-archive system.xray.elasticsearch.action Starting Processing
+leo-archive system.xray.elasticsearch.action queue start:  z/0
+leo-archive direct-to-leo Starting Processing
+leo-archive direct-to-leo queue start:  z/0
+leo-archive modified-order Starting Processing
+leo-archive modified-order queue start:  z/0
+leo-archive xray.action.load Starting Processing
+leo-archive xray.action.load queue start:  z/0
+leo-archive new-orders-by-account Starting Processing
+leo-archive new-orders-by-account queue start:  z/0
+leo-archive api-log-dim_error Skipped. Skip Flag: false, Archvied: true
+leo-archive dim_error Starting Processing
+leo-archive dim_error queue start:  z/0
+leo-archive PendingOrder Skipped. Skip Flag: false, Archvied: true
+leo-archive zendesk_queue Skipped. Skip Flag: false, Archvied: true
+leo-archive WarehouseDW Skipped. Skip Flag: false, Archvied: true
+leo-archive order-es-checksum-id Starting Processing
+leo-archive order-es-checksum-id queue start:  z/0
+leo-archive return-dw-checksum Starting Processing
+leo-archive return-dw-checksum queue start:  z/0
+leo-archive warehouse-dw-checksum-id Starting Processing
+leo-archive warehouse-dw-checksum-id queue start:  z/0
+leo-archive ReturnChecksum Skipped. Skip Flag: false, Archvied: true
+leo-archive OrderWithRatesRequired Skipped. Skip Flag: false, Archvied: true
+leo-archive shipment-dim_error Skipped. Skip Flag: false, Archvied: true
+leo-archive warehouse Starting Processing
+leo-archive warehouse queue start:  z/0
+leo-archive LogFileChunks Skipped. Skip Flag: false, Archvied: true
+leo-archive chargify-dim_error Skipped. Skip Flag: false, Archvied: true
+leo-archive bulk-action-insert Starting Processing
+leo-archive bulk-action-insert queue start:  z/0
+leo-archive account-entity-old-new Starting Processing
+leo-archive account-entity-old-new queue start:  z/0
+leo-archive HubSpotCompany Skipped. Skip Flag: false, Archvied: true
+leo-archive invite-dim Skipped. Skip Flag: false, Archvied: true
+leo-archive OrderDW_error Skipped. Skip Flag: false, Archvied: true
+leo-archive item-quantity-dim Starting Processing
+leo-archive item-quantity-dim queue start:  z/0
+leo-archive bulk-action-chunk Starting Processing
+leo-archive bulk-action-chunk queue start:  z/0
+leo-archive system.TestDW_redshift Starting Processing
+leo-archive system.TestDW_redshift queue start:  z/0
+leo-archive ChargifyDeletedInvoice Skipped. Skip Flag: false, Archvied: true
+leo-archive account-dw-checksum Starting Processing
+leo-archive account-dw-checksum queue start:  z/0
+leo-archive WebhookCreated Starting Processing
+leo-archive WebhookCreated queue start:  z/0
+leo-archive return-checksum Skipped. Skip Flag: false, Archvied: true
+leo-archive bot.account-test-account-dw-checksum-id-to-account-dw-checksum.error Starting Processing
+leo-archive bot.account-test-account-dw-checksum-id-to-account-dw-checksum.error queue start:  z/0
+leo-archive WebhookResponse Starting Processing
+leo-archive WebhookResponse queue start:  z/0
+leo-archive system.es-order Starting Processing
+leo-archive system.es-order queue start:  z/0
+leo-archive Invite Skipped. Skip Flag: false, Archvied: true
+leo-archive OrderV2 Skipped. Skip Flag: false, Archvied: true
+leo-archive notification-failed Starting Processing
+leo-archive notification-failed queue start:  z/0
+leo-archive ChargifyDW Skipped. Skip Flag: false, Archvied: true
+leo-archive bulk-action Starting Processing
+leo-archive bulk-action queue start:  z/0
+leo-archive ChargifyDW_error Skipped. Skip Flag: false, Archvied: true
+leo-archive xray-stats Starting Processing
+leo-archive xray-stats queue start:  z/0
+leo-archive notification Starting Processing
+leo-archive notification queue start:  z/0
+leo-archive ChargifyInvoice Skipped. Skip Flag: false, Archvied: true
+leo-archive user Starting Processing
+leo-archive user queue start:  z/0
+leo-archive RatesOptional Skipped. Skip Flag: false, Archvied: true
+leo-archive xray.event Starting Processing
+leo-archive xray.event queue start:  z/0
+leo-archive shipment-meta Starting Processing
+leo-archive shipment-meta queue start:  z/0
+leo-archive bot.item-test-item-dw-checksum-id-to-item-dw-checksum.error Starting Processing
+leo-archive bot.item-test-item-dw-checksum-id-to-item-dw-checksum.error queue start:  z/0
+leo-archive shippo-tracking-history Skipped. Skip Flag: false, Archvied: true
+leo-archive UserDW Skipped. Skip Flag: false, Archvied: true
+leo-archive ApiLogDW Skipped. Skip Flag: false, Archvied: true
+leo-archive BulkActionChunk Skipped. Skip Flag: false, Archvied: true
+leo-archive [object Object] Skipped. Skip Flag: false, Archvied: true
+leo-archive apiMetricsQueueName Starting Processing
+leo-archive apiMetricsQueueName queue start:  z/0
+leo-archive AccountV2 Skipped. Skip Flag: false, Archvied: true
+leo-archive zendesk Skipped. Skip Flag: false, Archvied: true
+leo-archive invoice-entity-old-new Starting Processing
+leo-archive invoice-entity-old-new queue start:  z/0
+leo-archive WebhookHistory Skipped. Skip Flag: false, Archvied: true
+leo-archive test-sns-email-events Starting Processing
+leo-archive test-sns-email-events queue start:  z/0
+leo-archive warehouse-modified-item Skipped. Skip Flag: false, Archvied: true
+leo-archive bot.xray_action_es_ingest.error Starting Processing
+leo-archive bot.xray_action_es_ingest.error queue start:  z/0
+leo-archive Shipment Tracking Info Skipped. Skip Flag: false, Archvied: true
+leo-archive modified-product Starting Processing
+leo-archive modified-product queue start:  z/0
+leo-archive commands.s3_bus_load Starting Processing
+leo-archive commands.s3_bus_load queue start:  z/0
+leo-archive OrderWithRatesOptional Skipped. Skip Flag: false, Archvied: true
+leo-archive invoice-es-checksum Starting Processing
+leo-archive invoice-es-checksum queue start:  z/0
+leo-archive modified-item Starting Processing
+leo-archive modified-item queue start:  z/0
+leo-archive item-dw-checksum-id Starting Processing
+leo-archive item-dw-checksum-id queue start:  z/0
+leo-archive invite Starting Processing
+leo-archive invite queue start:  z/0
+leo-archive shipment-checksum Skipped. Skip Flag: false, Archvied: true
+leo-archive monitor Starting Processing
+leo-archive monitor queue start:  z/2018/02/07/10/13/1518023636911-0000004
+leo-archive dim Starting Processing
+leo-archive dim queue start:  z/2019/08/30/16/17/1567181858559-0001452
+leo-archive hubspot-company Starting Processing
+leo-archive hubspot-company queue start:  z/2019/08/30/22/34/1567204464214-0000927
+leo-archive stream/cz-supplier-inventory-stream Starting Processing
+leo-archive stream/cz-supplier-inventory-stream Complete
+leo-archive stream/cz-inventory-stream Starting Processing
+leo-archive stream/cz-inventory-stream Complete
+leo-archive stream/1000007408/cz-supplier-order-stream Starting Processing
+leo-archive stream/1000007408/cz-supplier-order-stream Complete
+leo-archive system.es-account Starting Processing
+leo-archive system.es-account queue start:  z/2019/11/10/20/43/1573418587921-0000000
+leo-archive stream/1000007407/cz-inventory-stream Starting Processing
+leo-archive stream/1000007407/cz-inventory-stream Complete
+leo-archive stream/1000007408/cz-supplier-inventory-stream Starting Processing
+leo-archive stream/1000007408/cz-supplier-inventory-stream Complete
+leo-archive bot.ddb-account-entity-load-account-entity-old-new.error Starting Processing
+leo-archive bot.ddb-account-entity-load-account-entity-old-new.error Complete
+leo-archive Inventory-Loader-Queue Starting Processing
+leo-archive Inventory-Loader-Queue queue start:  z/2020/03/20/20/55/1584737738349-0133812
+leo-archive Running Tasks
+leo-archive zendesk-satisfaction-rating Starting to read
+leo-stream { start: 'z/0',
+  loops: Infinity,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-stream { buffer: 16,
+  loops: Infinity,
+  start: 'z/0',
+  limit: Infinity,
+  size: Infinity,
+  debug: false,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-archive zendesk-satisfaction-rating Regex Paths Matches: [ /\/country$/i,
+  /\/address_?\d*$/i,
+  /\/card_?last_?four$/i,
+  /\/city$/i,
+  /\/[^\/]*_?phone$/i,
+  /\/[^\/]+_(?:to|from)_name$/i,
+  /\/(?:first|last)_?name$/i,
+  /\/last_actor$/i,
+  /\/tracking_number$/i,
+  /\/(?:region|state)$/i,
+  /\/email(?:_?address)?$/i ]
+leo-archive zendesk-satisfaction-rating Paths Matches: []
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739036674-0000001-a96bc5cb-b840-4f56-8b31-3283120dda50.gz
+leo-archive invoice-dw-checksum Starting to read
+leo-stream { start: 'z/0',
+  loops: Infinity,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-stream { buffer: 16,
+  loops: Infinity,
+  start: 'z/0',
+  limit: Infinity,
+  size: Infinity,
+  debug: false,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-archive invoice-dw-checksum Regex Paths Matches: [ /\/country$/i,
+  /\/address_?\d*$/i,
+  /\/card_?last_?four$/i,
+  /\/city$/i,
+  /\/[^\/]*_?phone$/i,
+  /\/[^\/]+_(?:to|from)_name$/i,
+  /\/(?:first|last)_?name$/i,
+  /\/last_actor$/i,
+  /\/tracking_number$/i,
+  /\/(?:region|state)$/i,
+  /\/email(?:_?address)?$/i ]
+leo-archive invoice-dw-checksum Paths Matches: []
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739036682-0000001-9c9cefb7-ce1e-4ff8-b5ab-532ae25085fb.gz
+leo-archive invoice-dw-checksum-id Starting to read
+leo-stream { start: 'z/0',
+  loops: Infinity,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-stream { buffer: 16,
+  loops: Infinity,
+  start: 'z/0',
+  limit: Infinity,
+  size: Infinity,
+  debug: false,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-archive invoice-dw-checksum-id Regex Paths Matches: [ /\/country$/i,
+  /\/address_?\d*$/i,
+  /\/card_?last_?four$/i,
+  /\/city$/i,
+  /\/[^\/]*_?phone$/i,
+  /\/[^\/]+_(?:to|from)_name$/i,
+  /\/(?:first|last)_?name$/i,
+  /\/last_actor$/i,
+  /\/tracking_number$/i,
+  /\/(?:region|state)$/i,
+  /\/email(?:_?address)?$/i ]
+leo-archive invoice-dw-checksum-id Paths Matches: []
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739036685-0000001-191fed48-a600-44c4-a5d8-ee759c070a52.gz
+leo-archive ApiMetrics Starting to read
+leo-stream { start: 'z/0',
+  loops: Infinity,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-stream { buffer: 16,
+  loops: Infinity,
+  start: 'z/0',
+  limit: Infinity,
+  size: Infinity,
+  debug: false,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-archive ApiMetrics Regex Paths Matches: [ /\/country$/i,
+  /\/address_?\d*$/i,
+  /\/card_?last_?four$/i,
+  /\/city$/i,
+  /\/[^\/]*_?phone$/i,
+  /\/[^\/]+_(?:to|from)_name$/i,
+  /\/(?:first|last)_?name$/i,
+  /\/last_actor$/i,
+  /\/tracking_number$/i,
+  /\/(?:region|state)$/i,
+  /\/email(?:_?address)?$/i ]
+leo-archive ApiMetrics Paths Matches: []
+leoS3 S3 Location: bus/_archive/q=ApiMetrics/dt=2021-01-15/1610739036688-0000001-c1abcc24-ba36-4a2b-ba99-cfdb5e70c12d.gz
+leo-archive test-end-to-end Starting to read
+leo-stream { start: 'z/0',
+  loops: Infinity,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-stream { buffer: 16,
+  loops: Infinity,
+  start: 'z/0',
+  limit: Infinity,
+  size: Infinity,
+  debug: false,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-archive test-end-to-end Regex Paths Matches: [ /\/country$/i,
+  /\/address_?\d*$/i,
+  /\/card_?last_?four$/i,
+  /\/city$/i,
+  /\/[^\/]*_?phone$/i,
+  /\/[^\/]+_(?:to|from)_name$/i,
+  /\/(?:first|last)_?name$/i,
+  /\/last_actor$/i,
+  /\/tracking_number$/i,
+  /\/(?:region|state)$/i,
+  /\/email(?:_?address)?$/i ]
+leo-archive test-end-to-end Paths Matches: []
+leoS3 S3 Location: bus/_archive/q=test-end-to-end/dt=2021-01-15/1610739036691-0000001-9b1cdf48-4f56-433b-b3cd-2b97ffc3a001.gz
+Reading event from z/0 
+Reading event from z/0 
+Reading event from z/0 
+Reading event from z/0 
+Reading event from z/0 
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=test-end-to-end/dt=2021-01-15/1610739037154-0000002-11fafc05-4d01-49b0-97c7-95aca24f1a95.gz
+leo-stream done uploading null
+leoS3 got flush
+leoS3 submitting
+kinesis request: 283.065ms
+leo-stream toLeo On Flush
+leo-archive test-end-to-end Complete 
+leo-archive atomic-action Starting to read
+leo-stream { start: 'z/0',
+  loops: Infinity,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-stream { buffer: 16,
+  loops: Infinity,
+  start: 'z/0',
+  limit: Infinity,
+  size: Infinity,
+  debug: false,
+  stopTime: moment("2021-01-15T12:41:05.974") }
+leo-archive atomic-action Regex Paths Matches: [ /\/country$/i,
+  /\/address_?\d*$/i,
+  /\/card_?last_?four$/i,
+  /\/city$/i,
+  /\/[^\/]*_?phone$/i,
+  /\/[^\/]+_(?:to|from)_name$/i,
+  /\/(?:first|last)_?name$/i,
+  /\/last_actor$/i,
+  /\/tracking_number$/i,
+  /\/(?:region|state)$/i,
+  /\/email(?:_?address)?$/i ]
+leo-archive atomic-action Paths Matches: []
+leoS3 S3 Location: bus/_archive/q=atomic-action/dt=2021-01-15/1610739037854-0000001-f1d3e67c-6a16-40a0-ad28-b174c833e9bb.gz
+Reading event from z/0 
+zendesk-satisfaction-rating 10000 3063 z/2019/09/06/19/08/1567796917815-0000103
+zendesk-satisfaction-rating 20000 4926 z/2019/10/18/05/45/1571377519039-0000056
+zendesk-satisfaction-rating 30000 7051 z/2019/10/18/10/09/1571393369226-0000052
+invoice-dw-checksum 10000 8777 z/2020/06/18/20/30/1592512250316-0000719
+zendesk-satisfaction-rating 40000 9649 z/2019/10/18/14/57/1571410632647-0000097
+invoice-dw-checksum 20000 12275 z/2020/06/18/20/31/1592512277166-0001398
+zendesk-satisfaction-rating 50000 12493 z/2019/10/18/19/42/1571427731448-0000059
+zendesk-satisfaction-rating 60000 14906 z/2019/10/18/23/57/1571443034208-0000102
+invoice-dw-checksum 30000 16447 z/2020/06/18/20/31/1592512303228-0004252
+zendesk-satisfaction-rating 70000 17804 z/2019/10/19/04/06/1571458000207-0000097
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739055624-0000002-28572d67-04fc-4ab5-a1db-e7bc67f7b227.gz
+leo-stream done uploading null
+kinesis request: 251.554ms
+invoice-dw-checksum 40000 20183 z/2020/06/18/20/32/1592512327057-0000744
+zendesk-satisfaction-rating 80000 21147 z/2019/10/19/08/36/1571474185273-0000008
+zendesk-satisfaction-rating 90000 24639 z/2019/10/19/12/57/1571489830028-0000019
+invoice-dw-checksum 50000 25568 z/2020/06/18/20/32/1592512350039-0008213
+zendesk-satisfaction-rating 100000 27015 z/2019/10/19/17/27/1571506034318-0000035
+invoice-dw-checksum 60000 29383 z/2020/06/18/20/32/1592512373091-0000315
+zendesk-satisfaction-rating 110000 31135 z/2019/10/19/21/51/1571521891948-0000029
+zendesk-satisfaction-rating 120000 33347 z/2019/10/20/02/21/1571538096818-0000035
+invoice-dw-checksum 70000 33722 z/2020/06/18/20/33/1592512394224-0005775
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739072778-0000003-ba40fdeb-e70e-4951-9bfa-7f9dbfd45fc0.gz
+zendesk-satisfaction-rating 130000 36408 z/2019/10/20/06/36/1571553390652-0000093
+leo-stream done uploading null
+kinesis request: 273.109ms
+invoice-dw-checksum 80000 37655 z/2020/06/18/20/33/1592512422123-0000063
+zendesk-satisfaction-rating 140000 38598 z/2019/10/20/10/42/1571568139833-0000098
+invoice-dw-checksum 90000 41290 z/2020/06/18/20/34/1592512450151-0001516
+zendesk-satisfaction-rating 150000 41586 z/2019/10/20/15/06/1571583999377-0000006
+zendesk-satisfaction-rating 160000 44194 z/2019/10/20/19/33/1571599994876-0000014
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739080943-0000002-df9c7a4f-f34e-4eae-9502-7d4be469df0d.gz
+leo-stream done uploading null
+zendesk-satisfaction-rating 170000 46157 z/2019/10/21/00/03/1571616196827-0000026
+kinesis request: 398.511ms
+invoice-dw-checksum 100000 46949 z/2020/06/18/20/34/1592512473172-0000301
+zendesk-satisfaction-rating 180000 49078 z/2019/10/21/04/24/1571631850169-0000030
+zendesk-satisfaction-rating 190000 50844 z/2019/10/21/08/33/1571646812769-0000008
+atomic-action 10000 51046 z/2020/09/20/17/34/1600623280167-0000000
+zendesk-satisfaction-rating 200000 54680 z/2019/10/21/13/00/1571662826233-0000009
+invoice-dw-checksum 110000 55199 z/2020/06/18/20/34/1592512494149-0000754
+zendesk-satisfaction-rating 210000 56832 z/2019/10/21/17/36/1571679393813-0000016
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739094067-0000004-d30fad47-4636-4cc7-bbb4-d44112b28b50.gz
+leo-stream done uploading null
+kinesis request: 263.593ms
+invoice-dw-checksum 120000 58991 z/2020/06/18/20/35/1592512519333-0000141
+zendesk-satisfaction-rating 220000 60901 z/2019/10/21/22/09/1571695758591-0000016
+invoice-dw-checksum 130000 62879 z/2020/06/18/20/35/1592512541199-0000022
+zendesk-satisfaction-rating 230000 63511 z/2019/10/22/02/36/1571711787293-0000029
+zendesk-satisfaction-rating 240000 66419 z/2019/10/22/07/06/1571727991963-0000082
+invoice-dw-checksum 140000 66743 z/2020/06/18/20/36/1592512562182-0000192
+zendesk-satisfaction-rating 250000 68873 z/2019/10/22/11/33/1571744001459-0000101
+invoice-dw-checksum 150000 70685 z/2020/06/18/20/36/1592512583483-0000756
+zendesk-satisfaction-rating 260000 71857 z/2019/10/22/16/18/1571761100736-0000031
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739109507-0000002-af58f97b-3677-4898-a478-9ebb36dc9bfd.gz
+leo-stream done uploading null
+kinesis request: 289.642ms
+zendesk-satisfaction-rating 270000 74947 z/2019/10/22/20/42/1571776951062-0000125
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739111944-0000005-32e028a4-a186-4c9b-8c0a-ffa503af4619.gz
+leo-stream done uploading null
+kinesis request: 248.509ms
+invoice-dw-checksum 160000 78495 z/2020/06/18/20/36/1592512604373-0000498
+zendesk-satisfaction-rating 280000 78770 z/2019/10/23/01/27/1571794030212-0000079
+zendesk-satisfaction-rating 290000 81920 z/2019/10/23/05/36/1571809000690-0000035
+invoice-dw-checksum 170000 83791 z/2020/06/18/20/37/1592512630171-0000659
+zendesk-satisfaction-rating 300000 85383 z/2019/10/23/09/54/1571824463478-0000008
+invoice-dw-checksum 180000 87547 z/2020/06/18/20/37/1592512657262-0000112
+zendesk-satisfaction-rating 310000 87855 z/2019/10/23/14/36/1571841395190-0000068
+invoice-dw-checksum 190000 91366 z/2020/06/18/20/37/1592512676205-0004735
+zendesk-satisfaction-rating 320000 92039 z/2019/10/23/19/24/1571858658272-0000070
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739128863-0000003-85b41c33-9f18-46e2-b24a-aeef87bfc3b7.gz
+leo-stream done uploading null
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739129944-0000006-0b7cc93f-ba61-45be-a975-388de8c932ec.gz
+kinesis request: 398.498ms
+leo-stream done uploading null
+kinesis request: 546.891ms
+atomic-action 20000 93105 z/2020/12/10/21/27/1607635624793-0000001
+zendesk-satisfaction-rating 330000 94565 z/2019/10/24/00/09/1571875756000-0000023
+invoice-dw-checksum 200000 94985 z/2020/06/18/20/38/1592512696235-0004853
+zendesk-satisfaction-rating 340000 97396 z/2019/10/24/04/33/1571891603578-0000091
+invoice-dw-checksum 210000 99241 z/2020/06/18/20/38/1592512715272-0001376
+zendesk-satisfaction-rating 350000 99946 z/2019/10/24/08/39/1571906369875-0000104
+invoice-dw-checksum 220000 102690 z/2020/06/18/20/38/1592512736349-0000640
+zendesk-satisfaction-rating 360000 102717 z/2019/10/24/13/24/1571923450262-0000021
+invoice-dw-checksum 230000 106271 z/2020/06/18/20/39/1592512755241-0034612
+zendesk-satisfaction-rating 370000 106389 z/2019/10/24/17/51/1571939488372-0000023
+zendesk-satisfaction-rating 380000 109271 z/2019/10/24/22/03/1571954611358-0000037
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739147505-0000007-a4cd2f0d-9b2a-4294-b5ac-e4a44633429c.gz
+zendesk-satisfaction-rating 390000 111172 z/2019/10/25/02/09/1571969362873-0000097
+leo-stream done uploading null
+kinesis request: 246.936ms
+invoice-dw-checksum 240000 112290 z/2020/06/18/20/39/1592512774223-0002152
+zendesk-satisfaction-rating 400000 114902 z/2019/10/25/06/18/1571984310938-0000054
+invoice-dw-checksum 250000 117679 z/2020/06/18/20/39/1592512794306-0001289
+zendesk-satisfaction-rating 410000 118464 z/2019/10/25/10/51/1572000693485-0000021
+zendesk-satisfaction-rating 420000 120628 z/2019/10/25/15/24/1572017064851-0000089
+invoice-dw-checksum 260000 121321 z/2020/06/18/20/40/1592512819325-0000018
+zendesk-satisfaction-rating 430000 123554 z/2019/10/25/20/00/1572033615829-0000088
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739161205-0000003-19648426-4a04-46ae-9525-6d9dd2439e52.gz
+invoice-dw-checksum 270000 124794 z/2020/06/18/20/40/1592512847306-0000514
+zendesk-satisfaction-rating 440000 125269 z/2019/10/25/21/29/1572038992438-0006484
+leo-stream done uploading null
+kinesis request: 279.225ms
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739164946-0000008-f6b6335d-3384-41ed-9bce-bb6815642b73.gz
+leo-stream done uploading null
+kinesis request: 264.617ms
+invoice-dw-checksum 280000 129535 z/2020/06/18/20/41/1592512868262-0000104
+zendesk-satisfaction-rating 450000 132081 z/2019/10/25/21/29/1572038992438-0016484
+invoice-dw-checksum 290000 134962 z/2020/06/18/20/41/1592512887358-0008606
+zendesk-satisfaction-rating 460000 136382 z/2019/10/26/02/10/1572055818856-0007369
+zendesk-satisfaction-rating 470000 137123 z/2019/10/26/06/32/1572071551993-0014051
+zendesk-satisfaction-rating 480000 139058 z/2019/10/26/13/07/1572095235083-0008736
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739176254-0000004-4202e633-7cdb-4d1b-bba9-bf675bb87299.gz
+zendesk-satisfaction-rating 490000 140550 z/2019/10/26/13/07/1572095235083-0018736
+leo-stream done uploading null
+kinesis request: 255.167ms
+invoice-dw-checksum 300000 142687 z/2020/06/18/20/41/1592512908367-0000335
+zendesk-satisfaction-rating 500000 146568 z/2019/10/26/17/51/1572112287622-0012313
+ApiMetrics 10000 146734 z/2020/12/10/08/42/1607589722378-0000002
+zendesk-satisfaction-rating 510000 147371 z/2019/10/26/22/13/1572127996411-0018390
+zendesk-satisfaction-rating 520000 148232 z/2019/10/27/02/33/1572143609554-0001028
+invoice-dw-checksum 310000 148792 z/2020/06/18/20/42/1592512928371-0007598
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739187377-0000009-fd391457-33a6-4fe1-9eca-fedd69cb08e4.gz
+leo-stream done uploading null
+kinesis request: 247.576ms
+invoice-dw-checksum 320000 152591 z/2020/06/18/20/42/1592512949377-0000200
+zendesk-satisfaction-rating 530000 153178 z/2019/10/27/07/29/1572161341060-0000149
+zendesk-satisfaction-rating 540000 156475 z/2019/10/27/11/47/1572176877360-0000180
+atomic-action 30000 156668 z/2020/12/12/17/13/1607793185641-0000001
+invoice-dw-checksum 330000 158753 z/2020/06/18/20/42/1592512970352-0000017
+zendesk-satisfaction-rating 550000 160070 z/2019/10/27/16/03/1572192180710-0000091
+invoice-dw-checksum 340000 162384 z/2020/06/18/20/43/1592512990391-0030010
+zendesk-satisfaction-rating 560000 164267 z/2019/10/27/20/12/1572207143177-0000053
+invoice-dw-checksum 350000 165950 z/2020/06/18/20/43/1592513014364-0000020
+zendesk-satisfaction-rating 570000 166532 z/2019/10/28/00/39/1572223150142-0000060
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739204423-0000010-e5727399-541e-454c-af6d-2f4d7aa730a6.gz
+leo-stream done uploading null
+zendesk-satisfaction-rating 580000 169178 z/2019/10/28/04/51/1572238306639-0000063
+kinesis request: 350.906ms
+zendesk-satisfaction-rating 590000 171295 z/2019/10/28/09/15/1572254121730-0000029
+invoice-dw-checksum 360000 171438 z/2020/06/18/20/43/1592513039454-0000832
+zendesk-satisfaction-rating 600000 174747 z/2019/10/28/12/02/1572264121309-0012460
+invoice-dw-checksum 370000 175213 z/2020/06/18/20/44/1592513060356-0000359
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739216704-0000004-ab5a5c7c-5188-415d-9ef2-7d1197cf0526.gz
+leo-stream done uploading null
+kinesis request: 253.538ms
+zendesk-satisfaction-rating 610000 182503 z/2019/10/28/12/02/1572264121309-0022460
+invoice-dw-checksum 380000 183865 z/2020/06/18/20/44/1592513083374-0001397
+zendesk-satisfaction-rating 620000 186181 z/2019/10/28/16/51/1572281493172-0015322
+zendesk-satisfaction-rating 630000 187491 z/2019/10/28/21/51/1572299489215-0005181
+invoice-dw-checksum 390000 187960 z/2020/06/18/20/45/1592513103578-0000790
+zendesk-satisfaction-rating 640000 189581 z/2019/10/29/04/15/1572322513612-0000364
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739226331-0000011-e1490cb8-d495-471a-b46a-af2ffe17fcdc.gz
+leo-stream done uploading null
+kinesis request: 269.259ms
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739227638-0000005-3e08f976-fcfa-4dd6-a3d0-5541f3503a91.gz
+leo-stream done uploading null
+kinesis request: 254.561ms
+invoice-dw-checksum 400000 193460 z/2020/06/18/20/45/1592513124376-0001033
+zendesk-satisfaction-rating 650000 193657 z/2019/10/29/08/39/1572338340734-0000049
+invoice-dw-checksum 410000 197398 z/2020/06/18/20/45/1592513144502-0001492
+zendesk-satisfaction-rating 660000 198099 z/2019/10/29/12/51/1572353496230-0000122
+invoice-dw-checksum 420000 201717 z/2020/06/18/20/46/1592513165364-0001468
+zendesk-satisfaction-rating 670000 203106 z/2019/10/29/17/39/1572370757858-0000087
+zendesk-satisfaction-rating 680000 205377 z/2019/10/29/22/18/1572387496475-0000087
+invoice-dw-checksum 430000 205530 z/2020/06/18/20/46/1592513186346-0000114
+zendesk-satisfaction-rating 690000 207703 z/2019/10/30/02/54/1572404053467-0000102
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739245441-0000012-c67ecad6-cf59-469e-9fda-74fa8cf03b8c.gz
+zendesk-satisfaction-rating 700000 209844 z/2019/10/30/07/06/1572419197364-0000059
+leo-stream done uploading null
+kinesis request: 251.942ms
+invoice-dw-checksum 440000 211180 z/2020/06/18/20/46/1592513213489-0000682
+zendesk-satisfaction-rating 710000 212474 z/2019/10/30/11/30/1572435027620-0000018
+zendesk-satisfaction-rating 720000 214840 z/2019/10/30/16/18/1572452291805-0000013
+invoice-dw-checksum 450000 214907 z/2020/06/18/20/47/1592513236451-0000789
+zendesk-satisfaction-rating 730000 217276 z/2019/10/30/21/00/1572469218177-0000019
+ApiMetrics 20000 219290 z/2020/12/10/21/35/1607636153310-0000008
+zendesk-satisfaction-rating 740000 219320 z/2019/10/31/01/03/1572483809560-0000032
+invoice-dw-checksum 460000 221038 z/2020/06/18/20/47/1592513256402-0001192
+atomic-action 40000 219873 z/2020/12/14/12/58/1607950682610-0000001
+zendesk-satisfaction-rating 750000 222334 z/2019/10/31/05/33/1572500000726-0000045
+zendesk-satisfaction-rating 760000 224746 z/2019/10/31/09/45/1572515123610-0000041
+invoice-dw-checksum 470000 224808 z/2020/06/18/20/47/1592513276485-0000928
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739262085-0000013-dc224e29-2368-43b9-8b66-763f4d93cbb3.gz
+leo-stream done uploading null
+kinesis request: 269.292ms
+zendesk-satisfaction-rating 770000 227546 z/2019/10/31/14/18/1572531498862-0000039
+invoice-dw-checksum 480000 228439 z/2020/06/18/20/48/1592513296431-0005243
+zendesk-satisfaction-rating 780000 229886 z/2019/10/31/18/57/1572548237925-0000063
+invoice-dw-checksum 490000 232064 z/2020/06/18/20/48/1592513318389-0000467
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739270314-0000005-31ff87e6-a0d8-4a3e-b2d0-d36cb609bb20.gz
+zendesk-satisfaction-rating 790000 234150 z/2019/10/31/23/42/1572565334227-0000060
+leo-stream done uploading null
+kinesis request: 295.413ms
+invoice-dw-checksum 500000 235914 z/2020/06/18/20/48/1592513338410-0002094
+zendesk-satisfaction-rating 800000 236334 z/2019/11/01/04/18/1572581900644-0000072
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739274755-0000006-b633ec65-5997-4402-9816-436f6f824800.gz
+leo-stream done uploading null
+kinesis request: 308.374ms
+zendesk-satisfaction-rating 810000 240959 z/2019/11/01/08/33/1572597208869-0000023
+invoice-dw-checksum 510000 242149 z/2020/06/18/20/49/1592513361534-0000121
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739279337-0000014-df2c1ec9-46a7-47a3-85aa-021930d7b7ad.gz
+zendesk-satisfaction-rating 820000 242858 z/2019/11/01/13/06/1572613597234-0000028
+leo-stream done uploading null
+kinesis request: 245.434ms
+zendesk-satisfaction-rating 830000 245531 z/2019/11/01/17/39/1572629964716-0000081
+invoice-dw-checksum 520000 245877 z/2020/06/18/20/49/1592513386589-0000267
+zendesk-satisfaction-rating 840000 248007 z/2019/11/01/22/24/1572647066854-0000094
+invoice-dw-checksum 530000 249719 z/2020/06/18/20/50/1592513413416-0000695
+zendesk-satisfaction-rating 850000 252558 z/2019/11/02/02/57/1572663433570-0000102
+zendesk-satisfaction-rating 860000 255064 z/2019/11/02/07/09/1572678558081-0000015
+invoice-dw-checksum 540000 255250 z/2020/06/18/20/50/1592513437465-0000188
+zendesk-satisfaction-rating 870000 257811 z/2019/11/02/11/18/1572693509053-0000012
+zendesk-satisfaction-rating 880000 259941 z/2019/11/02/16/03/1572710605861-0000016
+invoice-dw-checksum 550000 261117 z/2020/06/18/20/50/1592513459473-0000077
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739298160-0000015-491fca3a-e581-4991-9a0f-899cb71bd5fb.gz
+zendesk-satisfaction-rating 890000 262505 z/2019/11/02/20/30/1572726619422-0000071
+leo-stream done uploading null
+kinesis request: 248.533ms
+invoice-dw-checksum 560000 264854 z/2020/06/18/20/51/1592513479420-0000609
+zendesk-satisfaction-rating 900000 265152 z/2019/11/03/00/54/1572742449966-0000026
+zendesk-satisfaction-rating 910000 267762 z/2019/11/03/04/48/1572756497283-0000023
+invoice-dw-checksum 570000 268353 z/2020/06/18/20/51/1592513498572-0000866
+zendesk-satisfaction-rating 920000 270149 z/2019/11/03/08/57/1572771437666-0000038
+invoice-dw-checksum 580000 271953 z/2020/06/18/20/52/1592513521470-0000711
+zendesk-satisfaction-rating 930000 272823 z/2019/11/03/12/45/1572785122105-0000035
+invoice-dw-checksum 590000 275685 z/2020/06/18/20/52/1592513541622-0001698
+zendesk-satisfaction-rating 940000 276410 z/2019/11/03/16/54/1572800067364-0000036
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739313278-0000016-1f25b29e-f011-4070-ae9b-87e6adbea65a.gz
+leo-stream done uploading null
+kinesis request: 261.595ms
+zendesk-satisfaction-rating 950000 278908 z/2019/11/03/21/12/1572815530021-0000045
+invoice-dw-checksum 600000 280237 z/2020/06/18/20/52/1592513564450-0000080
+zendesk-satisfaction-rating 960000 281557 z/2019/11/04/01/18/1572830301913-0000012
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739319536-0000007-0b1813e8-9a3c-48d7-9415-e5c0178ec9e5.gz
+leo-stream done uploading null
+zendesk-satisfaction-rating 970000 283755 z/2019/11/04/05/45/1572846319142-0000013
+kinesis request: 318.759ms
+invoice-dw-checksum 610000 284334 z/2020/06/18/20/53/1592513583571-0000948
+atomic-action 50000 283253 z/2020/12/16/08/43/1608108183303-0000000
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739324232-0000006-8b26fb8c-b338-4f06-aa58-cbc781c52d24.gz
+zendesk-satisfaction-rating 980000 287964 z/2019/11/04/09/54/1572861252569-0000022
+invoice-dw-checksum 620000 288070 z/2020/06/18/20/53/1592513612781-0000009
+leo-stream done uploading null
+kinesis request: 256.059ms
+ApiMetrics 30000 291535 z/2020/12/11/08/47/1607676459747-0000010
+zendesk-satisfaction-rating 990000 291778 z/2019/11/04/14/06/1572876388883-0000077
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739330208-0000017-853ee93e-86ce-47e8-861b-b3fb74fba0bc.gz
+invoice-dw-checksum 630000 294330 z/2020/06/18/20/53/1592513637490-0001202
+zendesk-satisfaction-rating 1000000 294846 z/2019/11/04/18/42/1572892933182-0000089
+leo-stream done uploading null
+kinesis request: 387.692ms
+zendesk-satisfaction-rating 1010000 297600 z/2019/11/04/23/15/1572909318385-0000043
+invoice-dw-checksum 640000 298036 z/2020/06/18/20/54/1592513658446-0001580
+zendesk-satisfaction-rating 1020000 301300 z/2019/11/05/03/39/1572925168112-0000052
+invoice-dw-checksum 650000 301610 z/2020/06/18/20/54/1592513693476-0000168
+zendesk-satisfaction-rating 1030000 303690 z/2019/11/05/08/03/1572940999621-0000100
+invoice-dw-checksum 660000 305293 z/2020/06/18/20/55/1592513717581-0004193
+zendesk-satisfaction-rating 1040000 306567 z/2019/11/05/12/30/1572957019344-0000054
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739345467-0000018-18c7b32c-a7cd-4020-84f5-267a79051fcd.gz
+zendesk-satisfaction-rating 1050000 308953 z/2019/11/05/17/24/1572974654592-0000015
+invoice-dw-checksum 670000 309817 z/2020/06/18/20/55/1592513740544-0001197
+leo-stream done uploading null
+kinesis request: 265.672ms
+zendesk-satisfaction-rating 1060000 312782 z/2019/11/05/21/51/1572990700103-0000072
+invoice-dw-checksum 680000 313556 z/2020/06/18/20/56/1592513769504-0000013
+zendesk-satisfaction-rating 1070000 315116 z/2019/11/06/02/12/1573006342770-0000090
+invoice-dw-checksum 690000 316232 z/2020/06/18/20/56/1592513793515-0000611
+zendesk-satisfaction-rating 1080000 318817 z/2019/11/06/06/24/1573021466960-0000046
+invoice-dw-checksum 700000 320635 z/2020/06/18/20/56/1592513814598-0000704
+zendesk-satisfaction-rating 1090000 322394 z/2019/11/06/10/54/1573037670186-0000039
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739359644-0000019-f2d44777-7cd1-450d-ac78-a63ea2b10847.gz
+invoice-dw-checksum 710000 324407 z/2020/06/18/20/57/1592513835564-0000921
+leo-stream done uploading null
+zendesk-satisfaction-rating 1100000 324812 z/2019/11/06/15/21/1573053702640-0000038
+kinesis request: 276.596ms
+zendesk-satisfaction-rating 1110000 327532 z/2019/11/06/20/21/1573071689141-0000050
+invoice-dw-checksum 720000 328152 z/2020/06/18/20/57/1592513856570-0001582
+zendesk-satisfaction-rating 1120000 331220 z/2019/11/07/00/45/1573087522092-0000061
+invoice-dw-checksum 730000 331675 z/2020/06/18/20/57/1592513876555-0000298
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739369693-0000008-ccf49dba-ef7d-4c37-bc62-605ff4961717.gz
+leo-stream done uploading null
+kinesis request: 265.748ms
+zendesk-satisfaction-rating 1130000 335115 z/2019/11/07/05/18/1573103905399-0000063
+invoice-dw-checksum 740000 337046 z/2020/06/18/20/58/1592513896813-0000622
+zendesk-satisfaction-rating 1140000 337207 z/2019/11/07/09/45/1573119921854-0000028
+zendesk-satisfaction-rating 1150000 339663 z/2019/11/07/14/42/1573137732866-0000033
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739376647-0000020-fba995b0-02e6-41a0-8666-120d44a5de09.gz
+leo-stream done uploading null
+kinesis request: 252.373ms
+invoice-dw-checksum 750000 341498 z/2020/06/18/20/58/1592513916769-0000802
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739378488-0000007-5b13c27b-2e08-4f82-9011-8f32de02e905.gz
+zendesk-satisfaction-rating 1160000 342661 z/2019/11/07/19/12/1573153948522-0000087
+leo-stream done uploading null
+kinesis request: 258.025ms
+invoice-dw-checksum 760000 345139 z/2020/06/18/20/58/1592513936921-0000700
+zendesk-satisfaction-rating 1170000 345224 z/2019/11/08/00/12/1573171936754-0000052
+atomic-action 60000 346194 z/2020/12/18/04/14/1608264843840-0000000
+zendesk-satisfaction-rating 1180000 347679 z/2019/11/08/04/18/1573186703482-0000008
+invoice-dw-checksum 770000 348822 z/2020/06/18/20/59/1592513969820-0004074
+zendesk-satisfaction-rating 1190000 351802 z/2019/11/08/08/27/1573201644438-0000062
+invoice-dw-checksum 780000 353049 z/2020/06/18/21/00/1592514014719-0000800
+zendesk-satisfaction-rating 1200000 354419 z/2019/11/08/13/06/1573218406654-0000038
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739391944-0000021-aef7afff-84a3-44db-9dd6-b075f38bec4b.gz
+leo-stream done uploading null
+kinesis request: 295.932ms
+zendesk-satisfaction-rating 1210000 357030 z/2019/11/08/17/45/1573235122419-0000082
+invoice-dw-checksum 790000 357110 z/2020/06/18/21/00/1592514038803-0000393
+zendesk-satisfaction-rating 1220000 361053 z/2019/11/08/22/33/1573252400367-0000052
+invoice-dw-checksum 800000 362738 z/2020/06/18/21/01/1592514061779-0000194
+ApiMetrics 40000 364559 z/2020/12/11/20/00/1607716838847-0000014
+zendesk-satisfaction-rating 1230000 364624 z/2019/11/09/02/39/1573267169119-0000041
+invoice-dw-checksum 810000 366629 z/2020/06/18/21/01/1592514082704-0007068
+zendesk-satisfaction-rating 1240000 367201 z/2019/11/09/07/03/1573283005782-0000050
+zendesk-satisfaction-rating 1250000 369803 z/2019/11/09/11/45/1573299914657-0000051
+invoice-dw-checksum 820000 371145 z/2020/06/18/21/01/1592514104733-0000657
+zendesk-satisfaction-rating 1260000 372347 z/2019/11/09/16/15/1573316121497-0000025
+zendesk-satisfaction-rating 1270000 374002 z/2019/11/09/20/39/1573331967423-0000073
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739411324-0000022-8a7c8599-82df-45c7-9b79-a6bc3806b8dd.gz
+leo-stream done uploading null
+kinesis request: 256.578ms
+invoice-dw-checksum 830000 376636 z/2020/06/18/21/02/1592514126716-0000510
+zendesk-satisfaction-rating 1280000 376692 z/2019/11/10/01/06/1573347997462-0000036
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739415351-0000009-c9152f55-5bd0-4742-9855-cb8de13fd7c7.gz
+zendesk-satisfaction-rating 1290000 379128 z/2019/11/10/05/12/1573362746408-0000046
+leo-stream done uploading null
+kinesis request: 315.337ms
+invoice-dw-checksum 840000 382363 z/2020/06/18/21/02/1592514148708-0000347
+zendesk-satisfaction-rating 1300000 382587 z/2019/11/10/09/24/1573377867969-0000059
+invoice-dw-checksum 850000 385776 z/2020/06/18/21/02/1592514168746-0001411
+zendesk-satisfaction-rating 1310000 385959 z/2019/11/10/14/06/1573394793004-0000067
+zendesk-satisfaction-rating 1320000 388146 z/2019/11/10/18/12/1573409536203-0000078
+invoice-dw-checksum 860000 389969 z/2020/06/18/21/03/1592514197051-0000458
+zendesk-satisfaction-rating 1330000 390864 z/2019/11/10/22/24/1573424656049-0000079
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739427781-0000023-cf3406de-2ead-4638-a8c2-dbd01410cc87.gz
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739428032-0000008-e5443725-5080-46f2-a189-78645a7ef7a3.gz
+leo-stream done uploading null
+kinesis request: 283.183ms
+leo-stream done uploading null
+kinesis request: 253.834ms
+zendesk-satisfaction-rating 1340000 393602 z/2019/11/11/02/42/1573440135366-0000057
+invoice-dw-checksum 870000 394214 z/2020/06/18/21/03/1592514219983-0000068
+zendesk-satisfaction-rating 1350000 396581 z/2019/11/11/06/42/1573454547512-0000011
+invoice-dw-checksum 880000 398230 z/2020/06/18/21/03/1592514238750-0001311
+zendesk-satisfaction-rating 1360000 398940 z/2019/11/11/11/03/1573470208664-0000068
+zendesk-satisfaction-rating 1370000 403027 z/2019/11/11/15/42/1573486939529-0000021
+invoice-dw-checksum 890000 403282 z/2020/06/18/21/04/1592514261762-0000892
+zendesk-satisfaction-rating 1380000 406768 z/2019/11/11/20/21/1573503693541-0000032
+invoice-dw-checksum 900000 407043 z/2020/06/18/21/05/1592514302922-0004420
+zendesk-satisfaction-rating 1390000 408969 z/2019/11/12/00/54/1573520061990-0000040
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739446788-0000024-1eb7fe12-02fe-454c-aed9-8ef1d2750adc.gz
+atomic-action 70000 409846 z/2020/12/20/04/02/1608436922933-0000002
+zendesk-satisfaction-rating 1400000 411038 z/2019/11/12/05/42/1573537329837-0000050
+leo-stream done uploading null
+kinesis request: 296.857ms
+invoice-dw-checksum 910000 412844 z/2020/06/18/21/05/1592514326893-0001443
+zendesk-satisfaction-rating 1410000 414850 z/2019/11/12/10/06/1573553191304-0000065
+zendesk-satisfaction-rating 1420000 417997 z/2019/11/12/14/36/1573569392079-0000075
+invoice-dw-checksum 920000 418959 z/2020/06/18/21/05/1592514348934-0002855
+zendesk-satisfaction-rating 1430000 420698 z/2019/11/12/19/27/1573586834725-0000072
+invoice-dw-checksum 930000 422606 z/2020/06/18/21/06/1592514381002-0000012
+zendesk-satisfaction-rating 1440000 424438 z/2019/11/13/00/36/1573605402723-0000039
+invoice-dw-checksum 940000 426451 z/2020/06/18/21/06/1592514399833-0000585
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739463433-0000025-2f6ff9f5-f4e7-409a-8638-97e418b624a5.gz
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739463892-0000010-48174574-29f8-4672-aa30-3e42fa939ede.gz
+leo-stream done uploading null
+leo-stream done uploading null
+kinesis request: 136.267ms
+zendesk-satisfaction-rating 1450000 428898 z/2019/11/13/05/12/1573621937702-0000038
+invoice-dw-checksum 950000 429759 z/2020/06/18/21/07/1592514420785-0003913
+zendesk-satisfaction-rating 1460000 431246 z/2019/11/13/09/33/1573637591171-0000005
+invoice-dw-checksum 960000 434187 z/2020/06/18/21/07/1592514442848-0000133
+zendesk-satisfaction-rating 1470000 434518 z/2019/11/13/14/03/1573653791053-0000061
+ApiMetrics 50000 434995 z/2020/12/12/07/03/1607756590789-0000025
+invoice-dw-checksum 970000 437987 z/2020/06/18/21/07/1592514462819-0000701
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739474817-0000009-0edd96b9-9e0c-4f96-afa7-a72ba9193e62.gz
+zendesk-satisfaction-rating 1480000 438262 z/2019/11/13/18/30/1573669815067-0000028
+leo-stream done uploading null
+kinesis request: 273.088ms
+zendesk-satisfaction-rating 1490000 441297 z/2019/11/13/23/30/1573687818471-0000072
+invoice-dw-checksum 980000 442033 z/2020/06/18/21/08/1592514484822-0007795
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739478926-0000026-577178e5-1d0f-44d5-8ed0-e11713287da7.gz
+leo-stream done uploading null
+kinesis request: 244.252ms
+zendesk-satisfaction-rating 1500000 443788 z/2019/11/14/03/57/1573703831709-0000025
+zendesk-satisfaction-rating 1510000 446676 z/2019/11/14/08/06/1573718806098-0000080
+invoice-dw-checksum 990000 447881 z/2020/06/18/21/08/1592514505840-0000414
+zendesk-satisfaction-rating 1520000 449429 z/2019/11/14/12/39/1573735171664-0000044
+zendesk-satisfaction-rating 1530000 451470 z/2019/11/14/17/27/1573752438858-0000061
+zendesk-satisfaction-rating 1540000 454279 z/2019/11/14/22/06/1573769191790-0000062
+invoice-dw-checksum 1000000 455663 z/2020/06/18/21/08/1592514526883-0001034
+zendesk-satisfaction-rating 1550000 456279 z/2019/11/15/02/21/1573784503052-0000066
+invoice-dw-checksum 1010000 459392 z/2020/06/18/21/09/1592514547974-0001512
+zendesk-satisfaction-rating 1560000 460588 z/2019/11/15/06/42/1573800148843-0000068
+zendesk-satisfaction-rating 1570000 462931 z/2019/11/15/11/21/1573816887252-0000067
+invoice-dw-checksum 1020000 463266 z/2020/06/18/21/09/1592514596030-0000196
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739499981-0000027-46cc3ecb-1af3-42f8-9db5-1e651b929e23.gz
+leo-stream done uploading null
+kinesis request: 278.012ms
+invoice-dw-checksum 1030000 467280 z/2020/06/18/21/10/1592514621248-0000576
+zendesk-satisfaction-rating 1580000 467408 z/2019/11/15/15/51/1573833092972-0000041
+zendesk-satisfaction-rating 1590000 469660 z/2019/11/15/20/30/1573849817963-0000058
+atomic-action 80000 469704 z/2020/12/22/23/22/1608679324068-0000003
+invoice-dw-checksum 1040000 471726 z/2020/06/18/21/10/1592514643079-0001179
+zendesk-satisfaction-rating 1600000 473734 z/2019/11/16/01/00/1573866028450-0000065
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739512425-0000011-b409cae2-866e-4d7d-bbd5-94cf3e84d938.gz
+zendesk-satisfaction-rating 1610000 475879 z/2019/11/16/05/27/1573882037272-0000017
+leo-stream done uploading null
+kinesis request: 309.551ms
+zendesk-satisfaction-rating 1620000 478200 z/2019/11/16/09/12/1573895544842-0000015
+invoice-dw-checksum 1050000 479343 z/2020/06/18/21/11/1592514664244-0001640
+zendesk-satisfaction-rating 1630000 480350 z/2019/11/16/13/42/1573911743995-0000030
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739518615-0000010-b42bb1ea-8462-489c-b050-71d4353f8463.gz
+leo-stream done uploading null
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739519543-0000028-8f1ae886-806e-4ee6-9ad6-1ba1d45fccbe.gz
+kinesis request: 269.767ms
+invoice-dw-checksum 1060000 483154 z/2020/06/18/21/11/1592514686219-0000527
+zendesk-satisfaction-rating 1640000 483593 z/2019/11/16/18/12/1573927930866-0000039
+leo-stream done uploading null
+kinesis request: 312.066ms
+zendesk-satisfaction-rating 1650000 485892 z/2019/11/16/22/18/1573942692861-0000049
+invoice-dw-checksum 1070000 486904 z/2020/06/18/21/11/1592514706339-0000142
+zendesk-satisfaction-rating 1660000 488423 z/2019/11/17/02/30/1573957822761-0000003
+zendesk-satisfaction-rating 1670000 490585 z/2019/11/17/06/39/1573972757644-0000010
+invoice-dw-checksum 1080000 493133 z/2020/06/18/21/12/1592514727247-0000257
+zendesk-satisfaction-rating 1680000 493409 z/2019/11/17/10/54/1573988048199-0000017
+zendesk-satisfaction-rating 1690000 495914 z/2019/11/17/15/18/1574003890760-0000015
+invoice-dw-checksum 1090000 496963 z/2020/06/18/21/12/1592514751408-0000067
+zendesk-satisfaction-rating 1700000 498497 z/2019/11/17/19/30/1574019014815-0000026
+zendesk-satisfaction-rating 1710000 500560 z/2019/11/17/23/45/1574034323231-0000080
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739538877-0000029-86e1506f-0022-4290-8c21-8878c3b0c88d.gz
+invoice-dw-checksum 1100000 502560 z/2020/06/18/21/12/1592514778424-0000904
+leo-stream done uploading null
+kinesis request: 261.035ms
+zendesk-satisfaction-rating 1720000 503152 z/2019/11/18/04/27/1574051231741-0000096
+zendesk-satisfaction-rating 1730000 505400 z/2019/11/18/08/36/1574066193993-0000003
+ApiMetrics 60000 505918 z/2020/12/12/18/09/1607796545667-0000010
+invoice-dw-checksum 1110000 506375 z/2020/06/18/21/13/1592514800256-0000094
+zendesk-satisfaction-rating 1740000 508448 z/2019/11/18/13/00/1574082023728-0000027
+zendesk-satisfaction-rating 1750000 510161 z/2019/11/18/17/30/1574098216777-0000035
+invoice-dw-checksum 1120000 512557 z/2020/06/18/21/13/1592514820262-0000379
+zendesk-satisfaction-rating 1760000 513917 z/2019/11/18/22/00/1574114426121-0000100
+invoice-dw-checksum 1130000 516183 z/2020/06/18/21/14/1592514841323-0000296
+zendesk-satisfaction-rating 1770000 516323 z/2019/11/19/02/45/1574131519775-0000055
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739553072-0000012-0285ec1e-b030-48d0-9f94-e2e880dcd9e3.gz
+leo-stream done uploading null
+kinesis request: 249.115ms
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739555257-0000030-52871e4c-5d72-4b70-98f7-56eff3622e7d.gz
+zendesk-satisfaction-rating 1780000 519090 z/2019/11/19/06/54/1574146453239-0000066
+leo-stream done uploading null
+kinesis request: 242.941ms
+invoice-dw-checksum 1140000 519859 z/2020/06/18/21/14/1592514861273-0000570
+zendesk-satisfaction-rating 1790000 522099 z/2019/11/19/10/45/1574160326342-0000094
+invoice-dw-checksum 1150000 523597 z/2020/06/18/21/15/1592514904268-0028748
+zendesk-satisfaction-rating 1800000 525752 z/2019/11/19/15/12/1574176337882-0000005
+zendesk-satisfaction-rating 1810000 527783 z/2019/11/19/19/36/1574192192384-0000071
+invoice-dw-checksum 1160000 527879 z/2020/06/18/21/15/1592514928407-0000633
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739566188-0000011-4b1463ed-ced1-4649-a6b7-4988ee56e66f.gz
+atomic-action 90000 529602 z/2021/01/05/22/54/1609887249761-0000000
+zendesk-satisfaction-rating 1820000 530813 z/2019/11/20/00/03/1574208206912-0000071
+leo-stream done uploading null
+kinesis request: 260.548ms
+invoice-dw-checksum 1170000 531541 z/2020/06/18/21/15/1592514950448-0000173
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739570388-0000031-bc2a7dad-920a-4534-af5a-80b4ccda70f3.gz
+zendesk-satisfaction-rating 1830000 534183 z/2019/11/20/04/18/1574223507582-0000069
+leo-stream done uploading null
+kinesis request: 248.519ms
+invoice-dw-checksum 1180000 535357 z/2020/06/18/21/16/1592514980419-0000085
+zendesk-satisfaction-rating 1840000 537768 z/2019/11/20/08/27/1574238433281-0000046
+invoice-dw-checksum 1190000 538685 z/2020/06/18/21/16/1592515002465-0005070
+zendesk-satisfaction-rating 1850000 541673 z/2019/11/20/12/18/1574252310333-0000051
+invoice-dw-checksum 1200000 542523 z/2020/06/18/21/17/1592515024422-0000465
+zendesk-satisfaction-rating 1860000 544199 z/2019/11/20/16/51/1574268701618-0000057
+invoice-dw-checksum 1210000 546944 z/2020/06/18/21/17/1592515046386-0008017
+zendesk-satisfaction-rating 1870000 547080 z/2019/11/20/21/15/1574284529426-0000055
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739585647-0000032-740a4ecd-17ec-47ad-9a79-5e02c45d3b2b.gz
+leo-stream done uploading null
+kinesis request: 267.411ms
+zendesk-satisfaction-rating 1880000 550572 z/2019/11/21/01/45/1574300729014-0000068
+invoice-dw-checksum 1220000 550648 z/2020/06/18/21/17/1592515068483-0000567
+zendesk-satisfaction-rating 1890000 552626 z/2019/11/21/05/57/1574315842755-0000072
+zendesk-satisfaction-rating 1900000 555205 z/2019/11/21/10/03/1574330594121-0000068
+invoice-dw-checksum 1230000 556081 z/2020/06/18/21/18/1592515089503-0000817
+zendesk-satisfaction-rating 1910000 558213 z/2019/11/21/14/15/1574345717858-0000075
+zendesk-satisfaction-rating 1920000 560300 z/2019/11/21/18/39/1574361566525-0000045
+invoice-dw-checksum 1240000 560446 z/2020/06/18/21/18/1592515110424-0000851
+invoice-dw-checksum 1250000 563981 z/2020/06/18/21/18/1592515131522-0000439
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739602510-0000033-1aaba689-7769-42b5-807b-8ec0d8494dab.gz
+zendesk-satisfaction-rating 1930000 565873 z/2019/11/21/23/24/1574378658046-0000060
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739602838-0000013-9408db26-7b95-4337-bad8-4ab034d849d3.gz
+leo-stream done uploading null
+kinesis request: 356.285ms
+leo-stream done uploading null
+invoice-dw-checksum 1260000 567722 z/2020/06/18/21/19/1592515152523-0000753
+kinesis request: 245.869ms
+zendesk-satisfaction-rating 1940000 569261 z/2019/11/22/03/36/1574393794834-0000043
+zendesk-satisfaction-rating 1950000 571461 z/2019/11/22/07/51/1574409094648-0000114
+invoice-dw-checksum 1270000 573140 z/2020/06/18/21/20/1592515202484-0000159
+zendesk-satisfaction-rating 1960000 574188 z/2019/11/22/12/00/1574424016511-0000065
+zendesk-satisfaction-rating 1970000 576184 z/2019/11/22/16/27/1574440033980-0000065
+ApiMetrics 70000 576402 z/2020/12/13/05/18/1607836693932-0000021
+zendesk-satisfaction-rating 1980000 578579 z/2019/11/22/21/30/1574458216731-0000017
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739615385-0000012-6f03da73-50cc-41c6-bbd5-3df876df96c7.gz
+leo-stream done uploading null
+kinesis request: 290.860ms
+invoice-dw-checksum 1280000 579475 z/2020/06/18/21/20/1592515227459-0007291
+zendesk-satisfaction-rating 1990000 582031 z/2020/01/06/14/33/1578321180746-0000000
+invoice-dw-checksum 1290000 583226 z/2020/06/18/21/20/1592515250463-0000444
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739621431-0000034-92b8422e-5b5a-49ef-9430-480595956efe.gz
+leo-stream done uploading null
+kinesis request: 274.830ms
+invoice-dw-checksum 1300000 586845 z/2020/06/18/21/21/1592515272442-0000625
+invoice-dw-checksum 1310000 592012 z/2020/06/18/21/21/1592515302473-0000046
+atomic-action 100000 593661 z/2021/01/08/19/26/1610133961658-0000002
+invoice-dw-checksum 1320000 595596 z/2020/06/18/21/22/1592515322784-0000524
+invoice-dw-checksum 1330000 599855 z/2020/06/18/21/22/1592515344580-0000354
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=zendesk-satisfaction-rating/dt=2021-01-15/1610739637204-0000014-124d7954-5085-459f-b27d-8582ba2ba336.gz
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739637366-0000035-88942940-0096-4c71-8969-0976b2ba7a96.gz
+leo-stream done uploading null
+leo-stream done uploading null
+leoS3 got flush
+leoS3 submitting
+kinesis request: 111.544ms
+leo-stream toLeo On Flush
+leo-archive zendesk-satisfaction-rating Complete 
+leo-archive mongo-item Not enough remaining time to run
+leo-archive pending-order Not enough remaining time to run
+leo-archive api-call Not enough remaining time to run
+leo-archive system.es-api-log Not enough remaining time to run
+leo-archive catalog-api-event Not enough remaining time to run
+leo-archive return-dw-checksum-id Not enough remaining time to run
+leo-archive company-es-checksum-id Not enough remaining time to run
+leo-archive account Not enough remaining time to run
+leo-archive shipment-dw-checksum-id Not enough remaining time to run
+leo-archive invoice Not enough remaining time to run
+leo-archive modified-item-catalog Not enough remaining time to run
+leo-archive hubspot-deal Not enough remaining time to run
+leo-archive item-es-checksum Not enough remaining time to run
+leo-archive order-entity-old-new Not enough remaining time to run
+leo-archive account-dw-checksum-id Not enough remaining time to run
+leo-archive modified-return Not enough remaining time to run
+leo-archive ValidationComparison Not enough remaining time to run
+leo-archive modified-order-item Not enough remaining time to run
+leo-archive BotChangeLog Not enough remaining time to run
+leo-archive websocket-notify Not enough remaining time to run
+leo-archive item-entity-old-new Not enough remaining time to run
+leo-archive undeliverable-shipment Not enough remaining time to run
+leo-archive invoice-es-checksum-id Not enough remaining time to run
+leo-archive order-aggregation-old-new Not enough remaining time to run
+leo-archive item-quantity-dim_error Not enough remaining time to run
+leo-archive bot.mongo-common-load-account.error Not enough remaining time to run
+leo-archive order-anomaly Not enough remaining time to run
+leo-archive IdConvertedAsSku Not enough remaining time to run
+leo-archive system.es-inventory Not enough remaining time to run
+leo-archive stream-catalog-changelog Not enough remaining time to run
+leo-archive modified-warehouse-item Not enough remaining time to run
+leo-archive order-item-cancel Not enough remaining time to run
+leo-archive invite-es-checksum-id Not enough remaining time to run
+leo-archive item-history Not enough remaining time to run
+leo-archive core_ingest Not enough remaining time to run
+leo-archive bot.item-test-mongo-catalog-load-item.error Not enough remaining time to run
+leo-archive order-dw-checksum-id Not enough remaining time to run
+leo-archive bot.item-test-item-es-checksum-id-to-item-es-checksum.error Not enough remaining time to run
+leo-archive catalog-ingest Not enough remaining time to run
+leo-archive return-entity-old-new Not enough remaining time to run
+leo-archive bot.account-test-account-entity-old-new-to-modified-account.error Not enough remaining time to run
+leo-archive return-es-checksum Not enough remaining time to run
+leo-archive test-apiv3 Not enough remaining time to run
+leo-archive notification-recipient-intent Not enough remaining time to run
+leo-archive xray.event.load Not enough remaining time to run
+leo-archive system.es-invoice Not enough remaining time to run
+leo-archive xray.error Not enough remaining time to run
+leo-archive system.TestDW_aurora Not enough remaining time to run
+leo-archive bot.account-test-mongo-common-load-account.error Not enough remaining time to run
+leo-archive bot.item-test-mongo-item-to-item.error Not enough remaining time to run
+leo-archive shipment Not enough remaining time to run
+leo-archive warehouse-item-history Not enough remaining time to run
+leo-archive company-dw-checksum-id Not enough remaining time to run
+leo-archive order-new-old Not enough remaining time to run
+leo-archive order Not enough remaining time to run
+leo-archive item-es-checksum-id Not enough remaining time to run
+leo-archive return Not enough remaining time to run
+leo-archive user-dw-checksum-id Not enough remaining time to run
+leo-archive rates-expedited Not enough remaining time to run
+leo-archive bulk-action-update Not enough remaining time to run
+leo-archive account-es-checksum-id Not enough remaining time to run
+leo-archive item Not enough remaining time to run
+leo-archive shipment-dw-checksum Not enough remaining time to run
+leo-archive system.pg Not enough remaining time to run
+leo-archive item-dw-checksum Not enough remaining time to run
+leo-archive hubspot-contact Not enough remaining time to run
+leo-archive notification-intent Not enough remaining time to run
+leo-archive firehose_test_queue Not enough remaining time to run
+leo-archive WebhookChecksum Not enough remaining time to run
+leo-archive archived-process Not enough remaining time to run
+leo-archive bot.account-test-account-offload-ddb-account-entity.error Not enough remaining time to run
+leo-archive bulk-action-step Not enough remaining time to run
+leo-archive modified-account Not enough remaining time to run
+leo-archive item-update-warehouse Not enough remaining time to run
+leo-archive system.xray.elasticsearch.event Not enough remaining time to run
+leo-archive xray.stats.load Not enough remaining time to run
+leo-archive warehouse-dw-checksum Not enough remaining time to run
+leo-archive shippo-tracking Not enough remaining time to run
+leo-archive order-dw-checksum Not enough remaining time to run
+leo-archive account-es-checksum Not enough remaining time to run
+leo-archive modified-item-quantity Not enough remaining time to run
+leo-archive sns-email-events Not enough remaining time to run
+leo-archive order-es-checksum Not enough remaining time to run
+leo-archive rates-optional Not enough remaining time to run
+leo-archive return-es-checksum-id Not enough remaining time to run
+leo-archive modified-invoice Not enough remaining time to run
+leo-archive test-inventory Not enough remaining time to run
+leo-archive company Not enough remaining time to run
+leo-archive system.es-item Not enough remaining time to run
+leo-archive order-item-shipment Not enough remaining time to run
+leo-archive item-aggregation-old-new Not enough remaining time to run
+leo-archive rates-required Not enough remaining time to run
+leo-archive system.xray.elasticsearch.action Not enough remaining time to run
+leo-archive direct-to-leo Not enough remaining time to run
+leo-archive modified-order Not enough remaining time to run
+leo-archive xray.action.load Not enough remaining time to run
+leo-archive new-orders-by-account Not enough remaining time to run
+leo-archive dim_error Not enough remaining time to run
+leo-archive order-es-checksum-id Not enough remaining time to run
+leo-archive return-dw-checksum Not enough remaining time to run
+leo-archive warehouse-dw-checksum-id Not enough remaining time to run
+leo-archive warehouse Not enough remaining time to run
+leo-archive bulk-action-insert Not enough remaining time to run
+leo-archive account-entity-old-new Not enough remaining time to run
+leo-archive item-quantity-dim Not enough remaining time to run
+leo-archive bulk-action-chunk Not enough remaining time to run
+leo-archive system.TestDW_redshift Not enough remaining time to run
+leo-archive account-dw-checksum Not enough remaining time to run
+leo-archive WebhookCreated Not enough remaining time to run
+leo-archive bot.account-test-account-dw-checksum-id-to-account-dw-checksum.error Not enough remaining time to run
+leo-archive WebhookResponse Not enough remaining time to run
+leo-archive system.es-order Not enough remaining time to run
+leo-archive notification-failed Not enough remaining time to run
+leo-archive bulk-action Not enough remaining time to run
+leo-archive xray-stats Not enough remaining time to run
+leo-archive notification Not enough remaining time to run
+leo-archive user Not enough remaining time to run
+leo-archive xray.event Not enough remaining time to run
+leo-archive shipment-meta Not enough remaining time to run
+leo-archive bot.item-test-item-dw-checksum-id-to-item-dw-checksum.error Not enough remaining time to run
+leo-archive apiMetricsQueueName Not enough remaining time to run
+leo-archive invoice-entity-old-new Not enough remaining time to run
+leo-archive test-sns-email-events Not enough remaining time to run
+leo-archive bot.xray_action_es_ingest.error Not enough remaining time to run
+leo-archive modified-product Not enough remaining time to run
+leo-archive commands.s3_bus_load Not enough remaining time to run
+leo-archive invoice-es-checksum Not enough remaining time to run
+leo-archive modified-item Not enough remaining time to run
+leo-archive item-dw-checksum-id Not enough remaining time to run
+leo-archive invite Not enough remaining time to run
+leo-archive monitor Not enough remaining time to run
+leo-archive dim Not enough remaining time to run
+leo-archive hubspot-company Not enough remaining time to run
+leo-archive system.es-account Not enough remaining time to run
+leo-archive Inventory-Loader-Queue Not enough remaining time to run
+invoice-dw-checksum 1340000 603640 z/2020/06/18/21/22/1592515366568-0000438
+invoice-dw-checksum 1350000 607315 z/2020/06/18/21/23/1592515388570-0007638
+invoice-dw-checksum 1360000 614720 z/2020/06/18/21/23/1592515409643-0000898
+invoice-dw-checksum 1370000 618209 z/2020/06/18/21/23/1592515430559-0000313
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739655375-0000036-f3f3812f-17b5-49be-8e95-f0652c5c7ca4.gz
+leo-stream done uploading null
+kinesis request: 288.233ms
+invoice-dw-checksum 1380000 621651 z/2020/06/18/21/24/1592515449543-0002167
+invoice-dw-checksum 1390000 625159 z/2020/06/18/21/24/1592515498625-0000094
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739663522-0000013-ebfbfaee-57d3-4f08-a3e6-c9bcb47acd85.gz
+leo-stream done uploading null
+kinesis request: 251.834ms
+Called timeout
+Called timeout
+Called timeout
+Called timeout
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum-id/dt=2021-01-15/1610739665985-0000014-79f46a2e-10f6-410e-80ef-0c30f635bc73.gz
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=invoice-dw-checksum/dt=2021-01-15/1610739665996-0000037-e176a16b-ef30-4ec9-99b6-d72b674da458.gz
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=ApiMetrics/dt=2021-01-15/1610739666036-0000002-359e9f7e-9128-4961-b99e-ebc1445b9fdc.gz
+leoS3 submitting
+leoS3 S3 Location: bus/_archive/q=atomic-action/dt=2021-01-15/1610739666163-0000002-c7b6c0c1-e327-44dd-8858-6f963c986472.gz
+leo-stream done uploading null
+leoS3 got flush
+leoS3 submitting
+kinesis request: 305.664ms
+leo-stream toLeo On Flush
+leo-archive invoice-dw-checksum-id Complete 
+leo-stream done uploading null
+leoS3 got flush
+leoS3 submitting
+leo-stream done uploading null
+leoS3 got flush
+leoS3 submitting
+kinesis request: 154.314ms
+leo-stream toLeo On Flush
+leo-archive atomic-action Complete 
+leo-stream toLeo On Flush
+leo-archive invoice-dw-checksum Complete 
+leo-stream done uploading null
+leoS3 got flush
+leoS3 submitting
+kinesis request: 326.498ms
+leo-stream toLeo On Flush
+leo-archive ApiMetrics Complete 
+leo-archive Tasks Done
+[LEOCRON]:complete:Leo_Core_archive:0:1610739035798:requestid-local1610739035798
+leo_handler_timer: 632263.887ms

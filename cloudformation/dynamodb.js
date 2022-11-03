@@ -9,8 +9,19 @@ module.exports = cf.add(cf.dynamodb.table("LeoStream", {
 		write: 20,
 		MaxReadCapacityUnits: 1000,
 		MaxWriteCapacityUnits: 1000
+	},
+	stream: "NEW_AND_OLD_IMAGES"
+})).add({
+	// Config for LeoStream TTL
+	LeoStream: {
+		Properties: {
+			TimeToLiveSpecification: {
+				AttributeName: "ttl",
+				Enabled: { "Fn::If": ["IsStreamRecordsTtlEnabled", true, false] }
+			}
+		}
 	}
-})).add(cf.dynamodb.table("LeoArchive", {
+}).add(cf.dynamodb.table("LeoArchive", {
 	event: 'S',
 	end: 'S',
 	autoscale: true,

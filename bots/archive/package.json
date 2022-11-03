@@ -17,14 +17,15 @@
 			"handler": "handler",
 			"role": "LeoBotRole",
 			"memory": 1024,
-			"timeout": 300,
+			"timeout": 900,
 			"cron": {
 				"owner": "leo",
-				"name": "archive",
+				"name": "Leo_Core_archive",
 				"settings": {},
-				"time": "0 */1 * * *"
+				"time": "0 */1 * * * *"
 			},
 			"env": {
+				"ttlSeconds": "${StreamRecordsTtlSeconds}",
 				"leosdk": {
 					"region": "${AWS::Region}",
 					"kinesis": "${LeoKinesisStream}",

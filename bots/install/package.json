@@ -32,6 +32,7 @@
 					"LeoS3": "${LeoS3}",
 					"LeoCron": "${LeoCron}",
 					"LeoFirehoseStreamProcessor": "${LeoFirehoseStreamProcessor}",
+					"LeoArchiveProcessor": "${LeoArchiveProcessor}",
 					"LeoSettings": "${LeoSettings}",
 					"LeoBotPolicy": "${LeoBotPolicy}",
 					"LeoFirehoseRole": "${LeoFirehoseRole}",

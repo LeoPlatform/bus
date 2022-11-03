@@ -31,6 +31,23 @@ module.exports = {
 				"LeoCronRole"
 			]
 		},
+		"LeoStreamMapping": {
+			"Type": "AWS::Lambda::EventSourceMapping",
+			"Properties": {
+				"BatchSize": 500,
+				"Enabled": true,
+				"StartingPosition": "TRIM_HORIZON",
+				"EventSourceArn": {
+					"Fn::Sub": "${LeoStream.StreamArn}"
+				},
+				"FunctionName": {
+					"Ref": "LeoStreamTableProcessor"
+				}
+			},
+			"DependsOn": [
+				"LeoCronRole"
+			]
+		},
 		"LeoMonitorMapping": {
 			"Type": "AWS::Lambda::EventSourceMapping",
 			"Properties": {
