@@ -6,7 +6,7 @@ const ID = "leo_cron_monitor";
 
 exports.handler = function(event, context, callback) {
 	// refreshCredentials().then(() => {
-	var loader = leo.load(ID, "monitor");
+	var loader = leo.load(ID, "monitor", { partitionHashKey: process.env.SHARD_HASH_KEY });
 	event.Records.forEach((record) => {
 		let now = record.dynamodb.ApproximateCreationDateTime * 1000;
 		var newImage = {
@@ -59,8 +59,8 @@ exports.handler = function(event, context, callback) {
 			Object.keys(newImage.checkpoints.read).forEach(event => {
 				var newCheckpoint = newImage.checkpoints.read[event];
 				var oldCheckpoint = oldImage && oldImage.checkpoints &&
-						oldImage.checkpoints.read && oldImage.checkpoints.read[event] &&
-						oldImage.checkpoints.read[event].checkpoint;
+					oldImage.checkpoints.read && oldImage.checkpoints.read[event] &&
+					oldImage.checkpoints.read[event].checkpoint;
 
 				if (oldCheckpoint != newCheckpoint.checkpoint && typeof newCheckpoint.records != undefined) {
 					loader.write({
@@ -82,8 +82,8 @@ exports.handler = function(event, context, callback) {
 			Object.keys(newImage.checkpoints.write).forEach(event => {
 				var newCheckpoint = newImage.checkpoints.write[event];
 				var oldCheckpoint = oldImage && oldImage.checkpoints &&
-						oldImage.checkpoints.write && oldImage.checkpoints.write[event] &&
-						oldImage.checkpoints.write[event].checkpoint;
+					oldImage.checkpoints.write && oldImage.checkpoints.write[event] &&
+					oldImage.checkpoints.write[event].checkpoint;
 				if (oldCheckpoint != newCheckpoint.checkpoint && typeof newCheckpoint.records != undefined) {
 					loader.write({
 						id: newImage.id,
