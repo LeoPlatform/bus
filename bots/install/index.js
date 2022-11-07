@@ -34,10 +34,10 @@ exports.handler = (event, _, callback) => {
 	Promise.all(steps).then(() => {
 		logger.info("Got success");
 		sendCustomResourceResponse(event, 'SUCCESS')
-			.then((result) => callback(null, result)).catch(callback);
+			.then((result) => callback()).catch(callback);
 	}).catch((err) => {
 		logger.error("Got error:", err);
 		sendCustomResourceResponse(event, 'FAILED', 'It Failed!')
-			.then((result) => callback(null, result)).catch(callback);
+			.then((result) => callback()).catch(callback);
 	});
 };

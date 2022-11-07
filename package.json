@@ -45,7 +45,8 @@
 		"proxyquire": "^2.1.1",
 		"sinon": "^7.3.2",
 		"ajv": "8.11.0",
-		"ajv-formats": "2.1.1"
+		"ajv-formats": "2.1.1",
+		"is-semver": "1.0.11"
 	},
 	"config": {
 		"leo": {

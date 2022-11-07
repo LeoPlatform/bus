@@ -1,0 +1,1 @@
+module.exports = {"version":1667516004843,"staticAssets":"static/1667516004843/","uri":"static/1667516004843/","static":{"uri":"static/1667516004843/"},"basehref":"/module/"}
