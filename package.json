@@ -10,7 +10,8 @@
 		"test:bots:watch": "mocha --recursive -w 'bots/**/*.test.js'",
 		"test:int": "mocha 'test/**/*.integration.js'",
 		"setup": "setup",
-		"package": "leo-cli publish -s",
+		"build": "leo-cli publish -s --force all --build",
+		"package": "leo-cli publish -s --force all",
 		"deploy:dev": "leo-cli publish -s -d dev --force all",
 		"deploy:test": "leo-cli publish -s -d test --force all"
 	},
