@@ -14,7 +14,7 @@ var MAX_CACHE_MILLISECONDS = 1000 * 10;
 var lastCacheTime = 0;
 var cache = null;
 
-exports.handler = function (event, context, done) {
+exports.handler = function(event, context, done) {
 	// var cnt = 0;
 	// var callback = done;
 	// done = function(){};
@@ -28,7 +28,7 @@ exports.handler = function (event, context, done) {
 	getCronTable()
 		.then(cronTable => getIdsToTrigger(cronTable, event.Records))
 		.then(setTriggers)
-		.then(function (result) {
+		.then(function(result) {
 			console.log(`Triggered at time: ${result.time} for ids: ${JSON.stringify(result.data)}`);
 			done(null, result);
 		})
@@ -40,7 +40,7 @@ function setTriggers(results) {
 	return new Promise((resolve, reject) => {
 		var now = moment.now();
 
-		async.eachLimit(results, 10, function (data, callback) {
+		async.eachLimit(results, 10, function(data, callback) {
 			console.log(`Setting Cron trigger for ${data.id}, ${now}`);
 
 			var sets = ["#trigger = :trigger"];
@@ -53,7 +53,7 @@ function setTriggers(results) {
 			};
 
 			var i = 0;
-			Object.keys(data.events).forEach(function (key) {
+			Object.keys(data.events).forEach(function(key) {
 				i++;
 				var event = data.events[key];
 				sets.push(`#requested_kinesis.#n_${i} = :v_${i}`);
@@ -73,7 +73,7 @@ function setTriggers(results) {
 			};
 
 			dynamodb.docClient.update(command, callback);
-		}, function (err) {
+		}, function(err) {
 			if (err) {
 				console.log(err);
 				reject(err);
@@ -134,10 +134,10 @@ function getCronTable() {
 			dynamodb.query(params, {
 				method: "scan",
 				mb: 10
-			}).then(function (data) {
+			}).then(function(data) {
 				data.Items.forEach(item => {
 
-					if (item.triggers) {
+					if (!item.archived && item.triggers) {
 						var triggers = item.triggers;
 
 						triggers.forEach(trigger => {
@@ -152,7 +152,7 @@ function getCronTable() {
 				});
 				lastCacheTime = moment.now();
 				resolve(cache);
-			}).catch(function (err) {
+			}).catch(function(err) {
 				console.log(err);
 				reject(err, "Unable to get Cron Table");
 			});
