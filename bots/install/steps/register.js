@@ -7,7 +7,7 @@ module.exports = function(resource, data) {
 	}
 	data = fixTypes(data);
 
-	let id = data.id ? data.id.replace(/^arn:aws:lambda:.*?:\d+:function:(.*)$/, "$1"): undefined;
+	let id = data.id ? data.id.replace(/^arn:aws:lambda:.*?:\d+:function:(.*)$/, "$1") : undefined;
 	let type = !id && data.queue ? "queue" : (data.LeoRegisterType || "bot");
 	delete data.LeoRegisterType;
 
@@ -31,20 +31,20 @@ module.exports = function(resource, data) {
 			});
 		});
 		// Register a schema for a queue
-	} else if(type == "queue" && data.queue) {
-		
+	} else if (type == "queue" && data.queue) {
+
 		let leo_ref = require('leo-sdk/lib/reference');
 		let isSemver = require('is-semver');
 
 		// Can do this in leo-sdk
 		let AWS = require('aws-sdk');
-		AWS.config.update({region: leo.configuration.resources.Region});
-		let s3 = new AWS.S3({apiVersion: '2006-03-01'});
+		AWS.config.update({ region: leo.configuration.resources.Region });
+		let s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 		let s3Bucket = leo.configuration.resources.LeoS3;
 
 		let schemaName = leo_ref.ref(data.queue).id;
 
-		if(data.schemas) {
+		if (data.schemas) {
 			// iterate over the schema versions
 			// validate version keys are semver
 			// validate the schema using ajv -- done 
@@ -55,7 +55,7 @@ module.exports = function(resource, data) {
 				// valid_schema(Object.values(data.schemas)[0]);
 				for (let [version, schema] of Object.entries(data.schemas)) {
 					// check that version isSemver
-					if( !isSemver(version)) {
+					if (!isSemver(version)) {
 						return Promise.reject(`schema with version '${version}' was not found to be valid semver`);
 					} else {
 						valid_schema(schema)
@@ -66,7 +66,7 @@ module.exports = function(resource, data) {
 			} catch (err) {
 				return Promise.reject(err);
 			}
-			
+
 		} else {
 			return Promise.reject("Queue registered without a schema");
 		}
@@ -74,18 +74,11 @@ module.exports = function(resource, data) {
 		let prefix = `files/bus_internal/queue_schemas/${schemaName}.json`;
 
 		let schemaString = JSON.stringify(data.schemas);
-		let uploadParams = {Bucket: s3Bucket, Key: prefix, Body: schemaString};
+		let uploadParams = { Bucket: s3Bucket, Key: prefix, Body: schemaString };
 
-		s3.upload(uploadParams, (err,data) => {
-			if (err) {
-				Promise.reject(err);
-			} else {
-				console.log(`successfully uploaded schema to ${s3Bucket}/${prefix}`);
-				Promise.resolve();
-			}
-		})
-		
-		
+		return s3.upload(uploadParams).promise().then((data) => {
+			console.log(`successfully uploaded schema to ${s3Bucket}/${prefix}`);
+		});
 	} else {
 		return Promise.resolve();
 	}
