@@ -31,9 +31,9 @@
 	"homepage": "https://github.com/LeoPlatform/bus#readme",
 	"dependencies": {
 		"deep-diff": "1.0.2",
-		"leo-cron": "1.0.0",
+		"leo-cron": "^2.0.1",
 		"leo-logger": "1.0.1",
-		"leo-sdk": "3.1.8",
+		"leo-sdk": "^6.0.0",
 		"moment": "2.24.0"
 	},
 	"devDependencies": {
