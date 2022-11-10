@@ -19,7 +19,7 @@ exports.handler = require("leo-sdk/wrappers/cron")(async (event, context, callba
 		units: 0,
 		eid: event.start
 	};
-	var loop = function (callback) {
+	var loop = function(callback) {
 		var events = {};
 		checkpointData.units = 0;
 		ls.pipe(ls.fromLeo(botId, source, {
@@ -29,6 +29,7 @@ exports.handler = require("leo-sdk/wrappers/cron")(async (event, context, callba
 		}), ls.through((obj, done) => {
 			console.log(obj.payload.files);
 			async.eachOfSeries(obj.payload.files, (file, i, done) => {
+				console.log("S3 File:", file);
 				ls.pipe(ls.fromS3(file),
 					ls.parse(), ls.through((obj, done) => {
 						if (!obj.id && !obj.event) {
