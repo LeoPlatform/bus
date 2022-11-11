@@ -58,8 +58,7 @@
 			],
 			"runtime": "nodejs16.x",
 			"3rdParty": true,
-			"excludeProfiles": true,
-			"no_env_param": true
+			"excludeProfiles": true
 		}
 	}
 }

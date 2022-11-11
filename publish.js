@@ -2,7 +2,54 @@ let fs = require("fs");
 let path = require("path");
 let _extend = require("extend");
 let extend = (a, b) => _extend(true, {}, a, b);
-module.exports = function (buildDir, newCloudformation, done) {
+module.exports = function(buildDir, newCloudformation, done) {
+
+	Object.entries(newCloudformation.Resources).forEach(([key, value]) => {
+		if (value.Type == "AWS::Lambda::Function") {
+			value.Properties.Architectures = ["arm64"];
+			value.Properties.Tags = [
+				{
+					"Key": "app",
+					"Value": "rstreams-bus"
+				},
+				// TODO: Figure out how to get BusName.
+				// {
+				// 	"Key": "bus",
+				// 	"Value": {
+				// 		"Fn::Sub": "${BusName}"
+				// 	}
+				// },
+				{
+					"Key": "environment",
+					"Value": {
+						"Fn::Sub": "${Environment}"
+					}
+				},
+				{
+					"Key": "chub:tech:component",
+					"Value": key
+				},
+				{
+					"Key": "chub:tech:app",
+					"Value": {
+						"Fn::Sub": "${AWS::StackName}"
+					}
+				},
+				{
+					"Key": "chub:tech:env",
+					"Value": {
+						"Fn::Sub": "${Environment}"
+					}
+				}
+			]
+		}
+	});
+	let file = path.resolve(buildDir, newCloudformation.Outputs.LeoTemplate.Value.replace(/^.*?\/(cloudformation-.*)$/, "$1"));
+	let localfile = path.resolve(__dirname, "cloudformation.json");
+	let baseOutput = JSON.stringify(newCloudformation, null, 2);
+	fs.writeFileSync(file, baseOutput);
+	fs.writeFileSync(localfile, baseOutput);
+
 	let legacy = require("./legacy-cloudformation.json");
 	let resources = legacy.Resources;
 
@@ -21,11 +68,11 @@ module.exports = function (buildDir, newCloudformation, done) {
 	let output = JSON.stringify(legacy, null, 2);
 
 	output = output.replace(/\${(LeoFirehoseStream|LeoKinesisStream|LeoStream|LeoCron|LeoEvent|LeoSettings|LeoS3|)(\..*?)?}/g,
-		function (r, k, a) {
+		function(r, k, a) {
 			let o = overrides[k] || {
 				id: k
 			};
-			return `\${${o.id || k}${a||""}}`;
+			return `\${${o.id || k}${a || ""}}`;
 		});
 
 	fs.writeFileSync(path.resolve(buildDir, "legacy-cloudformation.json"), output);
