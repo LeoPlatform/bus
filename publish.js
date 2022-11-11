@@ -7,6 +7,13 @@ module.exports = function(buildDir, newCloudformation, done) {
 	Object.entries(newCloudformation.Resources).forEach(([key, value]) => {
 		if (value.Type == "AWS::Lambda::Function") {
 			value.Properties.Architectures = ["arm64"];
+		}
+		if (value.Type == "AWS::Lambda::Function" ||
+			value.Type == "AWS::Kinesis::Stream" ||
+			value.Type == "AWS::KinesisFirehose::DeliveryStream" ||
+			value.Type == "AWS::DynamoDB::Table" ||
+			value.Type == "AWS::S3::Bucket"
+		) {
 			value.Properties.Tags = [
 				{
 					"Key": "app",
