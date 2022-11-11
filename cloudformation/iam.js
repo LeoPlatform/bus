@@ -274,7 +274,10 @@ module.exports = {
 					]
 				},
 				"ManagedPolicyArns": [
-					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+					{
+						"Ref": "LeoBotPolicy"
+					}
 				],
 				"Policies": [
 					{
@@ -424,10 +427,10 @@ module.exports = {
 										{
 											"Fn::Sub": "${LeoEvent.StreamArn}"
 										}
-//,
-//										{
-//											"Fn::Sub": "${LeoStream.StreamArn}"
-//										}
+										//,
+										//										{
+										//											"Fn::Sub": "${LeoStream.StreamArn}"
+										//										}
 									]
 								},
 								{
