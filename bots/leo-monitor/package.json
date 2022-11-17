@@ -14,7 +14,9 @@
 	"config": {
 		"leo": {
 			"type": "bot",
-			"memory": 256,
+			"memory": {
+				"Ref": "${LeoMonitorMemory}"
+			},
 			"handler": "handler",
 			"timeout": 300,
 			"role": "LeoCronRole",
