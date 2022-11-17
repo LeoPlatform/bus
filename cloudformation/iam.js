@@ -359,12 +359,12 @@ module.exports = {
 					{
 						"Fn::If": [
 							"HasLambdaInvokePolicy",
-							[{
+							{
 								"Ref": "LambdaInvokePolicy"
-							}],
-							[{
+							},
+							{
 								"Ref": "AWS::NoValue"
-							}]
+							}
 						]
 					}
 				],

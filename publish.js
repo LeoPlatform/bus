@@ -80,10 +80,16 @@ module.exports = function(buildDir, newCloudformation, done) {
 			}
 
 			// Dynamically add autoscaling Min/Max Read/Write Capacity parameters
-			let defaultCapacity = {
+			let readDefaultCapacity = {
 				Properties: {
 					MinCapacity: value.Properties.ProvisionedThroughput.ReadCapacityUnits || 5,
 					MaxCapacity: (value.Properties.ProvisionedThroughput.ReadCapacityUnits || 5) * 10
+				}
+			};
+			let writeDefaultCapacity = {
+				Properties: {
+					MinCapacity: value.Properties.ProvisionedThroughput.WriteCapacityUnits || 5,
+					MaxCapacity: (value.Properties.ProvisionedThroughput.WriteCapacityUnits || 5) * 10
 				}
 			};
 			let write = newCloudformation.Resources[`${key}WriteCapacityScalableTarget`] || defaultCapacity;
@@ -123,6 +129,20 @@ module.exports = function(buildDir, newCloudformation, done) {
 				readScalePolicy.Condition = autoScalingConditionName
 			}
 
+			value.Properties.ProvisionedThroughput = {
+				"Fn::If": [
+					autoScalingConditionName, {
+						ReadCapacityUnits: {
+							Ref: `${key}MinReadCapacity`
+						},
+						WriteCapacityUnits: {
+							Ref: `${key}MinWriteCapacity`
+						}
+					}, {
+						Ref: "AWS::NoValue"
+					}
+				]
+			};
 		}
 	});
 	createCloudformationParameterGroups(newCloudformation);
