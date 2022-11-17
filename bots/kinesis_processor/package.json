@@ -17,7 +17,7 @@
 			"handler": "handler",
 			"role": "LeoKinesisRole",
 			"memory": {
-				"Ref": "${KinesisStreamProcessorMemory}"
+				"Ref": "KinesisStreamProcessorMemory"
 			},
 			"timeout": 300,
 			"cron": {

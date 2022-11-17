@@ -274,10 +274,7 @@ module.exports = {
 					]
 				},
 				"ManagedPolicyArns": [
-					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-					{
-						"Ref": "LeoBotPolicy"
-					}
+					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 				],
 				"Policies": [
 					{

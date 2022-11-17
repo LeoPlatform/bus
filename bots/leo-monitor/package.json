@@ -15,7 +15,7 @@
 		"leo": {
 			"type": "bot",
 			"memory": {
-				"Ref": "${LeoMonitorMemory}"
+				"Ref": "LeoMonitorMemory"
 			},
 			"handler": "handler",
 			"timeout": 300,

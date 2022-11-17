@@ -17,7 +17,7 @@
 			"handler": "handler",
 			"role": "LeoFirehoseRole",
 			"memory": {
-				"Ref": "${FirehoseStreamProcessorMemory}"
+				"Ref": "FirehoseStreamProcessorMemory"
 			},
 			"timeout": 600,
 			"cron": {

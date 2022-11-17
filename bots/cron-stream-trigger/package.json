@@ -17,7 +17,7 @@
 			"handler": "handler",
 			"role": "LeoCronRole",
 			"memory": {
-				"Ref": "${EventTriggerMemory}"
+				"Ref": "EventTriggerMemory"
 			},
 			"timeout": 300,
 			"env": {
