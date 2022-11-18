@@ -17,7 +17,9 @@
 			"name": "Leo_core_cron",
 			"subscriptionFilter": true,
 			"handler": "handler",
-			"memory": 256,
+			"memory": {
+				"Ref": "CronProcessorMemory"
+			},
 			"timeout": 300,
 			"env": {
 				"LeoCron": "${LeoCron}",

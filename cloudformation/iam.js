@@ -355,6 +355,17 @@ module.exports = {
 					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
 					{
 						"Ref": "LeoBotPolicy"
+					},
+					{
+						"Fn::If": [
+							"HasLambdaInvokePolicy",
+							{
+								"Ref": "LambdaInvokePolicy"
+							},
+							{
+								"Ref": "AWS::NoValue"
+							}
+						]
 					}
 				],
 				"Policies": [
@@ -424,10 +435,10 @@ module.exports = {
 										{
 											"Fn::Sub": "${LeoEvent.StreamArn}"
 										}
-//,
-//										{
-//											"Fn::Sub": "${LeoStream.StreamArn}"
-//										}
+										//,
+										//										{
+										//											"Fn::Sub": "${LeoStream.StreamArn}"
+										//										}
 									]
 								},
 								{
