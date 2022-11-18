@@ -119,16 +119,13 @@ module.exports = function(buildDir, newCloudformation, done) {
 			read.Properties.MaxCapacity = {
 				Ref: `${key}MaxReadCapacity`
 			}
-
 			read.Properties.MinCapacity = {
 				Ref: `${key}MinReadCapacity`
 			}
 
-
 			write.Properties.MaxCapacity = {
 				Ref: `${key}MaxWriteCapacity`
 			}
-
 			write.Properties.MinCapacity = {
 				Ref: `${key}MinWriteCapacity`
 			}
