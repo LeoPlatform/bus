@@ -4,6 +4,13 @@ let _extend = require("extend");
 let extend = (a, b) => _extend(true, {}, a, b);
 module.exports = function(buildDir, newCloudformation, done) {
 
+	// Enable TTL for LeoStream Table
+	// Default TTL is 7 days.  Can be overriden in the CF template
+	newCloudformation.Resources.LeoStream.Properties.TimeToLiveSpecification = {
+		AttributeName: "ttl",
+		Enabled: true
+	};
+
 	Object.entries(newCloudformation.Resources).forEach(([key, value]) => {
 		if (value.Type == "AWS::Lambda::Function") {
 			value.Properties.Architectures = ["arm64"];
