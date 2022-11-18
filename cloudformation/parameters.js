@@ -11,6 +11,18 @@ module.exports = {
 			Default: 1,
 			Description: "Number of shards for LeoKinisesStream"
 		},
+		StreamTTLSeconds: {
+			Type: "Number",
+			MinValue: 1,
+			Default: 604800,
+			Description: "Number of seconds before LeoStream records are auto deleted"
+		},
+		MonitorShardHashKey: {
+			Type: "Number",
+			MinValue: 0,
+			Default: 0,
+			Description: "Explicit hash key to use for the monitor data"
+		},
 
 		KinesisStreamProcessorMemory: {
 			Group: "Lambda Configuration",

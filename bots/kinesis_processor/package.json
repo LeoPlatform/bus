@@ -26,6 +26,7 @@
 				"settings": {}
 			},
 			"env": {
+				"ttlSeconds": "${StreamTTLSeconds}",
 				"Resources": {
 					"LeoStream": "${LeoStream}",
 					"LeoS3": "${LeoS3}",

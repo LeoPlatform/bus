@@ -25,6 +25,7 @@
 				"owner": "leo"
 			},
 			"env": {
+				"SHARD_HASH_KEY": "${MonitorShardHashKey}",
 				"leosdk": {
 					"region": "${AWS::Region}",
 					"kinesis": "${LeoKinesisStream}",
