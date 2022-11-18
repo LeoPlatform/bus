@@ -16,8 +16,10 @@
 			"name": "Leo_firehose_processor",
 			"handler": "handler",
 			"role": "LeoFirehoseRole",
-			"memory": 640,
-			"timeout": 300,
+			"memory": {
+				"Ref": "FirehoseStreamProcessorMemory"
+			},
+			"timeout": 600,
 			"cron": {
 				"name": "Leo_firehose_processor",
 				"owner": "leo",

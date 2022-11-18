@@ -16,7 +16,9 @@
 			"name": "Leo_core_kinesis_processor",
 			"handler": "handler",
 			"role": "LeoKinesisRole",
-			"memory": 640,
+			"memory": {
+				"Ref": "KinesisStreamProcessorMemory"
+			},
 			"timeout": 300,
 			"cron": {
 				"name": "Leo_core_kinesis_processor",
@@ -24,6 +26,7 @@
 				"settings": {}
 			},
 			"env": {
+				"ttlSeconds": "${StreamTTLSeconds}",
 				"Resources": {
 					"LeoStream": "${LeoStream}",
 					"LeoS3": "${LeoS3}",

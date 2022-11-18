@@ -6,7 +6,7 @@ module.exports = {
 				"ServiceToken": {
 					"Fn::Sub": "${LeoInstallFunction.Arn}"
 				},
-				"Version": "2.0"
+				"Version": "3.3"
 			},
 			"DependsOn": [
 				"LeoInstallFunction"

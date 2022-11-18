@@ -16,7 +16,9 @@
 			"name": "Leo_core_cron_stream_trigger",
 			"handler": "handler",
 			"role": "LeoCronRole",
-			"memory": 128,
+			"memory": {
+				"Ref": "EventTriggerMemory"
+			},
 			"timeout": 300,
 			"env": {
 				"Resources": {

@@ -184,8 +184,8 @@ module.exports = {
 			"Properties": {
 				"AssumeRolePolicyDocument": {
 					"Version": "2012-10-17",
-					"Statement": 	{
-						"Fn::If" : [
+					"Statement": {
+						"Fn::If": [
 							"IsTrustingAccount",
 							[{
 								"Effect": "Allow",
@@ -200,10 +200,10 @@ module.exports = {
 								"Action": [
 									"sts:AssumeRole"
 								]
-							},{
+							}, {
 								"Effect": "Allow",
 								"Principal": {
-									"AWS":{
+									"AWS": {
 										"Ref": "TrustedAWSPrinciples"
 									},
 								},
@@ -355,6 +355,17 @@ module.exports = {
 					"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
 					{
 						"Ref": "LeoBotPolicy"
+					},
+					{
+						"Fn::If": [
+							"HasLambdaInvokePolicy",
+							{
+								"Ref": "LambdaInvokePolicy"
+							},
+							{
+								"Ref": "AWS::NoValue"
+							}
+						]
 					}
 				],
 				"Policies": [
@@ -424,6 +435,10 @@ module.exports = {
 										{
 											"Fn::Sub": "${LeoEvent.StreamArn}"
 										}
+										//,
+										//										{
+										//											"Fn::Sub": "${LeoStream.StreamArn}"
+										//										}
 									]
 								},
 								{
@@ -434,7 +449,16 @@ module.exports = {
 									"Resource": {
 										"Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:*"
 									}
-								}
+								},
+								{
+									"Effect": "Allow",
+									"Action": [
+										"s3:DeleteObject"
+									],
+									"Resource": {
+										"Fn::Sub": "arn:aws:s3:::${LeoS3}/bus/*"
+									}
+								},
 							]
 						}
 					}
@@ -482,7 +506,9 @@ module.exports = {
 							"Effect": "Allow",
 							"Action": [
 								"s3:PutObject",
-								"s3:GetObject"
+								"s3:GetObject",
+								"s3:ListBucketMultipartUploads",
+								"s3:ListMultipartUploadParts"
 							],
 							"Resource": {
 								"Fn::Sub": "arn:aws:s3:::${LeoS3}/bus/*"
@@ -492,7 +518,9 @@ module.exports = {
 							"Effect": "Allow",
 							"Action": [
 								"s3:PutObject",
-								"s3:GetObject"
+								"s3:GetObject",
+								"s3:ListBucketMultipartUploads",
+								"s3:ListMultipartUploadParts"
 							],
 							"Resource": {
 								"Fn::Sub": "arn:aws:s3:::${LeoS3}/files/*"
@@ -501,7 +529,9 @@ module.exports = {
 						{
 							"Effect": "Allow",
 							"Action": [
-								"s3:ListBucket"
+								"s3:ListBucket",
+								"s3:ListBucketMultipartUploads",
+								"s3:ListMultipartUploadParts"
 							],
 							"Resource": {
 								"Fn::Sub": "arn:aws:s3:::${LeoS3}"

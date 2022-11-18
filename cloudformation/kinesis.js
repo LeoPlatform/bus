@@ -3,7 +3,9 @@ module.exports = {
 		"LeoKinesisStream": {
 			"Type": "AWS::Kinesis::Stream",
 			"Properties": {
-				"ShardCount": 1
+				"ShardCount": {
+					"Ref": "KinesisShards"
+				}
 			}
 		},
 		"LeoKinesisStreamProcessorEventSource": {

@@ -1,0 +1,1505 @@
+{
+    "RequestType": "Update",
+    "ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:dev-bus-LeoInstallFunction-222222222222",
+    "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-east-1%3A111111111111%3Astack/reptest-stack/250a69e0-a44c-11e9-9bda-0a82639e0346%7CLeoRegister%7C062e1862-f584-4d8e-b7c5-d57bd8125fb8?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190712T052222Z&X-Amz-SignedHeaders=host&X-Amz-Expires=7200&X-Amz-Credential=AKIA6L7Q4OWTTYC3DXNI%2F20190712%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=6a178142225f052490245054f4395bf32372c135c725ca9b10dcb648edce7521",
+    "StackId": "arn:aws:cloudformation:us-east-1:111111111111:stack/reptest-stack/11111111-uuid-uuid-uuid-222222222222",
+    "RequestId": "11111111-uuid-uuid-uuid-222222222222",
+    "LogicalResourceId": "LeoRegister",
+    "PhysicalResourceId": "LeoRegister",
+    "ResourceType": "Custom::Install",
+    "ResourceProperties": {
+        "ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:dev-bus-LeoInstallFunction-222222222222",
+        "OrderSchemaTestQueue": {
+
+            "queue": "queue:order-schema-queue",
+            "schemas":{
+              "test": {
+                "schema": {
+                  "$id": "root",
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "object",
+                  "properties": {
+                    "_dates": {
+                      "type": "object",
+                      "properties": {
+                        "shipment_pending": {
+                          "type": "string",
+                          "default": "2022-11-02T17:21:41-07:00",
+                          "examples": [
+                            "2022-11-02T17:21:41-07:00"
+                          ],
+                          "format": "date"
+                        },
+                        "created": {
+                          "type": "string",
+                          "default": "2022-11-02T17:21:24-07:00",
+                          "examples": [
+                            "2022-11-02T17:21:24-07:00"
+                          ],
+                          "format": "date"
+                        },
+                        "last_cancel_update": {
+                          "type": "string",
+                          "default": "2022-11-02T17:21:51-07:00",
+                          "examples": [
+                            "2022-11-02T17:21:51-07:00"
+                          ],
+                          "format": "date"
+                        },
+                        "last_lifecycle_update": {
+                          "type": "string",
+                          "default": "2022-11-02T17:21:58-07:00",
+                          "examples": [
+                            "2022-11-02T17:21:58-07:00"
+                          ],
+                          "format": "date"
+                        },
+                        "last_shipment_update": {
+                          "type": "string",
+                          "default": "2022-11-02T17:21:58-07:00",
+                          "examples": [
+                            "2022-11-02T17:21:58-07:00"
+                          ],
+                          "format": "date"
+                        },
+                        "last_status_update": {
+                          "type": "string",
+                          "default": "2022-11-02T17:21:58-07:00",
+                          "examples": [
+                            "2022-11-02T17:21:58-07:00"
+                          ],
+                          "format": "date"
+                        },
+                        "last_update": {
+                          "type": "string",
+                          "default": "2022-11-02T17:21:58-07:00",
+                          "examples": [
+                            "2022-11-02T17:21:58-07:00"
+                          ],
+                          "format": "date"
+                        },
+                        "ship_late": {
+                          "type": "string",
+                          "default": "2022-11-04T16:59:59-07:00",
+                          "examples": [
+                            "2022-11-04T16:59:59-07:00"
+                          ],
+                          "format": "date"
+                        }
+                      },
+                      "required": [
+                        "shipment_pending",
+                        "created",
+                        "last_cancel_update",
+                        "last_lifecycle_update",
+                        "last_shipment_update",
+                        "last_status_update",
+                        "last_update",
+                        "ship_late"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "_id": {
+                      "type": "string",
+                      "default": "6363098e2f748860768b4571",
+                      "examples": [
+                        "6363098e2f748860768b4571"
+                      ]
+                    },
+                    "acknowledge_by_date": {
+                      "type": ["string"]
+                    },
+                    "acknowledge_late_date": {
+                      "type": ["string"]
+                    },
+                    "amount_of_sales_tax_collected": {
+                      "type": ["string"]
+                    },
+                    "archived": {
+                      "type": "boolean",
+                      "default": false,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "authorization_for_expense_number": {
+                      "type": ["string"]
+                    },
+                    "bill_to": {
+                      "type": ["string"]
+                    },
+                    "buyer": {
+                      "type": ["string"]
+                    },
+                    "buying_contract_agreement_id": {
+                      "type": ["string"]
+                    },
+                    "cancel_after_date": {
+                      "type": ["string"]
+                    },
+                    "cancel_late_date": {
+                      "type": ["string"]
+                    },
+                    "cancel_requested": {
+                      "type": "boolean",
+                      "default": false,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "change_reasons": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "default": "add_shipment",
+                        "examples": [
+                          "add_shipment"
+                        ]
+                      }
+                    },
+                    "channel": {
+                      "type": ["string"]
+                    },
+                    "closed_date": {
+                      "type": ["string"]
+                    },
+                    "consumer_balance_due": {
+                      "type": ["string"]
+                    },
+                    "consumer_credit_amount_total": {
+                      "type": ["string"]
+                    },
+                    "consumer_order_currency_code": {
+                      "type": ["string"]
+                    },
+                    "consumer_order_date": {
+                      "type": ["string"]
+                    },
+                    "consumer_order_number": {
+                      "type": ["string"]
+                    },
+                    "coupons": {
+                      "type": ["string"]
+                    },
+                    "create_date": {
+                      "type": "string",
+                      "default": "2022-11-03T00:21:24+00:00",
+                      "examples": [
+                        "2022-11-03T00:21:24+00:00"
+                      ],
+                      "format": "date"
+                    },
+                    "currency_code": {
+                      "type": ["string"]
+                    },
+                    "customer": {
+                      "type": ["string"]
+                    },
+                    "customer_membership_id": {
+                      "type": ["string"]
+                    },
+                    "days_to_arrive": {
+                      "type": "integer",
+                      "default": 7,
+                      "examples": [
+                        7
+                      ]
+                    },
+                    "disable_return_workflow": {
+                      "type": "boolean",
+                      "default": false,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "dsco_ship_carrier": {
+                      "type": ["string"]
+                    },
+                    "dsco_ship_method": {
+                      "type": ["string"]
+                    },
+                    "dsco_shipping_service_level_code": {
+                      "type": ["string"]
+                    },
+                    "dsco_warehouse_code": {
+                      "type": ["string"]
+                    },
+                    "dsco_warehouse_dsco_id": {
+                      "type": ["string"]
+                    },
+                    "dsco_warehouse_retailer_code": {
+                      "type": ["string"]
+                    },
+                    "estimated_ship_date": {
+                      "type": ["string"]
+                    },
+                    "estimated_ship_reason": {
+                      "type": ["string"]
+                    },
+                    "expected_delivery_date": {
+                      "type": ["string"]
+                    },
+                    "extended_expected_cost_total": {
+                      "type": ["string"]
+                    },
+                    "first_invoice_created_at": {
+                      "type": ["string"]
+                    },
+                    "first_shipment_created_at": {
+                      "type": ["string"]
+                    },
+                    "first_supplier_invoiced_at": {
+                      "type": ["string"]
+                    },
+                    "first_supplier_shipped_at": {
+                      "type": ["string"]
+                    },
+                    "fulfillment_policy": {
+                      "type": "string",
+                      "default": "line-item",
+                      "examples": [
+                        "line-item"
+                      ]
+                    },
+                    "gift_flag": {
+                      "type": ["string"]
+                    },
+                    "gift_from_name": {
+                      "type": ["string"]
+                    },
+                    "gift_message": {
+                      "type": ["string"]
+                    },
+                    "gift_receipt_id": {
+                      "type": ["string"]
+                    },
+                    "gift_to_name": {
+                      "type": ["string"]
+                    },
+                    "gift_wrap_flag": {
+                      "type": ["string"]
+                    },
+                    "gift_wrap_message": {
+                      "type": ["string"]
+                    },
+                    "history": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ymdt": {
+                            "type": "string",
+                            "default": "2022-11-03T00:21:41+00:00",
+                            "examples": [
+                              "2022-11-03T00:21:41+00:00"
+                            ],
+                            "format": "date"
+                          },
+                          "type": {
+                            "type": "string",
+                            "default": "status change",
+                            "examples": [
+                              "status change"
+                            ]
+                          },
+                          "user": {
+                            "type": "string",
+                            "default": "Big Test 1",
+                            "examples": [
+                              "Big Test 1"
+                            ]
+                          },
+                          "old_value": {
+                            "type": "string",
+                            "default": "created",
+                            "examples": [
+                              "created"
+                            ]
+                          },
+                          "new_value": {
+                            "type": "string",
+                            "default": "shipment pending",
+                            "examples": [
+                              "shipment pending"
+                            ]
+                          },
+                          "note": {
+                            "type": "string",
+                            "default": "Manual status change",
+                            "examples": [
+                              "Manual status change"
+                            ]
+                          },
+                          "trigger": {
+                            "type": "string",
+                            "default": "Operation.PublicApiUpdateOrderStatus",
+                            "examples": [
+                              "Operation.PublicApiUpdateOrderStatus"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "ymdt",
+                          "type",
+                          "user",
+                          "old_value",
+                          "new_value",
+                          "note",
+                          "trigger"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "hold_info": {
+                      "type": ["string"]
+                    },
+                    "internal_control_number": {
+                      "type": ["string"]
+                    },
+                    "invoice_by_date": {
+                      "type": ["string"]
+                    },
+                    "invoice_late_date": {
+                      "type": ["string"]
+                    },
+                    "invoice_to": {
+                      "type": ["string"]
+                    },
+                    "invoicing_policy": {
+                      "type": "string",
+                      "default": "line_item",
+                      "examples": [
+                        "line_item"
+                      ]
+                    },
+                    "issuer_division": {
+                      "type": ["string"]
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "acknowledged": {
+                            "type": "boolean",
+                            "default": true,
+                            "examples": [
+                              true,
+                              false
+                            ]
+                          },
+                          "activity": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "action": {
+                                  "type": "string",
+                                  "default": "add",
+                                  "examples": [
+                                    "add"
+                                  ]
+                                },
+                                "quantity": {
+                                  "type": "integer",
+                                  "default": 1,
+                                  "examples": [
+                                    1
+                                  ]
+                                },
+                                "update_date": {
+                                  "type": "string",
+                                  "default": "2022-11-03T00:21:24+00:00",
+                                  "examples": [
+                                    "2022-11-03T00:21:24+00:00"
+                                  ],
+                                  "format": "date"
+                                },
+                                "uuid": {
+                                  "type": "string",
+                                  "default": "84c55b6b276d4be19fe44bf34c1c3b95",
+                                  "examples": [
+                                    "84c55b6b276d4be19fe44bf34c1c3b95"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "action",
+                                "quantity",
+                                "update_date",
+                                "uuid"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "cancelled_at": {
+                            "type": "string",
+                            "default": "2022-11-03T00:21:51+00:00",
+                            "examples": [
+                              "2022-11-03T00:21:51+00:00"
+                            ],
+                            "format": "date"
+                          },
+                          "cancel_code": {
+                            "type": "string",
+                            "default": "DNE",
+                            "examples": [
+                              "DNE"
+                            ]
+                          },
+                          "cost": {
+                            "type": "integer",
+                            "default": 24,
+                            "examples": [
+                              24
+                            ]
+                          },
+                          "item_id": {
+                            "type": "integer",
+                            "default": 1031743291,
+                            "examples": [
+                              1031743291
+                            ]
+                          },
+                          "item_status": {
+                            "type": "string",
+                            "default": "in-stock",
+                            "examples": [
+                              "in-stock"
+                            ]
+                          },
+                          "message": {
+                            "type": "string",
+                            "default": "2022-11-03 00:21:22.890784",
+                            "examples": [
+                              "2022-11-03 00:21:22.890784"
+                            ]
+                          },
+                          "product_group": {
+                            "type": "string",
+                            "default": "INDBEES",
+                            "examples": [
+                              "INDBEES"
+                            ]
+                          },
+                          "quantity": {
+                            "type": "integer",
+                            "default": 1,
+                            "examples": [
+                              1
+                            ]
+                          },
+                          "quantity_available": {
+                            "type": "integer",
+                            "default": 1000,
+                            "examples": [
+                              1000
+                            ]
+                          },
+                          "sku": {
+                            "type": "string",
+                            "default": "INDBEES",
+                            "examples": [
+                              "INDBEES"
+                            ]
+                          },
+                          "status": {
+                            "type": "string",
+                            "default": "cancelled",
+                            "examples": [
+                              "cancelled"
+                            ]
+                          },
+                          "status_reason": {
+                            "type": ["string"]
+                          },
+                          "sub_statuses": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "cancel_code": {
+                                  "type": "string",
+                                  "default": "DNE",
+                                  "examples": [
+                                    "DNE"
+                                  ]
+                                },
+                                "quantity": {
+                                  "type": "integer",
+                                  "default": 1,
+                                  "examples": [
+                                    1
+                                  ]
+                                },
+                                "status": {
+                                  "type": "string",
+                                  "default": "cancelled",
+                                  "examples": [
+                                    "cancelled"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "cancel_code",
+                                "quantity",
+                                "status"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "title": {
+                            "type": "string",
+                            "default": "Bumble Bee (case of 12)",
+                            "examples": [
+                              "Bumble Bee (case of 12)"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "acknowledged",
+                          "activity",
+                          "cancelled_at",
+                          "cancel_code",
+                          "cost",
+                          "item_id",
+                          "item_status",
+                          "message",
+                          "product_group",
+                          "quantity",
+                          "quantity_available",
+                          "sku",
+                          "status",
+                          "status_reason",
+                          "sub_statuses",
+                          "title"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "last_actor": {
+                      "type": "object",
+                      "properties": {
+                        "account_id": {
+                          "type": "string",
+                          "default": "1000006533",
+                          "examples": [
+                            "1000006533"
+                          ]
+                        },
+                        "account_type": {
+                          "type": ["string"]
+                        },
+                        "source": {
+                          "type": "string",
+                          "default": "API",
+                          "examples": [
+                            "API"
+                          ]
+                        },
+                        "system_op": {
+                          "type": "boolean",
+                          "default": false,
+                          "examples": [
+                            true,
+                            false
+                          ]
+                        },
+                        "employee_id": {
+                          "type": ["string"]
+                        },
+                        "user_id": {
+                          "type": "string",
+                          "default": "7768",
+                          "examples": [
+                            "7768"
+                          ]
+                        },
+                        "user_name": {
+                          "type": "string",
+                          "default": "Big Test 1",
+                          "examples": [
+                            "Big Test 1"
+                          ]
+                        },
+                        "username": {
+                          "type": "string",
+                          "default": "bigtest1",
+                          "examples": [
+                            "bigtest1"
+                          ]
+                        },
+                        "ip": {
+                          "type": "string",
+                          "default": "18.208.42.77",
+                          "examples": [
+                            "18.208.42.77"
+                          ],
+                          "format": "ipv4"
+                        },
+                        "process_id": {
+                          "type": ["string"]
+                        },
+                        "job_id": {
+                          "type": ["string"]
+                        },
+                        "update_date": {
+                          "type": "string",
+                          "default": "2022-11-03T00:21:58+00:00",
+                          "examples": [
+                            "2022-11-03T00:21:58+00:00"
+                          ],
+                          "format": "date"
+                        },
+                        "mt": {
+                          "type": "number",
+                          "default": 1667434918.208144,
+                          "examples": [
+                            1667434918.208144
+                          ]
+                        },
+                        "trigger": {
+                          "type": "string",
+                          "default": "Operation.PublicApiUpdateOrderShipment",
+                          "examples": [
+                            "Operation.PublicApiUpdateOrderShipment"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "account_id",
+                        "account_type",
+                        "source",
+                        "system_op",
+                        "employee_id",
+                        "user_id",
+                        "user_name",
+                        "username",
+                        "ip",
+                        "process_id",
+                        "job_id",
+                        "update_date",
+                        "mt",
+                        "trigger"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "last_invoice_created_at": {
+                      "type": ["string"]
+                    },
+                    "last_routing_date": {
+                      "type": ["string"]
+                    },
+                    "last_shipment_created_at": {
+                      "type": ["string"]
+                    },
+                    "last_status_update": {
+                      "type": "string",
+                      "default": "2022-11-03T00:21:58+00:00",
+                      "examples": [
+                        "2022-11-03T00:21:58+00:00"
+                      ],
+                      "format": "date"
+                    },
+                    "last_supplier_invoiced_at": {
+                      "type": ["string"]
+                    },
+                    "last_supplier_shipped_at": {
+                      "type": ["string"]
+                    },
+                    "last_update": {
+                      "type": "string",
+                      "default": "2022-11-03T00:21:58+00:00",
+                      "examples": [
+                        "2022-11-03T00:21:58+00:00"
+                      ],
+                      "format": "date"
+                    },
+                    "latest_invoice_created_at": {
+                      "type": ["string"]
+                    },
+                    "latest_shipment_created_at": {
+                      "type": ["string"]
+                    },
+                    "latest_supplier_invoiced_at": {
+                      "type": ["string"]
+                    },
+                    "latest_supplier_shipped_at": {
+                      "type": ["string"]
+                    },
+                    "lifecycle": {
+                      "type": "string",
+                      "default": "completed",
+                      "examples": [
+                        "completed"
+                      ]
+                    },
+                    "lifecycle_tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "default": "cancelled",
+                        "examples": [
+                          "cancelled"
+                        ]
+                      }
+                    },
+                    "marketing_message": {
+                      "type": ["string"]
+                    },
+                    "message": {
+                      "type": ["string"]
+                    },
+                    "number_of_line_items": {
+                      "type": ["string"]
+                    },
+                    "order_id": {
+                      "type": "integer",
+                      "default": 73757751,
+                      "examples": [
+                        73757751
+                      ]
+                    },
+                    "order_total_amount": {
+                      "type": ["string"]
+                    },
+                    "order_type": {
+                      "type": "string",
+                      "default": "dropship",
+                      "examples": [
+                        "dropship"
+                      ]
+                    },
+                    "packing_instructions": {
+                      "type": ["string"]
+                    },
+                    "packing_slip_email": {
+                      "type": ["string"]
+                    },
+                    "packing_slip_message": {
+                      "type": ["string"]
+                    },
+                    "packing_slip_phone": {
+                      "type": ["string"]
+                    },
+                    "packing_slip_template": {
+                      "type": ["string"]
+                    },
+                    "payments": {
+                      "type": ["string"]
+                    },
+                    "po_number": {
+                      "type": "string",
+                      "default": "69a46861-4e42-492e-9a0b-233f6a353a44",
+                      "examples": [
+                        "69a46861-4e42-492e-9a0b-233f6a353a44"
+                      ],
+                      "format": "uuid"
+                    },
+                    "receipt_id": {
+                      "type": ["string"]
+                    },
+                    "release_number": {
+                      "type": ["string"]
+                    },
+                    "requested_ship_carrier": {
+                      "type": "string",
+                      "default": "USPS",
+                      "examples": [
+                        "USPS"
+                      ]
+                    },
+                    "requested_ship_carrier_unmapped": {
+                      "type": "string",
+                      "default": "USPS",
+                      "examples": [
+                        "USPS"
+                      ]
+                    },
+                    "requested_ship_method": {
+                      "type": "string",
+                      "default": "Ground",
+                      "examples": [
+                        "Ground"
+                      ]
+                    },
+                    "requested_ship_method_unmapped": {
+                      "type": "string",
+                      "default": "Ground",
+                      "examples": [
+                        "Ground"
+                      ]
+                    },
+                    "requested_shipping_service_level_code": {
+                      "type": "string",
+                      "default": "USCG",
+                      "examples": [
+                        "USCG"
+                      ]
+                    },
+                    "requested_shipping_service_level_code_unmapped": {
+                      "type": ["string"]
+                    },
+                    "requested_warehouse_code": {
+                      "type": ["string"]
+                    },
+                    "requested_warehouse_dsco_id": {
+                      "type": ["string"]
+                    },
+                    "requested_warehouse_retailer_code": {
+                      "type": ["string"]
+                    },
+                    "require_cancel_codes": {
+                      "type": "boolean",
+                      "default": true,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "require_invoice_line_items": {
+                      "type": "boolean",
+                      "default": true,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "require_invoiced_before_return": {
+                      "type": "boolean",
+                      "default": true,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "require_line_numbers": {
+                      "type": "boolean",
+                      "default": false,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "require_matching_line_numbers": {
+                      "type": "boolean",
+                      "default": true,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "require_shipment_carrier_method": {
+                      "type": "boolean",
+                      "default": false,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "require_shipment_line_items": {
+                      "type": "boolean",
+                      "default": true,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "require_shipment_warehouse_code": {
+                      "type": "boolean",
+                      "default": false,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "require_valid_sscc_barcodes": {
+                      "type": "boolean",
+                      "default": false,
+                      "examples": [
+                        true,
+                        false
+                      ]
+                    },
+                    "required_delivery_date": {
+                      "type": ["string"]
+                    },
+                    "required_ship_date": {
+                      "type": ["string"]
+                    },
+                    "retailer_account_id": {
+                      "type": ["string"]
+                    },
+                    "retailer_accounts_payable_id": {
+                      "type": ["string"]
+                    },
+                    "retailer_create_date": {
+                      "type": ["string"]
+                    },
+                    "retailer_id": {
+                      "type": "integer",
+                      "default": 1000000001,
+                      "examples": [
+                        1000000001
+                      ]
+                    },
+                    "retailer_shipping_account": {
+                      "type": ["string"]
+                    },
+                    "returns_message": {
+                      "type": ["string"]
+                    },
+                    "routing_sources": {
+                      "type": "array"
+                    },
+                    "secondary_receipt_id": {
+                      "type": ["string"]
+                    },
+                    "ship_by_date": {
+                      "type": ["string"]
+                    },
+                    "ship_carrier": {
+                      "type": "string",
+                      "default": "USPS",
+                      "examples": [
+                        "USPS"
+                      ]
+                    },
+                    "ship_instructions": {
+                      "type": "string",
+                      "default": "vaporize",
+                      "examples": [
+                        "vaporize"
+                      ]
+                    },
+                    "ship_late_date": {
+                      "type": "string",
+                      "default": "2022-11-04T23:59:59+00:00",
+                      "examples": [
+                        "2022-11-04T23:59:59+00:00"
+                      ],
+                      "format": "date"
+                    },
+                    "ship_method": {
+                      "type": "string",
+                      "default": "Ground",
+                      "examples": [
+                        "Ground"
+                      ]
+                    },
+                    "ship_service_level_code": {
+                      "type": "string",
+                      "default": "USCG",
+                      "examples": [
+                        "USCG"
+                      ]
+                    },
+                    "ship_to_store_number": {
+                      "type": ["string"]
+                    },
+                    "ship_warehouse_code": {
+                      "type": ["string"]
+                    },
+                    "ship_warehouse_dsco_id": {
+                      "type": ["string"]
+                    },
+                    "ship_warehouse_retailer_code": {
+                      "type": ["string"]
+                    },
+                    "shipments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "balance_due": {
+                            "type": ["string"]
+                          },
+                          "carrier": {
+                            "type": ["string"]
+                          },
+                          "carrier_manifest_id": {
+                            "type": ["string"]
+                          },
+                          "currency_code": {
+                            "type": ["string"]
+                          },
+                          "detected_carrier": {
+                            "type": ["string"]
+                          },
+                          "dsco_actual_delivery_date": {
+                            "type": ["string"]
+                          },
+                          "dsco_actual_pickup_date": {
+                            "type": ["string"]
+                          },
+                          "dsco_actual_ship_carrier": {
+                            "type": ["string"]
+                          },
+                          "dsco_actual_ship_cost": {
+                            "type": ["string"]
+                          },
+                          "dsco_actual_ship_method": {
+                            "type": ["string"]
+                          },
+                          "dsco_actual_shipping_service_level_code": {
+                            "type": ["string"]
+                          },
+                          "dsco_shipment_id": {
+                            "type": "integer",
+                            "default": 1001674568,
+                            "examples": [
+                              1001674568
+                            ]
+                          },
+                          "has_dsco_label": {
+                            "type": ["string"]
+                          },
+                          "line_items": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "quantity": {
+                                  "type": "integer",
+                                  "default": 1,
+                                  "examples": [
+                                    1
+                                  ]
+                                },
+                                "item_id": {
+                                  "type": "integer",
+                                  "default": 1031743314,
+                                  "examples": [
+                                    1031743314
+                                  ]
+                                },
+                                "original_order_quantity": {
+                                  "type": "integer",
+                                  "default": 1,
+                                  "examples": [
+                                    1
+                                  ]
+                                },
+                                "sku": {
+                                  "type": "string",
+                                  "default": "INDCBASK-B",
+                                  "examples": [
+                                    "INDCBASK-B"
+                                  ]
+                                },
+                                "title": {
+                                  "type": "string",
+                                  "default": "Basketballs (Customized) (case of 12)",
+                                  "examples": [
+                                    "Basketballs (Customized) (case of 12)"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "quantity",
+                                "item_id",
+                                "original_order_quantity",
+                                "sku",
+                                "title"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "method": {
+                            "type": ["string"]
+                          },
+                          "number_of_line_items": {
+                            "type": ["string"]
+                          },
+                          "reference_number_qualifier": {
+                            "type": ["string"]
+                          },
+                          "return_date": {
+                            "type": ["string"]
+                          },
+                          "return_number": {
+                            "type": ["string"]
+                          },
+                          "return_reason": {
+                            "type": ["string"]
+                          },
+                          "returned_flag": {
+                            "type": ["string"]
+                          },
+                          "ship_cost": {
+                            "type": ["string"]
+                          },
+                          "ship_date": {
+                            "type": ["string"]
+                          },
+                          "ship_from": {
+                            "type": ["string"]
+                          },
+                          "ship_to": {
+                            "type": "object",
+                            "properties": {
+                              "address": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "default": "123 Big Barn Road",
+                                  "examples": [
+                                    "123 Big Barn Road"
+                                  ]
+                                }
+                              },
+                              "address1": {
+                                "type": "string",
+                                "default": "123 Big Barn Road",
+                                "examples": [
+                                  "123 Big Barn Road"
+                                ]
+                              },
+                              "address2": {
+                                "type": "string",
+                                "default": "Suite 420",
+                                "examples": [
+                                  "Suite 420"
+                                ]
+                              },
+                              "city": {
+                                "type": "string",
+                                "default": "Albuquerque",
+                                "examples": [
+                                  "Albuquerque"
+                                ]
+                              },
+                              "first_name": {
+                                "type": "string",
+                                "default": "John",
+                                "examples": [
+                                  "John"
+                                ]
+                              },
+                              "name": {
+                                "type": "string",
+                                "default": "John Everyman",
+                                "examples": [
+                                  "John Everyman"
+                                ]
+                              },
+                              "last_name": {
+                                "type": "string",
+                                "default": "Everyman",
+                                "examples": [
+                                  "Everyman"
+                                ]
+                              },
+                              "postal": {
+                                "type": "string",
+                                "default": "87122",
+                                "examples": [
+                                  "87122"
+                                ]
+                              },
+                              "region": {
+                                "type": "string",
+                                "default": "New Mexico",
+                                "examples": [
+                                  "New Mexico"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "address",
+                              "address1",
+                              "address2",
+                              "city",
+                              "first_name",
+                              "name",
+                              "last_name",
+                              "postal",
+                              "region"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "shipping_service_level_code": {
+                            "type": ["string"]
+                          },
+                          "sscc_barcode": {
+                            "type": ["string"]
+                          },
+                          "status": {
+                            "type": "string",
+                            "default": "closed",
+                            "examples": [
+                              "closed"
+                            ]
+                          },
+                          "tracking_number": {
+                            "type": "string",
+                            "default": "ABCD1234",
+                            "examples": [
+                              "ABCD1234"
+                            ]
+                          },
+                          "transaction_date": {
+                            "type": ["string"]
+                          },
+                          "transaction_id": {
+                            "type": ["string"]
+                          },
+                          "transportation_method_code": {
+                            "type": ["string"]
+                          },
+                          "unit_of_measurement_code": {
+                            "type": ["string"]
+                          },
+                          "untracked": {
+                            "type": ["string"]
+                          },
+                          "vendor_invoice_number": {
+                            "type": ["string"]
+                          },
+                          "warehouse_code": {
+                            "type": ["string"]
+                          },
+                          "warehouse_dsco_id": {
+                            "type": ["string"]
+                          },
+                          "warehouse_retailer_code": {
+                            "type": ["string"]
+                          },
+                          "weight": {
+                            "type": ["string"]
+                          },
+                          "weight_units": {
+                            "type": ["string"]
+                          },
+                          "ymdt": {
+                            "type": "string",
+                            "default": "2022-11-03T00:21:58+00:00",
+                            "examples": [
+                              "2022-11-03T00:21:58+00:00"
+                            ],
+                            "format": "date"
+                          }
+                        },
+                        "required": [
+                          "balance_due",
+                          "carrier",
+                          "carrier_manifest_id",
+                          "currency_code",
+                          "detected_carrier",
+                          "dsco_actual_delivery_date",
+                          "dsco_actual_pickup_date",
+                          "dsco_actual_ship_carrier",
+                          "dsco_actual_ship_cost",
+                          "dsco_actual_ship_method",
+                          "dsco_actual_shipping_service_level_code",
+                          "dsco_shipment_id",
+                          "has_dsco_label",
+                          "line_items",
+                          "method",
+                          "number_of_line_items",
+                          "reference_number_qualifier",
+                          "return_date",
+                          "return_number",
+                          "return_reason",
+                          "returned_flag",
+                          "ship_cost",
+                          "ship_date",
+                          "ship_from",
+                          "ship_to",
+                          "shipping_service_level_code",
+                          "sscc_barcode",
+                          "status",
+                          "tracking_number",
+                          "transaction_date",
+                          "transaction_id",
+                          "transportation_method_code",
+                          "unit_of_measurement_code",
+                          "untracked",
+                          "vendor_invoice_number",
+                          "warehouse_code",
+                          "warehouse_dsco_id",
+                          "warehouse_retailer_code",
+                          "weight",
+                          "weight_units",
+                          "ymdt"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "shipping": {
+                      "type": "object",
+                      "properties": {
+                        "address": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "default": "123 Big Barn Road",
+                            "examples": [
+                              "123 Big Barn Road"
+                            ]
+                          }
+                        },
+                        "address1": {
+                          "type": "string",
+                          "default": "123 Big Barn Road",
+                          "examples": [
+                            "123 Big Barn Road"
+                          ]
+                        },
+                        "address2": {
+                          "type": "string",
+                          "default": "Suite 420",
+                          "examples": [
+                            "Suite 420"
+                          ]
+                        },
+                        "city": {
+                          "type": "string",
+                          "default": "Albuquerque",
+                          "examples": [
+                            "Albuquerque"
+                          ]
+                        },
+                        "first_name": {
+                          "type": "string",
+                          "default": "John",
+                          "examples": [
+                            "John"
+                          ]
+                        },
+                        "name": {
+                          "type": "string",
+                          "default": "John Everyman",
+                          "examples": [
+                            "John Everyman"
+                          ]
+                        },
+                        "last_name": {
+                          "type": "string",
+                          "default": "Everyman",
+                          "examples": [
+                            "Everyman"
+                          ]
+                        },
+                        "postal": {
+                          "type": "string",
+                          "default": "87122",
+                          "examples": [
+                            "87122"
+                          ]
+                        },
+                        "region": {
+                          "type": "string",
+                          "default": "New Mexico",
+                          "examples": [
+                            "New Mexico"
+                          ]
+                        },
+                        "state": {
+                          "type": "string",
+                          "default": "New Mexico",
+                          "examples": [
+                            "New Mexico"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "address",
+                        "address1",
+                        "address2",
+                        "city",
+                        "first_name",
+                        "name",
+                        "last_name",
+                        "postal",
+                        "region",
+                        "state"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "shipping_account_number": {
+                      "type": ["string"]
+                    },
+                    "shipping_surcharge": {
+                      "type": ["string"]
+                    },
+                    "signature_required_flag": {
+                      "type": ["string"]
+                    },
+                    "status": {
+                      "type": "string",
+                      "default": "shipped",
+                      "examples": [
+                        "shipped"
+                      ]
+                    },
+                    "suborder_id": {
+                      "type": "integer",
+                      "default": 74034367,
+                      "examples": [
+                        74034367
+                      ]
+                    },
+                    "supplier_id": {
+                      "type": "integer",
+                      "default": 1000006533,
+                      "examples": [
+                        1000006533
+                      ]
+                    },
+                    "supplier_order_number": {
+                      "type": ["string"]
+                    },
+                    "taxable_amount_of_sale": {
+                      "type": ["string"]
+                    },
+                    "taxes": {
+                      "type": ["string"]
+                    },
+                    "test_flag": {
+                      "type": "integer",
+                      "default": 0,
+                      "examples": [
+                        0
+                      ]
+                    },
+                    "vendor_id": {
+                      "type": ["string"]
+                    },
+                    "id": {
+                      "type": "string",
+                      "default": "74034367",
+                      "examples": [
+                        "74034367"
+                      ]
+                    },
+                    "partition": {
+                      "type": "string",
+                      "default": "order-7",
+                      "examples": [
+                        "order-7"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "_dates",
+                    "_id",
+                    "create_date",
+                    "items",
+                    "po_number",
+                    "suborder_id"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+        }
+    },
+    "OldResourceProperties": {
+        "ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:dev-bus-LeoInstallFunction-222222222222",
+        "Version": "1.0"
+    }
+}

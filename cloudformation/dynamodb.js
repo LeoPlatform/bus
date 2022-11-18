@@ -10,7 +10,7 @@ module.exports = cf.add(cf.dynamodb.table("LeoStream", {
 		MaxReadCapacityUnits: 1000,
 		MaxWriteCapacityUnits: 1000
 	}
-})).add(cf.dynamodb.table("LeoArchive", {
+})).add(cf.dynamodb.table("LeoArchive", { // TODO: This is not used and should be able to be removed
 	event: 'S',
 	end: 'S',
 	autoscale: true,

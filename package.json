@@ -1,6 +1,6 @@
 {
 	"name": "leo-bus",
-	"version": "2.2.2",
+	"version": "3.2.0",
 	"description": "Improve Kinesis burstability, durability, and replay",
 	"main": "index.js",
 	"scripts": {
@@ -10,7 +10,8 @@
 		"test:bots:watch": "mocha --recursive -w 'bots/**/*.test.js'",
 		"test:int": "mocha 'test/**/*.integration.js'",
 		"setup": "setup",
-		"package": "leo-cli publish -s",
+		"build": "leo-cli publish -s --force all --build",
+		"package": "leo-cli publish -s --force all",
 		"deploy:dev": "leo-cli publish -s -d dev --force all",
 		"deploy:test": "leo-cli publish -s -d test --force all"
 	},
@@ -30,9 +31,9 @@
 	"homepage": "https://github.com/LeoPlatform/bus#readme",
 	"dependencies": {
 		"deep-diff": "1.0.2",
-		"leo-cron": "1.0.0",
+		"leo-cron": "^2.0.1",
 		"leo-logger": "1.0.1",
-		"leo-sdk": "3.1.8",
+		"leo-sdk": "^6.0.0",
 		"moment": "2.24.0"
 	},
 	"devDependencies": {
@@ -43,7 +44,10 @@
 		"leo-aws": "1.4.4",
 		"mocha": "^6.1.4",
 		"proxyquire": "^2.1.1",
-		"sinon": "^7.3.2"
+		"sinon": "^7.3.2",
+		"ajv": "8.11.0",
+		"ajv-formats": "2.1.1",
+		"is-semver": "1.0.11"
 	},
 	"config": {
 		"leo": {
@@ -52,9 +56,9 @@
 				"us-west-2",
 				"us-east-1"
 			],
+			"runtime": "nodejs16.x",
 			"3rdParty": true,
-			"excludeProfiles": true,
-			"no_env_param": true
+			"excludeProfiles": true
 		}
 	}
 }

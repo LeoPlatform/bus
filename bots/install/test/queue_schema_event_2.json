@@ -1,0 +1,244 @@
+{
+    "RequestType": "Update",
+    "ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:dev-bus-LeoInstallFunction-222222222222",
+    "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-east-1%3A111111111111%3Astack/reptest-stack/250a69e0-a44c-11e9-9bda-0a82639e0346%7CLeoRegister%7C062e1862-f584-4d8e-b7c5-d57bd8125fb8?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190712T052222Z&X-Amz-SignedHeaders=host&X-Amz-Expires=7200&X-Amz-Credential=AKIA6L7Q4OWTTYC3DXNI%2F20190712%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=6a178142225f052490245054f4395bf32372c135c725ca9b10dcb648edce7521",
+    "StackId": "arn:aws:cloudformation:us-east-1:111111111111:stack/reptest-stack/11111111-uuid-uuid-uuid-222222222222",
+    "RequestId": "11111111-uuid-uuid-uuid-222222222222",
+    "LogicalResourceId": "LeoRegister",
+    "PhysicalResourceId": "LeoRegister",
+    "ResourceType": "Custom::Install",
+    "ResourceProperties": {
+        "ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:dev-bus-LeoInstallFunction-222222222222",
+        "OrderSchemaTestQueue": {
+
+            "queue": "queue:rstreams-example.weather",
+            "schemas":{
+                "1.0": {
+                    "schema": {
+                      "$id": "schema.json",
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "$ref": "defs.json#/definitions/weather"
+                    },
+                    "definitionsSchema": {
+                      "$id": "defs.json",
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "definitions": {
+                        "weather": {
+                          "type": ["object"],
+                          "properties": {
+                            "cloudCeiling": {
+                              "type": ["integer"]
+                            },
+                            "cloudCoverPhrase": {
+                              "type": ["string"]
+                            },
+                            "dayOfWeek": {
+                              "type": ["string"]
+                            },
+                            "dayOrNight": {
+                              "type": ["string"]
+                            },
+                            "expirationTimeUtc": {
+                              "type": ["integer"]
+                            },
+                            "iconCode": {
+                              "type": ["integer"]
+                            },
+                            "iconCodeExtend": {
+                              "type": ["integer"]
+                            },
+                            "obsQualifierCode": {
+                              "type": ["string"]
+                            },
+                            "obsQualifierSeverity": {
+                              "type": ["integer"]
+                            },
+                            "precip1Hour": {
+                              "type": ["integer"]
+                            },
+                            "precip6Hour": {
+                              "type": ["integer"]
+                            },
+                            "precip24Hour": {
+                              "type": ["integer"]
+                            },
+                            "pressureAltimeter": {
+                              "type": ["number"]
+                            },
+                            "pressureChange": {
+                              "type": ["number"]
+                            },
+                            "pressureMeanSeaLevel": {
+                              "type": ["number"]
+                            },
+                            "pressureTendencyCode": {
+                              "type": ["integer"]
+                            },
+                            "pressureTendencyTrend": {
+                              "type": ["string"]
+                            },
+                            "relativeHumidity": {
+                              "type": ["integer"]
+                            },
+                            "snow1Hour": {
+                              "type": ["integer"]
+                            },
+                            "snow6Hour": {
+                              "type": ["integer"]
+                            },
+                            "snow24Hour": {
+                              "type": ["integer"]
+                            },
+                            "sunriseTimeLocal": {
+                              "type": ["string"]
+                            },
+                            "sunriseTimeUtc": {
+                              "type": ["integer"]
+                            },
+                            "sunsetTimeLocal": {
+                              "type": ["string"]
+                            },
+                            "sunsetTimeUtc": {
+                              "type": ["integer"]
+                            },
+                            "temperature": {
+                              "type": ["integer"]
+                            },
+                            "temperatureChange24Hour": {
+                              "type": ["integer"]
+                            },
+                            "temperatureDewPoint": {
+                              "type": ["integer"]
+                            },
+                            "temperatureFeelsLike": {
+                              "type": ["integer"]
+                            },
+                            "temperatureHeatIndex": {
+                              "type": ["integer"]
+                            },
+                            "temperatureMax24Hour": {
+                              "type": ["integer"]
+                            },
+                            "temperatureMaxSince7Am": {
+                              "type": ["integer"]
+                            },
+                            "temperatureMin24Hour": {
+                              "type": ["integer"]
+                            },
+                            "temperatureWindChill": {
+                              "type": ["integer"]
+                            },
+                            "uvDescription": {
+                              "type": ["string"]
+                            },
+                            "uvIndex": {
+                              "type": ["integer"]
+                            },
+                            "validTimeLocal": {
+                              "type": ["string"]
+                            },
+                            "validTimeUtc": {
+                              "type": ["integer"]
+                            },
+                            "visibility": {
+                              "type": ["integer"]
+                            },
+                            "windDirection": {
+                              "type": ["integer"]
+                            },
+                            "windDirectionCardinal": {
+                              "type": ["string"]
+                            },
+                            "windGust": {
+                                "nullable": true,
+                                "type": ["integer"]
+                            },
+                            "windSpeed": {
+                              "type": ["integer"]
+                            },
+                            "wxPhraseLong": {
+                              "type": ["string"]
+                            },
+                            "wxPhraseMedium": {
+                              "type": ["string"]
+                            },
+                            "wxPhraseShort": {
+                              "type": ["string"]
+                            },
+                            "location": {
+                              "type": ["object"],
+                              "properties": {
+                                "lat": {
+                                  "type": ["number"]
+                                },
+                                "lng": {
+                                  "type": ["number"]
+                                }
+                              },
+                              "required": [
+                                "lat",
+                                "lng"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "cloudCeiling",
+                            "cloudCoverPhrase",
+                            "dayOfWeek",
+                            "dayOrNight",
+                            "expirationTimeUtc",
+                            "iconCode",
+                            "iconCodeExtend",
+                            "obsQualifierCode",
+                            "obsQualifierSeverity",
+                            "precip1Hour",
+                            "precip6Hour",
+                            "precip24Hour",
+                            "pressureAltimeter",
+                            "pressureChange",
+                            "pressureMeanSeaLevel",
+                            "pressureTendencyCode",
+                            "pressureTendencyTrend",
+                            "relativeHumidity",
+                            "snow1Hour",
+                            "snow6Hour",
+                            "snow24Hour",
+                            "sunriseTimeLocal",
+                            "sunriseTimeUtc",
+                            "sunsetTimeLocal",
+                            "sunsetTimeUtc",
+                            "temperature",
+                            "temperatureChange24Hour",
+                            "temperatureDewPoint",
+                            "temperatureFeelsLike",
+                            "temperatureHeatIndex",
+                            "temperatureMax24Hour",
+                            "temperatureMaxSince7Am",
+                            "temperatureMin24Hour",
+                            "temperatureWindChill",
+                            "uvDescription",
+                            "uvIndex",
+                            "validTimeLocal",
+                            "validTimeUtc",
+                            "visibility",
+                            "windDirection",
+                            "windDirectionCardinal",
+                            "windGust",
+                            "windSpeed",
+                            "wxPhraseLong",
+                            "wxPhraseMedium",
+                            "wxPhraseShort",
+                            "location"
+                          ]
+                        }
+                      }
+                    }
+                  }
+            }
+        }
+    },
+    "OldResourceProperties": {
+        "ServiceToken": "arn:aws:lambda:us-east-1:111111111111:function:dev-bus-LeoInstallFunction-222222222222",
+        "Version": "1.0"
+    }
+}

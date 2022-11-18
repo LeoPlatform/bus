@@ -13,9 +13,131 @@ const padLength = -1 * pad.length;
 
 const StreamTable = leo.configuration.resources.LeoStream;
 const EventTable = leo.configuration.resources.LeoEvent;
+const CronTable = leo.configuration.resources.LeoCron;
 const ttlSeconds = parseInt(process.env.ttlSeconds) || 604800; // Seconds in a week
 
+
+async function setDDBValue(id, field, value, sequence, onErrorIncrementValue = 1) {
+
+	console.time(`${id} update`);
+	let returnValue = {
+		sequence: sequence,
+		value: value
+	};
+	try {
+
+		// Update value. Assume it will work
+		let dbValue = await leo.aws.dynamodb.docClient.update({
+			TableName: leo.configuration.resources.LeoSettings,
+			Key: {
+				"id": id
+			},
+			ReturnValues: "ALL_NEW",
+			UpdateExpression: `set #field = :value, #sequence = :sequence`,
+			ExpressionAttributeNames: {
+				"#field": field,
+				"#sequence": "sequence"
+			},
+			ExpressionAttributeValues: {
+				":value": value,
+				":sequence": sequence
+			},
+			ConditionExpression: "attribute_not_exists(#field) OR #field < :value OR (#sequence = :sequence AND #field = :value)"
+		}).promise();
+		returnValue = dbValue.Attributes
+	} catch (err) {
+		console.log(id, "Got Initial Update Error:", err);
+		if (err.code == "ConditionalCheckFailedException") {
+			// Initial update didn't work. Add to the existing value and use that
+			try {
+				console.log(id, `Incrementing ${field} by ${onErrorIncrementValue}`);
+				let dbValue = await leo.aws.dynamodb.docClient.update({
+					TableName: leo.configuration.resources.LeoSettings,
+					Key: {
+						"id": id
+					},
+					ReturnValues: "ALL_NEW",
+					UpdateExpression: `set #sequence = :sequence add #field :value`,
+					ExpressionAttributeNames: {
+						"#field": field,
+						"#sequence": "sequence"
+					},
+					ExpressionAttributeValues: {
+						":value": onErrorIncrementValue,
+						":sequence": sequence
+					},
+					ConditionExpression: "#sequence <> :sequence"
+				}).promise();
+				returnValue = dbValue.Attributes
+			} catch (err) {
+				if (err.code == "ConditionalCheckFailedException") {
+					// Error because this sequence failed before and was out of order
+					// Just fetch the latest value
+					console.log(id, `Same as prev sequence ${sequence} getting current value`);
+					let dbValue = await leo.aws.dynamodb.docClient.get({
+						TableName: leo.configuration.resources.LeoSettings,
+						ConsistentRead: true,
+						Key: {
+							"id": id
+						}
+					}).promise();
+					returnValue = dbValue.Item
+				} else {
+					console.log(id, "Got Increment Update Error:", err);
+					throw err;
+				}
+			}
+		} else {
+			throw err;
+		}
+	} finally {
+		console.timeEnd(`${id} update`);
+	}
+
+	if (returnValue.sequence !== sequence) {
+		throw new Error(`Sequence doesn't match. new: ${sequence}, existing: ${returnValue.sequence}`)
+	}
+	delete returnValue.id;
+	return returnValue;
+}
+async function deleteDDBValue(id) {
+	await leo.aws.dynamodb.docClient.delete({
+		TableName: leo.configuration.resources.LeoSettings,
+		Key: {
+			"id": id
+		}
+	}).promise();
+}
+
+
 exports.handler = function(event, context, callback) {
+	let record = event.Records[0];
+	let SHARDID = record.eventID.split(":")[0];
+	let value = record.kinesis.approximateArrivalTimestamp * 1000;
+	let sequence = record.kinesis.sequenceNumber;
+	let id = `kinesis-processor-${SHARDID}`;
+	setDDBValue(id, "value", value, sequence)
+		.then((data) => {
+			data.diff = value != data.value;
+			data.attemptValue = value;
+			data.attemptSeq = sequence;
+
+			// Code uses the first records approximateArrivalTimestamp, so set it to the new value
+			if (data.diff && data.value > value) {
+				record.kinesis.approximateArrivalTimestamp = data.value / 1000;
+			}
+			console.log(`${id} IsDiff: ${data.diff} Value:`, JSON.stringify(data));
+		})
+		.catch((err) => {
+			console.log(`${id} Error:`, err)
+		})
+		.finally(() => exports.handler2(event, context, callback));
+};
+
+exports.handler2 = function(event, context, callback) {
+	let SHARDID = event.Records[0].eventID.split(":")[0];
+	let TOTAL_SIZE = 0;
+	let TOTALS = {};
 
 	let eventsToSkip = {};
 	let botsToSkip = {};
@@ -95,8 +217,8 @@ exports.handler = function(event, context, callback) {
 				}
 				delete obj.stats;
 				delete obj.correlations;
-				
-				if (obj.records) { 
+
+				if (obj.records) {
 					done(null, obj);
 				} else {
 					done();
@@ -185,21 +307,67 @@ exports.handler = function(event, context, callback) {
 					} else {
 						var checkpointTasks = [];
 						for (let bot in stats) {
+							let cronCheckpointCommand;
+							let updates = [];
+							let index = 0;
+
+							function flushCurrentBotCPs() {
+								if (updates.length > 0) {
+									cronCheckpointCommand.UpdateExpression = `set ${updates.join(", ")}`;
+									let checkpointCommand = cronCheckpointCommand;
+									checkpointTasks.push(function(done) {
+										console.info(JSON.stringify(checkpointCommand, null, 2));
+										leo.aws.dynamodb.docClient.update(checkpointCommand, function(err, r) {
+											if (!err) {
+												console.log("Checkpointed in Cron Table", r);
+											} else {
+												// TODO: On error it should check to see if the bot id exists and try to created it if needed
+												// See lib/cron.checkpoint
+												console.error("Error checkpointing write, skipping.", err);
+											}
+											done();
+										});
+									});
+								}
+								cronCheckpointCommand = {
+									TableName: CronTable,
+									Key: {
+										id: bot
+									},
+									ExpressionAttributeNames: {
+										"#checkpoints": "checkpoints",
+										"#type": "write"
+									},
+									ExpressionAttributeValues: {},
+									"ReturnConsumedCapacity": 'TOTAL'
+								};
+								updates = [];
+								index = 0;
+							}
+
+							flushCurrentBotCPs(); // Initial flush to set it all up;
+
 							for (let event in stats[bot]) {
 								let stat = stats[bot][event];
-								checkpointTasks.push(function(done) {
-									cron.checkpoint(bot, event, {
-										eid: eventId + "-" + (pad + stat.checkpoint).slice(padLength),
-										source_timestamp: stat.start,
-										started_timestamp: stat.end,
-										ended_timestamp: timestamp.valueOf(),
-										records: stat.units,
-										type: "write"
-									}, function(err) {
-										done(err);
-									});
-								});
+
+								if (index >= 50) {
+									flushCurrentBotCPs();
+								}
+
+								index++;
+
+								updates.push(`#checkpoints.#type.#event${index} = :value${index}`);
+								cronCheckpointCommand.ExpressionAttributeNames[`#event${index}`] = refUtil.refId(event);
+								cronCheckpointCommand.ExpressionAttributeValues[`:value${index}`] = {
+									checkpoint: eventId + "-" + (pad + stat.checkpoint).slice(padLength),
+									source_timestamp: stat.start,
+									started_timestamp: stat.end,
+									ended_timestamp: timestamp.valueOf(),
+									records: stat.units
+								};
+								console.log("counts:", SHARDID, bot, event, stat.units);
 							}
+							flushCurrentBotCPs();
 						}
 						console.log("checkpointing");
 						async.parallelLimit(checkpointTasks, 100, function(err) {
@@ -207,6 +375,7 @@ exports.handler = function(event, context, callback) {
 								console.log(err);
 								callback(err);
 							} else {
+								console.log("size:", SHARDID, TOTAL_SIZE, TOTALS);
 								callback(null, "Successfully processed " + event.Records.length + " records.");
 							}
 						});
@@ -230,6 +399,9 @@ exports.handler = function(event, context, callback) {
 		} else if (!event.event || ((!event.id || !event.payload) && !event.s3) || eventsToSkip[refUtil.ref(event.event)] || botsToSkip[event.id]) {
 			return callback(null);
 		}
+
+		TOTALS[event.id] = (TOTALS[event.id] || 0) + JSON.stringify(event).length;
+
 		let forceEventId = null;
 		let archive = null;
 		if (event.archive) {
@@ -252,11 +424,11 @@ exports.handler = function(event, context, callback) {
 		if (!event.event_source_timestamp) {
 			event.event_source_timestamp = event.timestamp;
 		}
-		if (typeof event.event_source_timestamp !== "number"){
-		    event.event_source_timestamp = moment(event.event_source_timestamp).valueOf();
+		if (typeof event.event_source_timestamp !== "number") {
+			event.event_source_timestamp = moment(event.event_source_timestamp).valueOf();
 		}
 		getEventStream(event.event, forceEventId, archive).write(event, callback);
-	}), function(err) {
+	}), ls.devnull(), function(err) {
 		if (err) {
 			callback(err);
 		} else {
@@ -264,10 +436,11 @@ exports.handler = function(event, context, callback) {
 		}
 	});
 	event.Records.map((record) => {
+		TOTAL_SIZE += (typeof record.kinesis.data === "string") ? (record.kinesis.data.length || 0) : 0;
 		if (record.kinesis.data[0] === 'H') {
-			stream.write(zlib.gunzipSync(new Buffer(record.kinesis.data, 'base64')));
+			stream.write(zlib.gunzipSync(Buffer.from(record.kinesis.data, 'base64')) + "\n");
 		} else if (record.kinesis.data[0] === 'e' && record.kinesis.data[1] === 'J') {
-			stream.write(zlib.inflateSync(new Buffer(record.kinesis.data, 'base64')));
+			stream.write(zlib.inflateSync(Buffer.from(record.kinesis.data, 'base64')) + "\n");
 		} else if (record.kinesis.data[0] === 'e' && record.kinesis.data[1] === 'y') {
 			stream.write(Buffer.from(record.kinesis.data, 'base64').toString() + "\n");
 		}

@@ -14,7 +14,9 @@
 	"config": {
 		"leo": {
 			"type": "bot",
-			"memory": 256,
+			"memory": {
+				"Ref": "LeoMonitorMemory"
+			},
 			"handler": "handler",
 			"timeout": 300,
 			"role": "LeoCronRole",
@@ -23,6 +25,7 @@
 				"owner": "leo"
 			},
 			"env": {
+				"SHARD_HASH_KEY": "${MonitorShardHashKey}",
 				"leosdk": {
 					"region": "${AWS::Region}",
 					"kinesis": "${LeoKinesisStream}",
