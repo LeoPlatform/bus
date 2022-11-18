@@ -92,8 +92,8 @@ module.exports = function(buildDir, newCloudformation, done) {
 					MaxCapacity: (value.Properties.ProvisionedThroughput.WriteCapacityUnits || 5) * 10
 				}
 			};
-			let write = newCloudformation.Resources[`${key}WriteCapacityScalableTarget`] || defaultCapacity;
-			let read = newCloudformation.Resources[`${key}ReadCapacityScalableTarget`] || defaultCapacity;
+			let write = newCloudformation.Resources[`${key}WriteCapacityScalableTarget`] || writeDefaultCapacity;
+			let read = newCloudformation.Resources[`${key}ReadCapacityScalableTarget`] || readDefaultCapacity;
 
 			newCloudformation.Parameters[`${key}MinReadCapacity`] = {
 				Type: "Number",
@@ -115,6 +115,23 @@ module.exports = function(buildDir, newCloudformation, done) {
 				Default: write.Properties.MaxCapacity,
 				Group: group
 			};
+
+			read.Properties.MaxCapacity = {
+				Ref: `${key}MaxReadCapacity`
+			}
+
+			read.Properties.MinCapacity = {
+				Ref: `${key}MinReadCapacity`
+			}
+
+
+			write.Properties.MaxCapacity = {
+				Ref: `${key}MaxWriteCapacity`
+			}
+
+			write.Properties.MinCapacity = {
+				Ref: `${key}MinWriteCapacity`
+			}
 
 			let writeScalePolicy = newCloudformation.Resources[`${key}WriteAutoScalingPolicy`];
 			let readScalePolicy = newCloudformation.Resources[`${key}ReadAutoScalingPolicy`];
