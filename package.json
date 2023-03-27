@@ -34,7 +34,7 @@
 		"leo-cron": "^2.0.1",
 		"leo-logger": "1.0.1",
 		"leo-sdk": "^6.0.0",
-		"moment": "2.24.0"
+		"moment": "2.29.4"
 	},
 	"devDependencies": {
 		"aws-sdk": "^2.466.0",
