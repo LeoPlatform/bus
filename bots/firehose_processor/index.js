@@ -1,5 +1,6 @@
 "use strict";
 
+const zlib = require("zlib");
 const leo = require("leo-sdk");
 leo.configuration.update({
 	kinesis: leo.configuration.resources.LeoKinesisStream,
@@ -30,8 +31,22 @@ exports.handler = require("leo-sdk/wrappers/cron")(async (event, context, callba
 			console.log(obj.payload.files);
 			async.eachOfSeries(obj.payload.files, (file, i, done) => {
 				console.log("S3 File:", file);
-				ls.pipe(ls.fromS3(file),
-					ls.parse(), ls.through((obj, done) => {
+				ls.pipe(
+					ls.fromS3(file),
+					ls.split(),
+					ls.through(function(data, done) {
+						if (data[0] === 'H') {
+							done(null, zlib.gunzipSync(Buffer.from(data, 'base64')) + "\n");
+						} else if (data[0] === 'e' && data[1] === 'J') {
+							done(null, zlib.inflateSync(Buffer.from(data, 'base64')) + "\n");
+						} else if (data[0] === 'e' && data[1] === 'y') {
+							done(null, Buffer.from(data, 'base64').toString() + "\n");
+						} else {
+							done(null, data + "\n");
+						}
+					}),
+					ls.parse(),
+					ls.through((obj, done) => {
 						if (!obj.id && !obj.event) {
 							done();
 						} else {
@@ -59,10 +74,13 @@ exports.handler = require("leo-sdk/wrappers/cron")(async (event, context, callba
 							}
 							events[obj.event].write(obj, done);
 						}
-					}), ls.devnull(), (err) => {
+					}),
+					ls.devnull(),
+					(err) => {
 						console.log(err);
 						done(err);
-					});
+					}
+				);
 			}, (err) => done(err, obj));
 		}), ls.through((obj, done) => {
 			checkpointData.eid = obj.eid;
