@@ -168,9 +168,11 @@ module.exports = function(buildDir, newCloudformation, done) {
 	});
 	createCloudformationParameterGroups(newCloudformation);
 	let file = path.resolve(buildDir, newCloudformation.Outputs.LeoTemplate.Value.replace(/^.*?\/(cloudformation-.*)$/, "$1"));
+	let fileBase = path.resolve(buildDir, "cloudformation.json");
 	let localfile = path.resolve(__dirname, "cloudformation.json");
 	let baseOutput = JSON.stringify(newCloudformation, null, 2);
 	fs.writeFileSync(file, baseOutput);
+	fs.writeFileSync(fileBase, baseOutput);
 	fs.writeFileSync(localfile, baseOutput);
 
 	let legacy = require("./legacy-cloudformation.json");
