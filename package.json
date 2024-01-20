@@ -32,7 +32,7 @@
 	"dependencies": {
 		"deep-diff": "1.0.2",
 		"leo-cron": "^2.0.2-beta",
-		"leo-logger": "1.0.1",
+		"leo-logger": "1.0.3",
 		"leo-sdk": "^6.0.17-rc",
 		"moment": "2.24.0"
 	},
