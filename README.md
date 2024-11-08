@@ -64,6 +64,10 @@ Wait for the status to change from create_in_progress to update_complete
 Use one of our SDKs in order to interact with this stream
 NodeJs: https://github.com/LeoPlatform/Nodejs
 
+
+# Using Kinesis Directly
+echo -e "{\"id\":\"cli-bot\",\"event\":\"cli-queue\",\"payload\":{\"hello\":\"world\",\"number\":2345}}\n{\"id\":\"cli-bot\",\"event\":\"cli-queue\",\"payload\":{\"hello\":\"world4\",\"number\":67894}}" | gzip -f | base64 -w 0 | xargs aws kinesis put-record --region us-west-2 --stream-name <---BusStreamName---> --explicit-hash-key="0" --partition-key="cli-queue" --data
+
 # Support
 Want to hire an expert, or need technical support? Reach out to the Leo team: https://leoinsights.com/contact
 

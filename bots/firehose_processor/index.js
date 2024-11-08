@@ -133,7 +133,8 @@ exports.handler = require("leo-sdk/wrappers/cron")(async (event, context, callba
 		}
 	};
 
+	let millisToExit = context.getRemainingTimeInMillis() * 0.2;
 	async.doWhilst(loop, () => {
-		return checkpointData.units > 0 && context.getRemainingTimeInMillis() * 0.8 > 0;
+		return checkpointData.units > 0 && context.getRemainingTimeInMillis() > millisToExit;
 	}, callback);
 });

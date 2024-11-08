@@ -1,3 +1,29 @@
+/**
+ * AWS cloudwatch query and script to determine incoming sizes per queue
+ * Query: "shardId-0000" size
+ * Script: 
+ * (function go(shardid, size, queueSize){
+		let a = Array.from(document.querySelectorAll("tbody tr")).map(r=>{ 
+			let [_, shardid, bytes, obj] = r.innerText.match(/shardId-(\d+) (\d+) (.*)\t/)||[null, "", "0", "{}"]; 
+			let date = r.innerText.match(/\t(.*?)\t/)[1];
+			let objParsed = obj.split(/[,{}]/).map(s=>s.trim().split(":")).filter(a=>a.length>1).reduce((all, one)=>{ all[one[0].replace(/'/g,"")]=parseInt(one[1]); return all},{}); 
+			return {date, shardid, bytes:parseInt(bytes), obj: objParsed};
+		}).filter(b=>(shardid == null || b.shardid == shardid) && (size == null || b.bytes >= size));
+
+		let out = [];
+		a.forEach(b=>Object.entries(b.obj).filter(([queue, bytes])=>queueSize== null || bytes >= queueSize).forEach(([queue, size])=>out.push(b.date+"\t"+queue+"\t"+Math.round(size/1000))));
+		console.log(out.join("\n"))
+	})("000000000001", null, 100000)
+ * 
+ * Excel: 
+ * 	Paste results into a spreadsheet with header date, queue, size
+ * 	Create a Pivot Table and Pivot Chart
+ * 		Axis: date
+ * 		Legend: queue
+ * 		Values: size
+ */
+
+
 "use strict";
 const moment = require("moment");
 const zlib = require("zlib");

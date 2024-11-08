@@ -40,7 +40,7 @@ function setTriggers(results) {
 	return new Promise((resolve, reject) => {
 		var now = moment.now();
 
-		async.eachLimit(results, 10, function(data, callback) {
+		async.eachLimit(results, 40, function(data, callback) {
 			console.log(`Setting Cron trigger for ${data.id}, ${now}`);
 
 			var sets = ["#trigger = :trigger"];
@@ -133,7 +133,7 @@ function getCronTable() {
 			};
 			dynamodb.query(params, {
 				method: "scan",
-				mb: 10
+				mb: 100
 			}).then(function(data) {
 				data.Items.forEach(item => {
 
