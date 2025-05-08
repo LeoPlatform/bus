@@ -69,7 +69,8 @@ exports.handler = require("leo-sdk/wrappers/cron")(async (event, context, callba
 									}),
 									ls.toLeo(botId, {
 										debug: event.debug
-									})
+									}),
+									ls.devnull()
 								);
 							}
 							events[obj.event].write(obj, done);
