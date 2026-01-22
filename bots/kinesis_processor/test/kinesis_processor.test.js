@@ -73,8 +73,52 @@ describe("kinesis_processor", () => {
 			return stream;
 		};
 
-		toS3GzipChunksStub.callsFake(() => createMockThrough());
-		toGzipChunksStub.callsFake(() => createMockThrough());
+		// Mock toS3GzipChunks to transform events into chunks with stats
+		toS3GzipChunksStub.callsFake(() => {
+			return new Transform({
+				objectMode: true,
+				transform(chunk, encoding, callback) {
+					// Transform event into chunk format with stats
+					const chunkData = {
+						records: 1,
+						end: 1,
+						stats: {}
+					};
+					// Add stats for the bot if there's an id
+					if (chunk.id) {
+						chunkData.stats[chunk.id] = {
+							units: 1,
+							start: Date.now(),
+							end: Date.now(),
+							checkpoint: 0
+						};
+					}
+					callback(null, chunkData);
+				}
+			});
+		});
+		toGzipChunksStub.callsFake(() => {
+			return new Transform({
+				objectMode: true,
+				transform(chunk, encoding, callback) {
+					// Transform event into chunk format with stats
+					const chunkData = {
+						records: 1,
+						end: 1,
+						stats: {}
+					};
+					if (chunk.id) {
+						chunkData.stats[chunk.id] = {
+							units: 1,
+							start: Date.now(),
+							end: Date.now(),
+							checkpoint: 0
+						};
+					}
+					callback(null, chunkData);
+				}
+			});
+		});
 		toDynamoDBStub.callsFake(() => {
 			const stream = createMockThrough();
 			return stream;
