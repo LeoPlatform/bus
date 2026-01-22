@@ -90,8 +90,11 @@ describe("Install bot", function() {
 			ResourceProperties: {}
 		};
 		
-		installBot.handler(event, {}, (err, result) => {
-			expect(result.Status).to.be.equal("SUCCESS");
+		installBot.handler(event, {}, (err) => {
+			// Verify sendCustomResourceResponse was called with SUCCESS
+			expect(sendCustomResourceResponseFunc.calledOnce).to.be.true;
+			const callArgs = sendCustomResourceResponseFunc.getCall(0).args;
+			expect(callArgs[1]).to.equal('SUCCESS');
 			done(err);
 		} );
 	});
