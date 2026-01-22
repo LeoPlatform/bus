@@ -98,4 +98,59 @@ describe("Install bot", function() {
 			done(err);
 		} );
 	});
+
+	it("Handles 3rd party install with ResourceProperties", function(done) {
+		sendCustomResourceResponseFunc.resetHistory();
+		sendCustomResourceResponseFunc.resolves({
+			Status: "SUCCESS"
+		});
+		
+		const event = {
+			ResponseURL: 'http://localhost',
+			PhysicalResourceId: 'physicalresourceid',
+			StackId: 'stackid',
+			RequestId: 'requestid',
+			LogicalResourceId: 'test-logical-id',
+			ResourceProperties: {
+				ServiceToken: 'arn:aws:lambda:us-east-1:123456789:function:test',
+				Version: '1.0.0',
+				bots: [{ id: 'test-bot', name: 'Test Bot' }]
+			}
+		};
+		
+		installBot.handler(event, {}, (err) => {
+			expect(sendCustomResourceResponseFunc.calledOnce).to.be.true;
+			const callArgs = sendCustomResourceResponseFunc.getCall(0).args;
+			expect(callArgs[1]).to.equal('SUCCESS');
+			// PhysicalResourceId should be set to LogicalResourceId for 3rd party installs
+			expect(event.PhysicalResourceId).to.equal('test-logical-id');
+			done(err);
+		});
+	});
+
+	it("Handles step errors with FAILED response", function(done) {
+		sendCustomResourceResponseFunc.resetHistory();
+		sendCustomResourceResponseFunc.resolves({
+			Status: "FAILED"
+		});
+		
+		// Make getBucketNotificationConfiguration fail
+		getBucketNotificationConfigurationFunc.yields(new Error('S3 error'));
+		
+		const event = {
+			ResponseURL: 'http://localhost',
+			PhysicalResourceId: 'physicalresourceid',
+			StackId: 'stackid',
+			RequestId: 'requestid',
+			LogicalResourceId: 'logicalresourceid',
+			ResourceProperties: {}
+		};
+		
+		installBot.handler(event, {}, (err) => {
+			expect(sendCustomResourceResponseFunc.calledOnce).to.be.true;
+			const callArgs = sendCustomResourceResponseFunc.getCall(0).args;
+			expect(callArgs[1]).to.equal('FAILED');
+			done();
+		});
+	});
 });
