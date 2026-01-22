@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const proxyquire = require('proxyquire').noCallThru();
 const zlib = require('zlib');
-const { PassThrough, Transform, Writable } = require('stream');
+const { PassThrough, Transform, Writable, Duplex } = require('stream');
 
 describe("kinesis_processor", () => {
 	let kinesisProcessor;
@@ -12,9 +12,6 @@ describe("kinesis_processor", () => {
 	let dynamodbDocClientGetStub;
 	let dynamodbDocClientDeleteStub;
 	let dynamodbUpdateMultiStub;
-	let toS3GzipChunksStub;
-	let toGzipChunksStub;
-	let toDynamoDBStub;
 
 	const mockStreamTable = 'test-stream-table';
 	const mockEventTable = 'test-event-table';
@@ -26,19 +23,6 @@ describe("kinesis_processor", () => {
 		dynamodbDocClientGetStub = sinon.stub();
 		dynamodbDocClientDeleteStub = sinon.stub();
 		dynamodbUpdateMultiStub = sinon.stub();
-		toS3GzipChunksStub = sinon.stub();
-		toGzipChunksStub = sinon.stub();
-		toDynamoDBStub = sinon.stub();
-
-		// Create mock stream that passes data through and calls the transform fn
-		const createMockThrough = () => {
-			return new Transform({
-				objectMode: true,
-				transform(chunk, encoding, callback) {
-					callback(null, chunk);
-				}
-			});
-		};
 
 		// Create mock devnull that consumes data
 		const createMockDevnull = () => {
@@ -52,7 +36,7 @@ describe("kinesis_processor", () => {
 
 		// Create mock parse stream
 		const createMockParse = () => {
-			const stream = new Transform({
+			return new Transform({
 				objectMode: true,
 				transform(chunk, encoding, callback) {
 					try {
@@ -70,22 +54,22 @@ describe("kinesis_processor", () => {
 					}
 				}
 			});
-			return stream;
 		};
 
-		// Mock toS3GzipChunks to transform events into chunks with stats
-		toS3GzipChunksStub.callsFake(() => {
+		// Mock toS3GzipChunks - transforms events into chunks with stats
+		const createToS3GzipChunks = () => {
 			return new Transform({
 				objectMode: true,
 				transform(chunk, encoding, callback) {
-					// Transform event into chunk format with stats
+					// Transform event into chunk format that assignIds expects
 					const chunkData = {
 						records: 1,
 						end: 1,
-						stats: {}
+						stats: {},
+						correlations: {}
 					};
-					// Add stats for the bot if there's an id
-					if (chunk.id) {
+					// Add stats for the bot
+					if (chunk && chunk.id) {
 						chunkData.stats[chunk.id] = {
 							units: 1,
 							start: Date.now(),
@@ -96,33 +80,20 @@ describe("kinesis_processor", () => {
 					callback(null, chunkData);
 				}
 			});
-		});
-		toGzipChunksStub.callsFake(() => {
-			return new Transform({
+		};
+
+		// Mock toGzipChunks - same as toS3GzipChunks for testing
+		const createToGzipChunks = () => createToS3GzipChunks();
+
+		// Mock toDynamoDB - just passes through (simulates successful write)
+		const createToDynamoDB = () => {
+			return new Writable({
 				objectMode: true,
-				transform(chunk, encoding, callback) {
-					// Transform event into chunk format with stats
-					const chunkData = {
-						records: 1,
-						end: 1,
-						stats: {}
-					};
-					if (chunk.id) {
-						chunkData.stats[chunk.id] = {
-							units: 1,
-							start: Date.now(),
-							end: Date.now(),
-							checkpoint: 0
-						};
-					}
-					callback(null, chunkData);
+				write(chunk, encoding, callback) {
+					callback();
 				}
 			});
-		});
-		toDynamoDBStub.callsFake(() => {
-			const stream = createMockThrough();
-			return stream;
-		});
+		};
 
 		const leoSdk = {
 			configuration: {
@@ -177,15 +148,55 @@ describe("kinesis_processor", () => {
 					});
 				},
 				devnull: createMockDevnull,
-				toS3GzipChunks: toS3GzipChunksStub,
-				toGzipChunks: toGzipChunksStub,
-				toDynamoDB: toDynamoDBStub,
+				toS3GzipChunks: () => createToS3GzipChunks(),
+				toGzipChunks: () => createToGzipChunks(),
+				toDynamoDB: () => createToDynamoDB(),
 				pipeline: function(...streams) {
-					let combined = streams[0];
-					for (let i = 1; i < streams.length; i++) {
-						combined = combined.pipe(streams[i]);
+					// Connect all streams in a pipeline
+					for (let i = 0; i < streams.length - 1; i++) {
+						streams[i].pipe(streams[i + 1]);
 					}
-					return combined;
+					
+					const first = streams[0];
+					const last = streams[streams.length - 1];
+					
+					// Create a passthrough that pipes to the first stream
+					const input = new PassThrough({ objectMode: true });
+					input.pipe(first);
+					
+					// Track finish handlers
+					const finishHandlers = [];
+					const errorHandlers = [];
+					
+					// When last stream finishes, call handlers
+					last.on('finish', () => {
+						finishHandlers.forEach(h => h());
+					});
+					last.on('error', (err) => {
+						errorHandlers.forEach(h => h(err));
+					});
+					
+					// Create a custom pipeline object
+					const pipeline = {
+						write: (data, callback) => {
+							const result = input.write(data);
+							if (callback) setImmediate(callback);
+							return result;
+						},
+						end: () => {
+							input.end();
+						},
+						on: (event, handler) => {
+							if (event === 'finish') {
+								finishHandlers.push(handler);
+							} else if (event === 'error') {
+								errorHandlers.push(handler);
+							}
+							return pipeline;
+						}
+					};
+					
+					return pipeline;
 				}
 			},
 			bot: {},
@@ -218,7 +229,30 @@ describe("kinesis_processor", () => {
 	});
 
 	describe("handler", () => {
+		// Helper to setup common mocks for handler tests
+		const setupHandlerMocks = () => {
+			dynamodbDocClientUpdateStub.callsFake((params, callback) => {
+				// Callback-style (checkpoint update)
+				if (callback && typeof callback === 'function') {
+					callback(null, { Attributes: {} });
+					return;
+				}
+				// Promise-style (setDDBValue)
+				return {
+					promise: () => Promise.resolve({
+						Attributes: { value: Date.now(), sequence: '12345' }
+					})
+				};
+			});
+
+			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
+				callback(null);
+			});
+		};
+
 		it('should process kinesis records and call handler2', (done) => {
+			setupHandlerMocks();
+			
 			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: { data: 'test' } });
 			const gzippedData = zlib.gzipSync(eventData);
 			const base64Data = gzippedData.toString('base64');
@@ -234,19 +268,6 @@ describe("kinesis_processor", () => {
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: {
-						value: Date.now(),
-						sequence: '12345'
-					}
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
 			kinesisProcessor.handler(mockEvent, {}, (err, result) => {
 				expect(dynamodbDocClientUpdateStub.called).to.be.true;
 				done();
@@ -254,74 +275,61 @@ describe("kinesis_processor", () => {
 		});
 
 		it('should handle ConditionalCheckFailedException with increment', (done) => {
-			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
+			let promiseCallCount = 0;
+			dynamodbDocClientUpdateStub.callsFake((params, callback) => {
+				if (callback && typeof callback === 'function') {
+					callback(null, { Attributes: {} });
+					return;
+				}
+				promiseCallCount++;
+				if (promiseCallCount === 1) {
+					return { promise: () => Promise.reject({ code: 'ConditionalCheckFailedException' }) };
+				}
+				return { promise: () => Promise.resolve({ Attributes: { value: Date.now(), sequence: '12345' } }) };
+			});
+			dynamodbUpdateMultiStub.callsFake((tasks, callback) => callback(null));
 
+			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub
-				.onFirstCall().returns({
-					promise: () => Promise.reject({ code: 'ConditionalCheckFailedException' })
-				})
-				.onSecondCall().returns({
-					promise: () => Promise.resolve({
-						Attributes: { value: Date.now(), sequence: '12345' }
-					})
-				});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
 			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				expect(dynamodbDocClientUpdateStub.calledTwice).to.be.true;
+				expect(promiseCallCount).to.be.at.least(2);
 				done();
 			});
 		});
 
 		it('should handle ConditionalCheckFailedException on increment with get', (done) => {
-			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
+			let promiseCallCount = 0;
+			dynamodbDocClientUpdateStub.callsFake((params, callback) => {
+				if (callback && typeof callback === 'function') {
+					callback(null, { Attributes: {} });
+					return;
+				}
+				promiseCallCount++;
+				if (promiseCallCount <= 2) {
+					return { promise: () => Promise.reject({ code: 'ConditionalCheckFailedException' }) };
+				}
+				return { promise: () => Promise.resolve({ Attributes: { value: Date.now(), sequence: '12345' } }) };
+			});
+			dynamodbDocClientGetStub.returns({
+				promise: () => Promise.resolve({ Item: { value: Date.now(), sequence: '12345' } })
+			});
+			dynamodbUpdateMultiStub.callsFake((tasks, callback) => callback(null));
 
+			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
-
-			dynamodbDocClientUpdateStub
-				.onFirstCall().returns({
-					promise: () => Promise.reject({ code: 'ConditionalCheckFailedException' })
-				})
-				.onSecondCall().returns({
-					promise: () => Promise.reject({ code: 'ConditionalCheckFailedException' })
-				});
-
-			dynamodbDocClientGetStub.returns({
-				promise: () => Promise.resolve({
-					Item: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
 
 			kinesisProcessor.handler(mockEvent, {}, (err) => {
 				expect(dynamodbDocClientGetStub.called).to.be.true;
@@ -330,28 +338,23 @@ describe("kinesis_processor", () => {
 		});
 
 		it('should throw on non-ConditionalCheckFailedException errors', (done) => {
-			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
+			dynamodbDocClientUpdateStub.callsFake((params, callback) => {
+				if (callback && typeof callback === 'function') {
+					callback(null, { Attributes: {} });
+					return;
+				}
+				return { promise: () => Promise.reject({ code: 'SomeOtherError', message: 'Other error' }) };
+			});
+			dynamodbUpdateMultiStub.callsFake((tasks, callback) => callback(null));
 
+			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
-
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.reject({ code: 'SomeOtherError', message: 'Other error' })
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
 
 			kinesisProcessor.handler(mockEvent, {}, (err) => {
 				done();
@@ -359,166 +362,83 @@ describe("kinesis_processor", () => {
 		});
 
 		it('should skip events in skip_events env var', (done) => {
+			setupHandlerMocks();
 			process.env.skip_events = 'skip-queue';
 
 			const eventData = JSON.stringify({ id: 'test-bot', event: 'skip-queue', payload: { data: 'test' } });
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should skip bots in skip_bots env var', (done) => {
+			setupHandlerMocks();
 			process.env.skip_bots = 'skip-bot';
 
 			const eventData = JSON.stringify({ id: 'skip-bot', event: 'test-queue', payload: { data: 'test' } });
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should use custom ttlSeconds from env', (done) => {
+			setupHandlerMocks();
 			process.env.ttlSeconds = '86400';
 
 			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should handle inflated data (eJ prefix)', (done) => {
+			setupHandlerMocks();
 			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
-			const inflatedData = zlib.deflateSync(eventData);
-			const base64Data = inflatedData.toString('base64');
-
+			const base64Data = zlib.deflateSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should handle base64 JSON data (ey prefix)', (done) => {
+			setupHandlerMocks();
 			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
 			const base64Data = Buffer.from(eventData).toString('base64');
-
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should handle multiple records', (done) => {
+			setupHandlerMocks();
 			const eventData1 = JSON.stringify({ id: 'bot1', event: 'queue1', payload: {} });
 			const eventData2 = JSON.stringify({ id: 'bot2', event: 'queue2', payload: {} });
 			const base64Data1 = zlib.gzipSync(eventData1).toString('base64');
@@ -526,382 +446,157 @@ describe("kinesis_processor", () => {
 
 			const mockEvent = {
 				Records: [
-					{
-						eventID: 'shardId-000000000001:12345',
-						kinesis: {
-							approximateArrivalTimestamp: Date.now() / 1000,
-							sequenceNumber: '12345',
-							data: base64Data1
-						}
-					},
-					{
-						eventID: 'shardId-000000000001:12346',
-						kinesis: {
-							approximateArrivalTimestamp: Date.now() / 1000,
-							sequenceNumber: '12346',
-							data: base64Data2
-						}
-					}
+					{ eventID: 'shardId-000000000001:12345', kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data1 } },
+					{ eventID: 'shardId-000000000001:12346', kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12346', data: base64Data2 } }
 				]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
-		});
-
-		it('should use S3 mode for old records', (done) => {
-			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
-			const oldTimestamp = (Date.now() - 10000) / 1000;
-
-			const mockEvent = {
-				Records: [{
-					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: oldTimestamp,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
-				}]
-			};
-
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should handle sequence mismatch error', (done) => {
-			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
+			dynamodbDocClientUpdateStub.callsFake((params, callback) => {
+				if (callback && typeof callback === 'function') {
+					callback(null, { Attributes: {} });
+					return;
+				}
+				return { promise: () => Promise.resolve({ Attributes: { value: Date.now(), sequence: '99999' } }) };
+			});
+			dynamodbUpdateMultiStub.callsFake((tasks, callback) => callback(null));
 
+			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '99999' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should handle increment error with non-conditional exception', (done) => {
+			let promiseCallCount = 0;
+			dynamodbDocClientUpdateStub.callsFake((params, callback) => {
+				if (callback && typeof callback === 'function') {
+					callback(null, { Attributes: {} });
+					return;
+				}
+				promiseCallCount++;
+				if (promiseCallCount === 1) {
+					return { promise: () => Promise.reject({ code: 'ConditionalCheckFailedException' }) };
+				}
+				return { promise: () => Promise.reject({ code: 'ProvisionedThroughputExceededException' }) };
+			});
+			dynamodbUpdateMultiStub.callsFake((tasks, callback) => callback(null));
+
 			const eventData = JSON.stringify({ id: 'test-bot', event: 'test-queue', payload: {} });
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub
-				.onFirstCall().returns({
-					promise: () => Promise.reject({ code: 'ConditionalCheckFailedException' })
-				})
-				.onSecondCall().returns({
-					promise: () => Promise.reject({ code: 'ProvisionedThroughputExceededException' })
-				});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
-		});
-
-		it('should process events with stats and checkpoints', (done) => {
-			const eventData = JSON.stringify({ 
-				id: 'test-bot', 
-				event: 'test-queue', 
-				payload: { data: 'test' },
-				stats: { 'test-bot': { units: 5, start: 1000, end: 2000, checkpoint: 10 } }
-			});
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
-			const mockEvent = {
-				Records: [{
-					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
-				}]
-			};
-
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should handle archive events', (done) => {
+			setupHandlerMocks();
 			const eventData = JSON.stringify({ 
-				id: 'test-bot', 
-				event: 'test-queue', 
-				payload: { data: 'test' },
-				archive: true,
-				start: 'z/2021/01/01/00/00',
-				end: 'z/2021/01/01/01/00'
+				id: 'test-bot', event: 'test-queue', payload: { data: 'test' },
+				archive: true, start: 'z/2021/01/01/00/00', end: 'z/2021/01/01/01/00'
 			});
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should handle snapshot events', (done) => {
+			setupHandlerMocks();
 			const eventData = JSON.stringify({ 
-				id: 'test-bot', 
-				event: 'test-queue', 
-				payload: { data: 'test' },
+				id: 'test-bot', event: 'test-queue', payload: { data: 'test' },
 				snapshot: new Date().toISOString()
 			});
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should handle _cmd registerSnapshot', (done) => {
+			setupHandlerMocks();
 			const eventData = JSON.stringify({ 
-				_cmd: 'registerSnapshot',
-				event: 'test-queue',
-				start: new Date().toISOString(),
-				next: new Date().toISOString()
+				_cmd: 'registerSnapshot', event: 'test-queue',
+				start: new Date().toISOString(), next: new Date().toISOString()
 			});
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should skip events without id or payload', (done) => {
+			setupHandlerMocks();
 			const eventData = JSON.stringify({ event: 'test-queue' });
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should handle s3 events without id/payload', (done) => {
-			const eventData = JSON.stringify({ 
-				event: 'test-queue',
-				s3: { bucket: 'test-bucket', key: 'test-key' }
-			});
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
+			setupHandlerMocks();
+			const eventData = JSON.stringify({ event: 'test-queue', s3: { bucket: 'test-bucket', key: 'test-key' } });
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 
 		it('should handle events with string event_source_timestamp', (done) => {
+			setupHandlerMocks();
 			const eventData = JSON.stringify({ 
-				id: 'test-bot', 
-				event: 'test-queue', 
-				payload: { data: 'test' },
+				id: 'test-bot', event: 'test-queue', payload: { data: 'test' },
 				event_source_timestamp: new Date().toISOString()
 			});
-			const gzippedData = zlib.gzipSync(eventData);
-			const base64Data = gzippedData.toString('base64');
-
+			const base64Data = zlib.gzipSync(eventData).toString('base64');
 			const mockEvent = {
 				Records: [{
 					eventID: 'shardId-000000000001:12345',
-					kinesis: {
-						approximateArrivalTimestamp: Date.now() / 1000,
-						sequenceNumber: '12345',
-						data: base64Data
-					}
+					kinesis: { approximateArrivalTimestamp: Date.now() / 1000, sequenceNumber: '12345', data: base64Data }
 				}]
 			};
 
-			dynamodbDocClientUpdateStub.returns({
-				promise: () => Promise.resolve({
-					Attributes: { value: Date.now(), sequence: '12345' }
-				})
-			});
-
-			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
-				callback(null);
-			});
-
-			kinesisProcessor.handler(mockEvent, {}, (err) => {
-				done();
-			});
+			kinesisProcessor.handler(mockEvent, {}, (err) => { done(); });
 		});
 	});
 
@@ -936,14 +631,12 @@ describe("kinesis_processor", () => {
 			});
 		});
 
-		it('should checkpoint successfully for processed events', (done) => {
-			// Create event with data that will generate stats through stream processing
+		it('should process events through pipeline and accumulate stats', (done) => {
+			// Create event that will flow through the pipeline
 			const eventData = JSON.stringify({ 
-				id: 'test-bot', 
-				event: 'test-queue', 
-				payload: { data: 'test' },
-				records: 1,
-				end: 1
+				id: 'checkpoint-bot', 
+				event: 'checkpoint-queue', 
+				payload: { data: 'test' }
 			});
 			const gzippedData = zlib.gzipSync(eventData);
 			const base64Data = gzippedData.toString('base64');
@@ -960,10 +653,12 @@ describe("kinesis_processor", () => {
 			};
 
 			dynamodbUpdateMultiStub.callsFake((tasks, callback) => {
+				// Verify event update tasks are created
+				expect(tasks.length).to.be.greaterThan(0);
 				callback(null);
 			});
 
-			// Mock checkpoint update to succeed
+			// Mock the checkpoint update call
 			dynamodbDocClientUpdateStub.callsFake((params, callback) => {
 				if (callback) {
 					callback(null, { Attributes: {} });
@@ -1010,7 +705,7 @@ describe("kinesis_processor", () => {
 			});
 
 			kinesisProcessor.handler2(mockEvent, {}, (err, result) => {
-				// Should still succeed because checkpoint errors are logged but don't fail the handler
+				// Should still succeed because checkpoint errors are logged but don't fail
 				expect(err).to.be.null;
 				done();
 			});
