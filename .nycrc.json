@@ -1,0 +1,20 @@
+{
+	"all": true,
+	"include": [
+		"lib/**/*.js",
+		"bots/**/*.js"
+	],
+	"exclude": [
+		"**/test/**",
+		"**/node_modules/**",
+		"cloudformation/**",
+		"manualTest/**",
+		"publish.js",
+		"leo_cli_config.js"
+	],
+	"reporter": [
+		"text",
+		"text-summary",
+		"html"
+	]
+}
