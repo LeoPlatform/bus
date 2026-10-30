@@ -1,10 +1,10 @@
 "use strict";
 var leo = require("leo-sdk");
-var AWS = require("aws-sdk");
+const { unmarshall } = require("@aws-sdk/util-dynamodb");
 
 const ID = "leo_cron_monitor";
 
-exports.handler = function(event, context, callback) {
+exports.handler = require("leo-sdk/wrappers/wrapAsAsync")(function(event, context, callback) {
 	// refreshCredentials().then(() => {
 	var loader = leo.load(ID, "monitor", { partitionHashKey: process.env.SHARD_HASH_KEY });
 	event.Records.forEach((record) => {
@@ -18,10 +18,10 @@ exports.handler = function(event, context, callback) {
 			invokeTime: 0
 		};
 		if ("NewImage" in record.dynamodb) {
-			newImage = AWS.DynamoDB.Converter.unmarshall(record.dynamodb.NewImage);
+			newImage = unmarshall(record.dynamodb.NewImage);
 		}
 		if ("OldImage" in record.dynamodb) {
-			oldImage = AWS.DynamoDB.Converter.unmarshall(record.dynamodb.OldImage);
+			oldImage = unmarshall(record.dynamodb.OldImage);
 		}
 
 		if (newImage.id == ID || newImage.ignoreMonitor === true) {
@@ -101,7 +101,7 @@ exports.handler = function(event, context, callback) {
 	});
 	loader.end(callback);
 	// });
-};
+});
 
 // var hasCredentials = false;
 

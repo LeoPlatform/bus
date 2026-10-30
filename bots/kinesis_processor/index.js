@@ -69,11 +69,11 @@ async function setDDBValue(id, field, value, sequence, onErrorIncrementValue = 1
 				":sequence": sequence
 			},
 			ConditionExpression: "attribute_not_exists(#field) OR #field < :value OR (#sequence = :sequence AND #field = :value)"
-		}).promise();
+		});
 		returnValue = dbValue.Attributes
 	} catch (err) {
 		console.log(id, "Got Initial Update Error:", err);
-		if (err.code == "ConditionalCheckFailedException") {
+		if (err.name == "ConditionalCheckFailedException") {
 			// Initial update didn't work. Add to the existing value and use that
 			try {
 				console.log(id, `Incrementing ${field} by ${onErrorIncrementValue}`);
@@ -93,10 +93,10 @@ async function setDDBValue(id, field, value, sequence, onErrorIncrementValue = 1
 						":sequence": sequence
 					},
 					ConditionExpression: "#sequence <> :sequence"
-				}).promise();
+				});
 				returnValue = dbValue.Attributes
 			} catch (err) {
-				if (err.code == "ConditionalCheckFailedException") {
+				if (err.name == "ConditionalCheckFailedException") {
 					// Error because this sequence failed before and was out of order
 					// Just fetch the latest value
 					console.log(id, `Same as prev sequence ${sequence} getting current value`);
@@ -106,7 +106,7 @@ async function setDDBValue(id, field, value, sequence, onErrorIncrementValue = 1
 						Key: {
 							"id": id
 						}
-					}).promise();
+					});
 					returnValue = dbValue.Item
 				} else {
 					console.log(id, "Got Increment Update Error:", err);
@@ -132,11 +132,11 @@ async function deleteDDBValue(id) {
 		Key: {
 			"id": id
 		}
-	}).promise();
+	});
 }
 
 
-exports.handler = function(event, context, callback) {
+exports.handler = require("leo-sdk/wrappers/wrapAsAsync")(function(event, context, callback) {
 	let record = event.Records[0];
 	let SHARDID = record.eventID.split(":")[0];
 	let value = record.kinesis.approximateArrivalTimestamp * 1000;
@@ -158,7 +158,7 @@ exports.handler = function(event, context, callback) {
 			console.log(`${id} Error:`, err)
 		})
 		.finally(() => exports.handler2(event, context, callback));
-};
+});
 
 exports.handler2 = function(event, context, callback) {
 	let SHARDID = event.Records[0].eventID.split(":")[0];

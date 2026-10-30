@@ -3,8 +3,8 @@
  * Creates and writes events to the queue 'api-queue-1'.
  * Reports that bot 'api-write-bot' is ending.
  */
-let aws = require("aws-sdk");
-let lambda = new aws.Lambda({
+const { Lambda } = require("@aws-sdk/client-lambda");
+let lambda = new Lambda({
 	region: "us-west-2"
 });
 let lambdaFunctionName = "Staging-LeoBusApiProcessor-12A1GKXVBLJXL";

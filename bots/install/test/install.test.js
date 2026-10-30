@@ -57,7 +57,9 @@ describe("Install bot", function() {
 		};
 
 		installBot = proxyquire('../', {
-			'aws-sdk': AWS,
+			'@aws-sdk/client-s3': { S3: AWS.S3, '@global': true },
+			'@aws-sdk/client-iam': { IAM: AWS.IAM, '@global': true },
+			'@aws-sdk/client-lambda': { Lambda: AWS.Lambda, '@global': true },
 			'leo-sdk': leoSdk,
 			'../../lib/sendCustomResourceResponse': sendCustomResourceResponseFunc
 		});
@@ -66,7 +68,7 @@ describe("Install bot", function() {
 	after(function () {
 	});
 
-	it("Succeeds", function(done) {
+	it("Succeeds", function() {
 		addPermissionFunc.yields();
 		sendCustomResourceResponseFunc.resolves({
 			Status: "SUCCESS"
@@ -90,9 +92,8 @@ describe("Install bot", function() {
 			ResourceProperties: {}
 		};
 		
-		installBot.handler(event, {}, (err, result) => {
-			expect(result.Status).to.be.equal("SUCCESS");
-			done(err);
-		} );
+		return installBot.handler(event, {}).then(() => {
+			expect(sendCustomResourceResponseFunc.getCall(0).args[1]).to.be.equal("SUCCESS");
+		});
 	});
 });

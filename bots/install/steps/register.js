@@ -37,9 +37,8 @@ module.exports = function(resource, data) {
 		let isSemver = require('is-semver');
 
 		// Can do this in leo-sdk
-		let AWS = require('aws-sdk');
-		AWS.config.update({ region: leo.configuration.resources.Region });
-		let s3 = new AWS.S3({ apiVersion: '2006-03-01' });
+		const { S3 } = require('@aws-sdk/client-s3');
+		let s3 = new S3({ region: leo.configuration.resources.Region });
 		let s3Bucket = leo.configuration.resources.LeoS3;
 
 		let schemaName = leo_ref.ref(data.queue).id;
@@ -76,7 +75,7 @@ module.exports = function(resource, data) {
 		let schemaString = JSON.stringify(data.schemas);
 		let uploadParams = { Bucket: s3Bucket, Key: prefix, Body: schemaString };
 
-		return s3.upload(uploadParams).promise().then((data) => {
+		return s3.putObject(uploadParams).then((data) => {
 			console.log(`successfully uploaded schema to ${s3Bucket}/${prefix}`);
 		});
 	} else {

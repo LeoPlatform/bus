@@ -6,7 +6,7 @@ const addCrons = require('./steps/add-crons.js');
 const sendCustomResourceResponse = require('../../lib/sendCustomResourceResponse');
 const logger = require('leo-logger');
 
-exports.handler = (event, _, callback) => {
+exports.handler = require("leo-sdk/wrappers/wrapAsAsync")((event, _, callback) => {
 	logger.log(JSON.stringify(event, null, 2));
 
 	process.on('uncaughtException', function (err) {
@@ -40,4 +40,4 @@ exports.handler = (event, _, callback) => {
 		sendCustomResourceResponse(event, 'FAILED', 'It Failed!')
 			.then((result) => callback()).catch(callback);
 	});
-};
+});

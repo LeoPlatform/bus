@@ -38,7 +38,7 @@ function listFilesFromKey(bucket, lastkey, opts, callback) {
 		}
 	});
 }
-exports.handler = (event, context, callback) => {
+exports.handler = require("leo-sdk/wrappers/wrapAsAsync")((event, context, callback) => {
 	var setting_id = "bus_to_s3";
 	var bucket = configure.resources.LeoS3;
 	var opts = {
@@ -117,4 +117,4 @@ exports.handler = (event, context, callback) => {
 			});
 		}
 	});
-};
+});

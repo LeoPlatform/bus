@@ -4,7 +4,7 @@ const registerReplicationBots = require("./register-replication-bots");
 const sendCustomResourceResponse = require('../../lib/sendCustomResourceResponse');
 const logger = require('leo-logger');
 
-exports.handler = (event, _, callback) => {
+exports.handler = require("leo-sdk/wrappers/wrapAsAsync")((event, _, callback) => {
 	logger.log(JSON.stringify(event, null, 2));
 	try {
 		event.PhysicalResourceId = event.LogicalResourceId;
@@ -22,4 +22,4 @@ exports.handler = (event, _, callback) => {
 		sendCustomResourceResponse(event, 'FAILED', err.message)
 			.then(() => callback()).catch(callback);
 	}
-};
+});
