@@ -5,8 +5,8 @@
  * Reports the bot is ending.
  */
 let async = require("async");
-let aws = require("aws-sdk");
-let lambda = new aws.Lambda({
+const { Lambda } = require("@aws-sdk/client-lambda");
+let lambda = new Lambda({
 	region: "us-east-1"
 });
 let lambdaFunctionName = "Staging-LeoBusApiProcessor-12A1GKXVBLJXL";

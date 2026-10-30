@@ -7,14 +7,14 @@ var moment = require("moment");
 var async = require("async");
 var refUtil = require("leo-sdk/lib/reference.js");
 
-var aws = require("aws-sdk");
+const { unmarshall } = require("@aws-sdk/util-dynamodb");
 
 var CRON_TABLE = configuration.resources.LeoCron;
 var MAX_CACHE_MILLISECONDS = 1000 * 10;
 var lastCacheTime = 0;
 var cache = null;
 
-exports.handler = function(event, context, done) {
+exports.handler = require("leo-sdk/wrappers/wrapAsAsync")(function(event, context, done) {
 	// var cnt = 0;
 	// var callback = done;
 	// done = function(){};
@@ -34,7 +34,7 @@ exports.handler = function(event, context, done) {
 		})
 		.catch(done);
 	//}, 500)
-};
+});
 
 function setTriggers(results) {
 	return new Promise((resolve, reject) => {
@@ -91,8 +91,8 @@ function getIdsToTrigger(cronTable, records) {
 	var idsToTrigger = {};
 	records.forEach(record => {
 		if ("NewImage" in record.dynamodb) {
-			var newImage = aws.DynamoDB.Converter.unmarshall(record.dynamodb.NewImage);
-			var oldImage = record.dynamodb.OldImage && aws.DynamoDB.Converter.unmarshall(record.dynamodb.OldImage);
+			var newImage = unmarshall(record.dynamodb.NewImage);
+			var oldImage = record.dynamodb.OldImage && unmarshall(record.dynamodb.OldImage);
 			var event = refUtil.refId(newImage.event);
 			var newMax = max(newImage.kinesis_number, newImage.s3_kinesis_number, newImage.initial_kinesis_number, newImage.s3_new_kinesis_number, newImage.eid, newImage.max_eid);
 			var oldMax = oldImage && max(oldImage.kinesis_number, oldImage.s3_kinesis_number, oldImage.initial_kinesis_number, oldImage.s3_new_kinesis_number, oldImage.eid, oldImage.max_eid);

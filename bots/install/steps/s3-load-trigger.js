@@ -1,5 +1,7 @@
 "use strict";
-const aws = require("aws-sdk");
+const { S3 } = require("@aws-sdk/client-s3");
+const { Lambda } = require("@aws-sdk/client-lambda");
+const { IAM } = require("@aws-sdk/client-iam");
 const logger = require("leo-logger");
 
 module.exports = function() {
@@ -8,10 +10,10 @@ module.exports = function() {
 			resources: JSON.parse(process.env.Resources),
 			aws: JSON.parse(process.env.AWS)
 		};
-		var s3 = new aws.S3({
+		var s3 = new S3({
 			region: leo.aws.region
 		});
-		var lambda = new aws.Lambda({
+		var lambda = new Lambda({
 			region: leo.aws.region
 		});
 		logger.info(leo.resources, leo.aws);
@@ -77,7 +79,7 @@ module.exports = function() {
 			resources: JSON.parse(process.env.Resources),
 			aws: JSON.parse(process.env.AWS)
 		};
-		var iam = new aws.IAM({
+		var iam = new IAM({
 			region: leo.aws.region
 		});
 

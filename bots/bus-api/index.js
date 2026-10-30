@@ -18,14 +18,14 @@ let handlers = {
 	write,
 	checkpoint
 };
-exports.handler = (event, context, callback) => {
+exports.handler = require("leo-sdk/wrappers/wrapAsAsync")((event, context, callback) => {
 	let request = event.body || event;
 	if (request.type in handlers) {
 		handlers[request.type](request, context, callback);
 	} else {
 		callback(`Unsupported action '${request.type}'.`);
 	}
-};
+});
 
 
 function start(request, context, callback) {

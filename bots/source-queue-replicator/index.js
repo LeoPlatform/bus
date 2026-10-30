@@ -1,13 +1,13 @@
 'use strict';
 
-const AWS = require('aws-sdk');
+const { STS } = require('@aws-sdk/client-sts');
 const { read, streams: ls } = require('leo-sdk');
 const getLeoConfigFromBusStack = require('../../lib/getLeoConfigFromBusStack');
 const logger = require('leo-logger');
 
 exports.handler = require("leo-sdk/wrappers/cron")(function (event, context, callback) {
 	logger.info("SourceRepEvent", JSON.stringify(event, null, 2));
-	var sts = new AWS.STS();
+	var sts = new STS();
 	var params = {
 		DurationSeconds: 900,
 		RoleArn: event.destinationLeoBotRoleArn,
@@ -19,7 +19,12 @@ exports.handler = require("leo-sdk/wrappers/cron")(function (event, context, cal
 			return callback(err);
 		} 
 		logger.info("Got AssumedRole data");
-		const tempCredentials = sts.credentialsFrom(data);
+		const tempCredentials = {
+			accessKeyId: data.Credentials.AccessKeyId,
+			secretAccessKey: data.Credentials.SecretAccessKey,
+			sessionToken: data.Credentials.SessionToken,
+			expiration: data.Credentials.Expiration
+		};
 		getLeoConfigFromBusStack(event.destinationBusStack, tempCredentials).then((destinationConfig) => {
 			logger.info("Got Stack Description");
 			const { load } = require('leo-sdk')(destinationConfig);

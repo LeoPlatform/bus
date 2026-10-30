@@ -25,36 +25,33 @@ describe("Create Replication Bots", () => {
 		sendCustomerResourceResponseFunc.resetHistory();
 	});
   
-	it('Succeeds upon registration', (done) => {
+	it('Succeeds upon registration', () => {
 		registerReplicationBotsFunc.resolves({});
 		sendCustomerResourceResponseFunc.resolves({});
 		
-		createReplicationBots.handler(event, null, () => {
+		return createReplicationBots.handler(event, null).then(() => {
 			const registrationStatus = sendCustomerResourceResponseFunc.getCall(0).args[1];
-			expect(registrationStatus).to.be.equal('SUCCESS');			
-			done();
+			expect(registrationStatus).to.be.equal('SUCCESS');
 		});
 	});
   
-	it('Fails upon registration rejects', (done) => {
+	it('Fails upon registration rejects', () => {
 		registerReplicationBotsFunc.rejects(new Error("test reject"));
 		sendCustomerResourceResponseFunc.resolves({});
 
-		createReplicationBots.handler(event, null, () => {
+		return createReplicationBots.handler(event, null).then(() => {
 			const registrationStatus = sendCustomerResourceResponseFunc.getCall(0).args[1];
-			expect(registrationStatus).to.be.equal('FAILED');			
-			done();
+			expect(registrationStatus).to.be.equal('FAILED');
 		});
 	});
   
-	it('Fails upon registration throws', (done) => {
+	it('Fails upon registration throws', () => {
 		registerReplicationBotsFunc.throws(() => new Error("test throw"));
 		sendCustomerResourceResponseFunc.resolves({});
 
-		createReplicationBots.handler(event, null, () => {
+		return createReplicationBots.handler(event, null).then(() => {
 			const registrationStatus = sendCustomerResourceResponseFunc.getCall(0).args[1];
-			expect(registrationStatus).to.be.equal('FAILED');			
-			done();
+			expect(registrationStatus).to.be.equal('FAILED');
 		});
 	});
 });

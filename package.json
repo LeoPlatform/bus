@@ -1,6 +1,6 @@
 {
 	"name": "leo-bus",
-	"version": "3.3.1",
+	"version": "4.0.0",
 	"description": "Improve Kinesis burstability, durability, and replay",
 	"main": "index.js",
 	"scripts": {
@@ -30,18 +30,23 @@
 	},
 	"homepage": "https://github.com/LeoPlatform/bus#readme",
 	"dependencies": {
+		"@aws-sdk/client-cloudformation": "^3.1022.0",
+		"@aws-sdk/client-iam": "^3.1022.0",
+		"@aws-sdk/client-lambda": "^3.1022.0",
+		"@aws-sdk/client-s3": "^3.1022.0",
+		"@aws-sdk/client-sts": "^3.1022.0",
+		"@aws-sdk/util-dynamodb": "^3.996.0",
 		"deep-diff": "1.0.2",
-		"leo-cron": "^2.0.2-beta",
-		"leo-logger": "1.0.1",
-		"leo-sdk": "^6.0.17-rc",
+		"leo-cron": "github:LeoPlatform/leo-cron#5a9836a273edad78891235c24c2db91e3a40090c",
+		"leo-logger": "1.0.7",
+		"leo-sdk": "7.1.22-awsv3node26.0",
 		"moment": "2.24.0"
 	},
 	"devDependencies": {
-		"aws-sdk": "^2.466.0",
 		"babel-preset-env": "^1.7.0",
 		"chai": "^4.2.0",
 		"extend": "^3.0.2",
-		"leo-aws": "^2.0.2",
+		"leo-aws": "^4.0.1",
 		"mocha": "^6.1.4",
 		"proxyquire": "^2.1.1",
 		"sinon": "^7.3.2",
@@ -56,7 +61,7 @@
 				"us-west-2",
 				"us-east-1"
 			],
-			"runtime": "nodejs16.x",
+			"runtime": "nodejs26.x",
 			"3rdParty": true,
 			"excludeProfiles": true
 		}

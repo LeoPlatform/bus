@@ -6,12 +6,12 @@ module.exports = function (lambdaFunctionName, lambda) {
 	function invoke(params, callback) {
 		lambda.invoke(params, function (err, response) {
 			if (!err && response && response.FunctionError) {
-				err = JSON.parse(response.Payload);
+				err = JSON.parse(Buffer.from(response.Payload).toString());
 				if (err.errorMessage) {
 					err = err.errorMessage;
 				}
 			} else if (response && response.Payload != undefined) {
-				response = JSON.parse(response.Payload);
+				response = JSON.parse(Buffer.from(response.Payload).toString());
 				if (response.status === "error") {
 					err = response.error;
 				}
